@@ -164,9 +164,11 @@ function Home() {
         </div>
       </nav>
 
-      <div className="flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <h1 className="mb-4 text-2xl font-bold">Welcome, {user.name}!</h1>
+          <h1 className="mb-4 text-2xl font-bold text-blue-700">
+            Welcome, {user.name}!
+          </h1>
           {user.role === "lawyer" ? (
             <p>You can manage your clients and provide legal services.</p>
           ) : (
@@ -174,6 +176,35 @@ function Home() {
           )}
         </div>
       </div>
+
+      <footer className ="bg-white shadow dark:bg-gray-800">
+        <div className ="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+          <span className ="text-sm text-gray-500 sm:text-center dark:text-white">
+            © 2024{" "}
+            <a href="#" className ="hover:underline">
+              Haki™
+            </a>
+            . All Rights Reserved.
+          </span>
+          <ul className ="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-white sm:mt-0">
+            <li>
+              <a href="#" className ="hover:underline me-4 md:me-6">
+                About
+              </a>
+            </li>
+            <li>
+              <a href="#" className ="hover:underline me-4 md:me-6">
+                Privacy Policy
+              </a>
+            </li>
+            <li>
+              <a href="#" className ="hover:underline">
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+      </footer>
     </div>
   );
 }

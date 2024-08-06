@@ -29,12 +29,12 @@ function SignUp() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center pt-4 justify-center min-h-screen">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-lg bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
-        <h2 className="mb-6 text-2xl font-bold text-center">Sign Up</h2>
+        <h2 className="mb-6 text-2xl font-bold text-center text-blue-700">Sign Up</h2>
 
         <div className="mb-4">
           <label
