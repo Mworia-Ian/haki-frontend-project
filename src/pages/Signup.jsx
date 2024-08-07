@@ -95,18 +95,39 @@ function SignUp() {
       }
     ),
   });
+  const { control, formState, reset, watch, handleSubmit } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      role: "",
+      phone_number: "",
+      email: "",
+      id: "",
+      area_of_residence: "",
+      experience: "",
+      specialization: "",
+      rate: "",
+      document: "",
+      password: "",
+      photo: "",
+    },
+  });
+  const onSubmit = async (values) => {
+    try {
+      // your submission logic here...
+      console.log(values);
+      reset(); // reset the form fields
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: type === "file" ? files[0] : value,
     }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    navigate("/home");
   };
 
   return (
@@ -119,26 +140,64 @@ function SignUp() {
               Sign Up
             </h2>
           </div>
-          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-8 space-y-6"
+            noValidate
+          >
             <div className="rounded-md space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  className="mt-1 block w-full px-4 py-3 border border-gray-700 placeholder-gray-500 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your name"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
-              </div>
+              <Controller
+                name="first_name"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-300"
+                    >
+                      First Name
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      className="mt-1 block w-full px-4 py-3 border border-gray-700 placeholder-gray-500 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter your name"
+                      {...field}
+                    />
+                    {fieldState.invalid && (
+                      <p className="text-red-500">{fieldState.error.message}</p>
+                    )}
+                  </div>
+                )}
+              />
+              <Controller
+                name="last_name"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-300"
+                    >
+                      Last Name
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      className="mt-1 block w-full px-4 py-3 border border-gray-700 placeholder-gray-500 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter your name"
+                      {...field}
+                    />
+                    {fieldState.invalid && (
+                      <p className="error">{fieldState.error.message}</p>
+                    )}
+                  </div>
+                )}
+              />
 
               <div>
                 <label
