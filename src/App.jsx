@@ -14,10 +14,10 @@ const lawyers = [
   { id: 4, name: 'Lisa Ray', experience: 12, specialization: 'Intellectual Property', rate_per_hour: '7,000', image_url: 'https://media.istockphoto.com/id/1181860679/photo/studio-headshot-of-a-hispanic-woman-wearing-a-turtle-neck-pullover.jpg?s=612x612&w=0&k=20&c=VpNhmeN4Qj_YVghjCiq8_sDt6TNyJr_JSSUDBgi4txU=' },
   { id: 5, name: 'Michael White', experience: 9, specialization: 'Environmental Law', rate_per_hour: '5,500', image_url: 'https://media.istockphoto.com/id/1184187261/photo/portrait-of-cheerful-bearded-black-man-over-yellow-background.jpg?s=612x612&w=0&k=20&c=me77y_a3sfKKOauLJpMMQo3wctCyMTf9_PtQT6YLhN4=' },
   { id: 6, name: 'Emily Green', experience: 11, specialization: 'Real Estate Law', rate_per_hour: '6,500', image_url: 'https://media.istockphoto.com/id/1299077582/photo/positivity-puts-you-in-a-position-of-power.jpg?s=612x612&w=0&k=20&c=baDuyrwRTscUZzyAqV44hnCq7d6tXUqwf26lJTcAE0A=' },
-  { id: 7, name: 'David Black', experience: 7, specialization: 'Tax Law', rate_per_hour: '5,200', image_url: '...' },
-  { id: 8, name: 'Laura Blue', experience: 14, specialization: 'Health Law', rate_per_hour: '6,300', image_url: '...' },
-  { id: 9, name: 'Chris Yellow', experience: 6, specialization: 'Labor Law', rate_per_hour: '4,800', image_url: '...' },
-  { id: 10, name: 'Anna Purple', experience: 13, specialization: 'International Law', rate_per_hour: '7,100', image_url: '...' },
+  { id: 7, name: 'David Black', experience: 7, specialization: 'Tax Law', rate_per_hour: '5,200', image_url: 'https://media.istockphoto.com/id/1262964438/photo/success-happens-the-moment-you-believe-it-will.jpg?s=612x612&w=0&k=20&c=tpjbR4aaaiB43sneEWgatyFIQOmN3E-3nB5CBE5Idyg=' },
+  { id: 8, name: 'Laura Blue', experience: 14, specialization: 'Health Law', rate_per_hour: '6,300', image_url: 'https://media.istockphoto.com/id/1278139568/photo/studio-portrait-of-20-year-old-woman.jpg?s=612x612&w=0&k=20&c=FSEdX6EGKrjbCvOJk9idiYZJoSErA9bwizHEkW86A3c=' },
+  { id: 9, name: 'Chris Yellow', experience: 6, specialization: 'Labor Law', rate_per_hour: '4,800', image_url: 'https://media.istockphoto.com/id/1152603187/photo/african-mature-man-with-spectacles.jpg?s=612x612&w=0&k=20&c=f2SytlutqLu8XGBdjYVlvSZEVHthQKAGjBVOWs8tiv8=' },
+  { id: 10, name: 'Anna Purple', experience: 13, specialization: 'International Law', rate_per_hour: '7,100', image_url: 'https://media.istockphoto.com/id/1196391449/photo/portrait-of-african-woman.jpg?s=612x612&w=0&k=20&c=b-hwtJGyg5Y-hwG-9id9D3hb71TmaqyDlfU-Ps3GA2s=' },
   { id: 11, name: 'Tom Orange', experience: 10, specialization: 'Bankruptcy Law', rate_per_hour: '5,700', image_url: '...' },
   { id: 12, name: 'Sarah Pink', experience: 5, specialization: 'Criminal Law', rate_per_hour: '5,300', image_url: '...' }
 ];
