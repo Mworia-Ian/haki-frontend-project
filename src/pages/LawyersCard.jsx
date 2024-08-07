@@ -15,10 +15,17 @@ const LawyersCard = ({ lawyer = {} }) => {
     <div className="w-full max-w-md h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-4 p-4 ml-4">
       <div className="flex flex-col items-center pb-10">
         <img
-          className="w-40 h-40 mb-3 rounded-full shadow-lg mt-4"
+          className="w-50 h-50 mb-3 rounded-full shadow-lg mt-4"
           src={image_url}
           alt={name}
+          style={{
+            width: "200px",
+            height: "200px",
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
         />
+
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
           {name}
         </h5>
