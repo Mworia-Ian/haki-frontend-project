@@ -1,33 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const LawyersCard = ({ lawyer = {} }) => {
+const LawyersCard = ({ lawyer }) => {
   const {
-    image_url = "https://media.istockphoto.com/id/1314997483/photo/portrait-of-a-confident-mature-businessman-working-in-a-modern-office.jpg?s=612x612&w=0&k=20&c=OxN-O2qe4LbgYuOnp_VkgXOV5p7CDC_uWja9iWFM-OA=",
-    name = "John Doe",
-    experience = "10",
-    specialization = "Criminal Law",
-    rate_per_hour = "5,000",
-    id = "1",
+    image_url = 'https://media.istockphoto.com/id/1314997483/photo/portrait-of-a-confident-mature-businessman-working-in-a-modern-office.jpg?s=612x612&w=0&k=20&c=OxN-O2qe4LbgYuOnp_VkgXOV5p7CDC_uWja9iWFM-OA=',
+    name = 'John Doe',
+    experience = '10',
+    specialization = 'Criminal Law',
+    rate_per_hour = '5,000',
+    id = '1',
   } = lawyer;
 
   return (
     <div className="w-full max-w-sm h-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-5 p-4 ml-10"
-    style={{
-      background: "linear-gradient(144deg, #18d0f5, #f516db 60%)"}}>
+      style={{ background: 'linear-gradient(144deg, #18d0f5, #f516db 60%)' }}>
       <div className="flex flex-col items-center pb-10">
         <img
           className="w-60 h-60 mb-3 rounded-full shadow-lg mt-4"
           src={image_url}
           alt={name}
           style={{
-            width: "250px",
-            height: "250px",
-            borderRadius: "50%",
-            objectFit: "cover",
+            width: '250px',
+            height: '250px',
+            borderRadius: '100%',
+            objectFit: 'cover',
+            background: '#e8e8e8',
           }}
         />
-
         <h5 className="mb-1 text-xl font-medium text-black-900 dark:text-white">
           Name: {name}
         </h5>
@@ -35,7 +34,7 @@ const LawyersCard = ({ lawyer = {} }) => {
           Specialization: {specialization}
         </span>
         <span className="text-xl text-black-900 dark:text-gray-400">
-        Years of experience: {experience} years
+          Years of experience: {experience} years
         </span>
         <span className="text-xl text-black-500 dark:text-gray-400">
           Rate: KES {rate_per_hour}/hour
