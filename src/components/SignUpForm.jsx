@@ -25,9 +25,9 @@ function SignUpForm() {
       .min(1, { message: "First Name is required" }),
     last_name: z
       .string({
-        required_error: "Second Name is required",
+        required_error: "Last Name is required",
       })
-      .min(1, { message: "Second Name is required" }),
+      .min(1, { message: "Last Name is required" }),
     role: z
       .string({
         required_error: "Role is required",
@@ -109,7 +109,6 @@ function SignUpForm() {
       specialization: "",
       rate: "",
       document: "",
-      password: "",
       photo: "",
     },
   });
@@ -131,224 +130,348 @@ function SignUpForm() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-900">
-      <Welcome />
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gray-900">
-        <div className="max-w-md w-full space-y-8">
-          <div>
-            <h2 className="mt-6 text-center text-3xl font-bold text-white">
-              Sign Up
-            </h2>
-          </div>
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
-            <div className="rounded-md space-y-6">
-              <Controller
-                name="first_name"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-300"
-                    >
-                      Name
-                    </label>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <img
+          className="mx-auto h-10 w-auto"
+          src="https://www.svgrepo.com/show/301692/login.svg"
+          alt="Workflow"
+        />
+        <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
+          Create a new account
+        </h2>
+        <p className="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
+          Or
+          <a
+            href="#"
+            className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+          >
+            login to your account
+          </a>
+        </p>
+      </div>
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Controller
+              name="first_name"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="mt-6">
+                  <label
+                    for="email"
+                    className="block text-sm font-medium leading-5  text-gray-700"
+                  >
+                    First Name
+                  </label>
+                  <div className="mt-1 relative rounded-md shadow-sm">
                     <input
                       id="name"
                       name="name"
+                      placeholder="Doe"
                       type="text"
                       required
-                      className="mt-1 block w-full px-4 py-3 border border-gray-700 placeholder-gray-500 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Enter your name"
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       {...field}
                     />
-                    {fieldState.invalid && (
-                      <p className="error">{fieldState.error.message}</p>
-                    )}
-                  </div>
-                )}
-              />
-              <Controller
-                name="first_name"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-300"
-                    >
-                      Name
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
-                      className="mt-1 block w-full px-4 py-3 border border-gray-700 placeholder-gray-500 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Enter your name"
-                      {...field}
-                    />
-                    {fieldState.invalid && (
-                      <p className="error">{fieldState.error.message}</p>
-                    )}
-                  </div>
-                )}
-              />
-
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Email address
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  className="mt-1 block w-full px-4 py-3 border border-gray-700 placeholder-gray-500 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  className="mt-1 block w-full px-4 py-3 border border-gray-700 placeholder-gray-500 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Confirm Password
-                </label>
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  required
-                  className="mt-1 block w-full px-4 py-3 border border-gray-700 placeholder-gray-500 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Confirm your password"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="role"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Role
-                </label>
-                <select
-                  id="role"
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-3 border border-gray-700 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="client">Client</option>
-                  <option value="lawyer">Lawyer</option>
-                </select>
-              </div>
-
-              {formData.role === "lawyer" && (
-                <>
-                  <div>
-                    <label
-                      htmlFor="qualificationCertificate"
-                      className="block text-sm font-medium text-gray-300"
-                    >
-                      Qualification Certificate
-                    </label>
-                    <input
-                      id="qualificationCertificate"
-                      name="qualificationCertificate"
-                      type="file"
-                      onChange={handleChange}
-                      className="mt-1 block w-full px-4 py-3 border border-gray-700 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-
-                  <div className="flex space-x-4">
-                    <div className="w-1/2">
-                      <label
-                        htmlFor="yearsOfExperience"
-                        className="block text-sm font-medium text-gray-300"
+                    <div className="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <svg
+                        className="h-5 w-5 text-red-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
                       >
-                        Years of Experience
-                      </label>
-                      <input
-                        id="yearsOfExperience"
-                        name="yearsOfExperience"
-                        type="number"
-                        required
-                        className="mt-1 block w-full px-4 py-3 border border-gray-700 placeholder-gray-500 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Enter years of experience"
-                        value={formData.yearsOfExperience}
-                        onChange={handleChange}
-                      />
-                    </div>
-
-                    <div className="w-1/2">
-                      <label
-                        htmlFor="ratePerHour"
-                        className="block text-sm font-medium text-gray-300"
-                      >
-                        Rate/Hour
-                      </label>
-                      <input
-                        id="ratePerHour"
-                        name="ratePerHour"
-                        type="number"
-                        required
-                        className="mt-1 block w-full px-4 py-3 border border-gray-700 placeholder-gray-500 text-white bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Enter your rate per hour"
-                        value={formData.ratePerHour}
-                        onChange={handleChange}
-                      />
+                        <path
+                          fill-rule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
                     </div>
                   </div>
-                </>
+                  {fieldState.invalid && (
+                    <p className="text-red-500">{fieldState.error.message}</p>
+                  )}
+                </div>
               )}
+            />
 
-              <div className="flex items-center justify-center">
+            <Controller
+              name="last_name"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="mt-6">
+                  <label
+                    for="email"
+                    className="block text-sm font-medium leading-5  text-gray-700"
+                  >
+                    Last Name
+                  </label>
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <input
+                      id="name"
+                      name="name"
+                      placeholder="Doe"
+                      type="text"
+                      required
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      {...field}
+                    />
+                    <div className="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <svg
+                        className="h-5 w-5 text-red-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  {fieldState.invalid && (
+                    <p className="text-red-500">{fieldState.error.message}</p>
+                  )}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="email"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="mt-6">
+                  <label
+                    for="email"
+                    class="block text-sm font-medium leading-5 text-gray-700"
+                  >
+                    Email address
+                  </label>
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <input
+                      id="email"
+                      name="email"
+                      placeholder="user@example.com"
+                      type="email"
+                      required
+                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      {...field}
+                    />
+                    <div class="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <svg
+                        class="h-5 w-5 text-red-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {fieldState.invalid && (
+                    <p className="text-red-500">{fieldState.error.message}</p>
+                  )}
+                </div>
+              )}
+            />
+            <Controller
+              name="phone_number"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="mt-6">
+                  <label
+                    for="email"
+                    className="block text-sm font-medium leading-5  text-gray-700"
+                  >
+                    Phone Number
+                  </label>
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <input
+                      id="name"
+                      name="name"
+                      placeholder="0712345678"
+                      type="text"
+                      required
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      {...field}
+                    />
+                    <div className="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <svg
+                        className="h-5 w-5 text-red-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  {fieldState.invalid && (
+                    <p className="text-red-500">{fieldState.error.message}</p>
+                  )}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="id"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="mt-6">
+                  <label
+                    for="email"
+                    className="block text-sm font-medium leading-5  text-gray-700"
+                  >
+                    National Identification Number
+                  </label>
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <input
+                      id="name"
+                      name="name"
+                      placeholder="12345678"
+                      type="text"
+                      required
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      {...field}
+                    />
+                    <div className="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <svg
+                        className="h-5 w-5 text-red-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  {fieldState.invalid && (
+                    <p className="text-red-500">{fieldState.error.message}</p>
+                  )}
+                </div>
+              )}
+            />
+            <Controller
+              name="area_of_residence"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="mt-6">
+                  <label
+                    for="email"
+                    className="block text-sm font-medium leading-5  text-gray-700"
+                  >
+                    Area of Residence
+                  </label>
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <input
+                      id="name"
+                      name="name"
+                      placeholder="Nairobi"
+                      type="text"
+                      required
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      {...field}
+                    />
+                    <div className="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <svg
+                        className="h-5 w-5 text-red-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  {fieldState.invalid && (
+                    <p className="text-red-500">{fieldState.error.message}</p>
+                  )}
+                </div>
+              )}
+            />
+            <Controller
+              name="role"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="mt-6">
+                  <label
+                    for="role"
+                    className="block text-sm font-medium leading-5  text-gray-700"
+                  >
+                    Role
+                  </label>
+                  <select
+                    id="role"
+                    name="role"
+                    required
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                    {...field}
+                  >
+                    <option value="">Select a Role</option>
+                    <option value="client">Client</option>
+                    <option value="freelancer">Lawyer</option>
+                  </select>
+                  {fieldState.invalid && (
+                    <p className="text-red-500">{fieldState.error.message}</p>
+                  )}
+                </div>
+              )}
+            />
+            <Controller
+              name="password"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="mt-6">
+                  <label
+                    for="password"
+                    class="block text-sm font-medium leading-5 text-gray-700"
+                  >
+                    Password
+                  </label>
+                  <div className="mt-1 rounded-md shadow-sm">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      required
+                      {...field}
+                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                    />
+                  </div>
+
+                  {fieldState.invalid && (
+                    <p className="text-red-500">{fieldState.error.message}</p>
+                  )}
+                </div>
+              )}
+            />
+
+            <div className="mt-6">
+              <span className="block w-full rounded-md shadow-sm">
                 <button
                   type="submit"
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
                 >
-                  Sign Up
+                  Create account
                 </button>
-              </div>
+              </span>
             </div>
           </form>
-          <div className="mt-4 text-center">
-            <p className="text-gray-600">
-              Already have an account?{" "}
-              <Link to="/login" className="text-blue-500 hover:text-blue-700">
-                Log In
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>

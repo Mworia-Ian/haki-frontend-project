@@ -13,7 +13,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gray-100">
         <Routes>
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup" element={<SignUpForm />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
           <Route path="/landing" element={<Landing />} />
