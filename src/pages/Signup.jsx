@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Welcome from "../components/Welcome";
 
 function SignUp() {
@@ -15,6 +18,83 @@ function SignUp() {
     ratePerHour: "",
   });
 
+  const schema = z.object({
+    first_name: z
+      .string({
+        required_error: "First Name is required",
+      })
+      .min(1, { message: "First Name is required" }),
+    last_name: z
+      .string({
+        required_error: "Second Name is required",
+      })
+      .min(1, { message: "Second Name is required" }),
+    role: z
+      .string({
+        required_error: "Role is required",
+      })
+      .min(1, { message: "Role is required" }),
+    phone_number: z
+      .string({
+        required_error: "Phone Number must be 10 characters",
+      })
+      .length(10, { message: "Phone Number must be 10 characters" }),
+    email: z
+      .string({
+        required_error: "Email is required",
+      })
+      .min(1, { message: "Email is required" }),
+    id: z
+      .string({
+        required_error: "National Identification must be 8 characters",
+      })
+      .length(8, { message: "National Identification must be 8 characters" }),
+    area_of_residence: z
+      .string({
+        required_error: "Area of residence is required",
+      })
+      .min(1, { message: "Area of residence is required" }),
+    password: z
+      .string({
+        required_error: "Password is required",
+      })
+      .min(1, { message: "Password is required" }),
+    experience: z
+      .string({
+        required_error: "Years of Experience is required",
+      })
+      .min(1, { message: "Years of Experience is required" }),
+    specialization: z
+      .string({
+        required_error: "Specialization is required",
+      })
+      .min(1, { message: "Specialization is required" }),
+    rate: z
+      .string({
+        required_error: "Rate/Hour is required ",
+      })
+      .min(1, { message: "Rate/Hour is required" }),
+    document: z.string().refine(
+      (document) => {
+        const allowedExtensions = ["pdf", "jpg", "jpeg", "png"];
+        const extension = document.split(".").pop();
+        return allowedExtensions.includes(extension);
+      },
+      {
+        message: "Please select a valid file (PDF, JPEG, PNG)",
+      }
+    ),
+    photo: z.string().refine(
+      (document) => {
+        const allowedExtensions = ["jpg", "jpeg", "png"];
+        const extension = document.split(".").pop();
+        return allowedExtensions.includes(extension);
+      },
+      {
+        message: "Please select a valid file (JPEG, PNG)",
+      }
+    ),
+  });
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     setFormData((prevState) => ({
