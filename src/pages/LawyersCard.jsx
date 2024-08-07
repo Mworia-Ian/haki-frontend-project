@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const LawyersCard = ({ lawyer }) => {
   const {
-    image_url = 'https://media.istockphoto.com/id/1314997483/photo/portrait-of-a-confident-mature-businessman-working-in-a-modern-office.jpg?s=612x612&w=0&k=20&c=OxN-O2qe4LbgYuOnp_VkgXOV5p7CDC_uWja9iWFM-OA=',
+    image_url = 'url-to-image.jpg',
     name = 'John Doe',
     experience = '10',
     specialization = 'Criminal Law',
