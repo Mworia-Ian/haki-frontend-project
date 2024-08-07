@@ -12,10 +12,10 @@ const LawyersCard = ({ lawyer = {} }) => {
   } = lawyer;
 
   return (
-    <div className="w-full max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full max-w-md h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-4 p-4 ml-4">
       <div className="flex flex-col items-center pb-10">
         <img
-          className="w-40 h-40 mb-3 rounded-full shadow-lg"
+          className="w-40 h-40 mb-3 rounded-full shadow-lg mt-4"
           src={image_url}
           alt={name}
         />
