@@ -7,7 +7,7 @@ function LawyerProfile() {
       yearsOfExperience: 15,
       specialization: "Corporate Law",
       ratePerHour: 2500,
-      imageUrl: "src/assets/lawyer2.jpg",
+      imageUrl: "src/assets/images/lawyer2.jpg",
     };
   
     return (
