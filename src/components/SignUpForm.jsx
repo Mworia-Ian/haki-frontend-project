@@ -48,41 +48,64 @@ function SignUpForm() {
         required_error: "Password is required",
       })
       .min(1, { message: "Password is required" }),
-    experience: z
-      .string({
-        required_error: "Years of Experience is required",
-      })
-      .min(1, { message: "Years of Experience is required" }),
-    specialization: z
-      .string({
-        required_error: "Specialization is required",
-      })
-      .min(1, { message: "Specialization is required" }),
-    rate: z
-      .string({
-        required_error: "Rate/Hour is required ",
-      })
-      .min(1, { message: "Rate/Hour is required" }),
-    document: z.string().refine(
-      (document) => {
-        const allowedExtensions = ["pdf", "jpg", "jpeg", "png"];
-        const extension = document.split(".").pop();
-        return allowedExtensions.includes(extension);
-      },
-      {
-        message: "Please select a valid file (PDF, JPEG, PNG)",
+    experience: z.string().superRefine((data, ctx) => {
+      if (data?.role === "lawyer" && !data.experience) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Experience is required",
+        });
       }
-    ),
-    photo: z.string().refine(
-      (document) => {
+    }),
+    specialization: z.string().superRefine((data, ctx) => {
+      if (data?.role === "lawyer" && !data.specialization) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "specialization is required",
+        });
+      }
+    }),
+    rate: z.string().superRefine((data, ctx) => {
+      if (data?.role === "lawyer" && !data.rate) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Rate is required",
+        });
+      }
+    }),
+    document: z.string().superRefine((data, ctx) => {
+      if (data?.role === "lawyer" && !data.document) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Document is required",
+        });
+      } else if (data?.role === "lawyer") {
         const allowedExtensions = ["jpg", "jpeg", "png"];
-        const extension = document.split(".").pop();
-        return allowedExtensions.includes(extension);
-      },
-      {
-        message: "Please select a valid file (JPEG, PNG)",
+        const extension = data?.document?.split(".").pop();
+        if (!allowedExtensions.includes(extension)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Please select a valid file (JPEG, PNG)",
+          });
+        }
       }
-    ),
+    }),
+    photo: z.string().superRefine((data, ctx) => {
+      if (data?.role === "lawyer" && !data.photo) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Photo is required",
+        });
+      } else if (data?.role === "lawyer") {
+        const allowedExtensions = ["jpg", "jpeg", "png"];
+        const extension = data?.photo?.split(".").pop();
+        if (!allowedExtensions.includes(extension)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Please select a valid file (JPEG, PNG)",
+          });
+        }
+      }
+    }),
   });
   const { control, formState, reset, watch, handleSubmit } = useForm({
     resolver: zodResolver(schema),
