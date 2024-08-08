@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Landing from './pages/Landing';
 import LawyerProfile from './pages/LawyerProfile';
 import LawyersGrid from './pages/LawyersGrid';
+import Chat from './pages/Chat';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/profile" element={<LawyerProfile />} />
           <Route path="/lawyers" element={<LawyersGrid />} />
           <Route path="/lawyers/:id" element={<LawyerProfile />} />
+          <Route path="/chat" element={<Chat />} />
         </Routes>
       </div>
     </Router>
