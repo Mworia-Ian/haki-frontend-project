@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './pages/Signup';
@@ -19,6 +18,7 @@ function App() {
           <Route path="/landing" element={<Landing />} />
           <Route path="/profile" element={<LawyerProfile />} />
           <Route path="/lawyers" element={<LawyersGrid />} />
+          <Route path="/lawyers/:id" element={<LawyerProfile />} />
         </Routes>
       </div>
     </Router>

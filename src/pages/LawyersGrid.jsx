@@ -17,6 +17,7 @@ const lawyers = [
   { id: 12, name: 'Sarah Pink', experience: 5, specialization: 'Criminal Law', rate_per_hour: '5,300', image_url: 'https://media.istockphoto.com/id/1153955734/photo/happy-smiling-african-american-woman-in-formal-business-attire.jpg?s=612x612&w=0&k=20&c=UyNptq9c5l4G0Wi6f8IEMPY4n5hytZ_-8qyCC67_ujQ=' }
 ];
 
+
 const LawyersGrid = () => {
   return (
     <div className="container mx-auto px-4">
