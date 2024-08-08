@@ -13,7 +13,7 @@ const LawyersCard = ({ lawyer }) => {
 
   return (
     <div className="w-full max-w-sm h-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-5 p-4 ml-10"
-      style={{ background: 'linear-gradient(144deg, #1827f5, #131204 60%)' }}>
+      style={{ background: 'linear-gradient(144deg, #1827f5, #131204 75%)' }}>
       <div className="flex flex-col items-center pb-10">
         <img
           className="w-60 h-60 mb-3 rounded-full shadow-lg mt-4"
@@ -33,10 +33,10 @@ const LawyersCard = ({ lawyer }) => {
         <span className="text-xl text-white dark:text-gray-400">
           Specialization: {specialization}
         </span>
-        <span className="text-xl text-black-900 dark:text-gray-400">
+        <span className="text-xl text-white dark:text-gray-400">
           Years of experience: {experience} years
         </span>
-        <span className="text-xl text-black-500 dark:text-gray-400">
+        <span className="text-xl text-white dark:text-gray-400">
           Rate: KES {rate_per_hour}/hour
         </span>
         <div className="flex mt-4 md:mt-6">
