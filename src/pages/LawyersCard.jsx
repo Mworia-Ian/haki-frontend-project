@@ -27,10 +27,10 @@ const LawyersCard = ({ lawyer }) => {
             background: '#e8e8e8',
           }}
         />
-        <h5 className="mb-1 text-xl font-medium text-black-900 dark:text-white">
+        <h5 className="mb-1 text-xl font-medium text-white-900 dark:text-white">
           Name: {name}
         </h5>
-        <span className="text-xl text-black-900 dark:text-gray-400">
+        <span className="text-xl text-white dark:text-gray-400">
           Specialization: {specialization}
         </span>
         <span className="text-xl text-black-900 dark:text-gray-400">
