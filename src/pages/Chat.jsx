@@ -49,7 +49,7 @@ const Chat = () => {
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md"  style={{ background: 'linear-gradient(144deg, #1827f5, #131204 75%)' }}>
         <button
           onClick={handleBackClick}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mb-4"
+          className="bg-blue-600 hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 rounded-lg mb-4 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Back
         </button>
@@ -89,7 +89,7 @@ const Chat = () => {
             <button
               id="sendBtn"
               onClick={sendMessage}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="bg-blue-600 hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Send
             </button>
