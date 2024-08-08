@@ -11,7 +11,6 @@ function LawyerProfile() {
     return <div>Lawyer not found</div>;
   }
 
-  // Split the lawyer's name into first and last name
   const [firstName, lastName] = lawyer.name.split(' ');
 
   return (
