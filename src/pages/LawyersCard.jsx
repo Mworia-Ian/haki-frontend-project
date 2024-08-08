@@ -13,7 +13,7 @@ const LawyersCard = ({ lawyer }) => {
 
   return (
     <div className="w-full max-w-sm h-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-5 p-4 ml-10"
-      style={{ background: 'linear-gradient(144deg, #1827f5, #f5e616 80%)' }}>
+      style={{ background: 'linear-gradient(144deg, #1827f5, #131204 60%)' }}>
       <div className="flex flex-col items-center pb-10">
         <img
           className="w-60 h-60 mb-3 rounded-full shadow-lg mt-4"
