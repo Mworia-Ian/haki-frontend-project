@@ -1,5 +1,3 @@
-import React from "react";
-
 function Home() {
   const user = { name: "John Doe", role: "client" };
 
