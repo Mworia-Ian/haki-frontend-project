@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import SignUp from './pages/Signup';
@@ -18,8 +17,8 @@ function App() {
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/landing" element={<Landing />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/profile" element={<LawyerProfile />} />
           <Route path="/lawyers" element={<LawyersGrid />} />
           <Route path="/lawyers/:id" element={<LawyerProfile />} />
