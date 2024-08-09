@@ -130,108 +130,62 @@ function SignUpForm() {
   });
   const onSubmit = async (values, e) => {
     console.log(values.photo[0]);
+    if (values?.role === "lawyer") {
+      try {
+        // your submission logic here...
 
-    try {
-      // your submission logic here...
+        const formData = new FormData(e.target);
 
-      const formData = new FormData(e.target);
-
-      const uploadPromises = [];
-      if (values?.document) {
-        const documentFile = formData.get("document");
-        const documentPath = `documents/${documentFile.name}`;
-        uploadPromises.push(
-          supabase.storage.from("files").upload(documentPath, documentFile)
+        const uploadPromises = [];
+        if (values?.document) {
+          const documentFile = formData.get("document");
+          const documentPath = `documents/${documentFile.name}`;
+          uploadPromises.push(
+            supabase.storage.from("files").upload(documentPath, documentFile)
+          );
+        }
+        if (values?.photo) {
+          const photoFile = formData.get("photo");
+          const photoPath = `photos/${photoFile.name}`;
+          uploadPromises.push(
+            supabase.storage.from("files").upload(photoPath, photoFile)
+          );
+        }
+        // Wait for all uploads to complete
+        const uploadResults = await Promise.all(uploadPromises);
+        // Get public URLs for uploaded files
+        const publicUrls = await Promise.all(
+          uploadResults.map(async (result) => {
+            if (result.error) {
+              throw new Error("Upload failed");
+            }
+            const { data } = await supabase.storage
+              .from("files")
+              .getPublicUrl(result.data.path);
+            return data.publicUrl;
+          })
         );
-      }
-      if (values?.photo) {
-        const photoFile = formData.get("photo");
-        const photoPath = `photos/${photoFile.name}`;
-        uploadPromises.push(
-          supabase.storage.from("files").upload(photoPath, photoFile)
-        );
-      }
-      // Wait for all uploads to complete
-      const uploadResults = await Promise.all(uploadPromises);
-      // Get public URLs for uploaded files
-      const publicUrls = await Promise.all(
-        uploadResults.map(async (result) => {
-          if (result.error) {
-            throw new Error("Upload failed");
-          }
-          const { data } = await supabase.storage
-            .from("files")
-            .getPublicUrl(result.data.path);
-          return data.publicUrl;
-        })
-      );
-      const resultValues = {
-        ...values,
-        documentUrl: publicUrls[0], // Map this based on your upload order
-        photoUrl: publicUrls[1], // Ensure this order corresponds to your uploads
-      };
+        const resultValues = {
+          ...values,
+          documentUrl: publicUrls[0], // Map this based on your upload order
+          photoUrl: publicUrls[1], // Ensure this order corresponds to your uploads
+        };
 
-      console.log(resultValues);
-      reset(); // reset the form fields
-    } catch (error) {
-      console.error(error);
+        console.log(resultValues);
+        reset(); // reset the form fields
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        console.log(values);
+        reset();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
-  // const onSubmit = async (values) => {
-  //   try {
-  //     // Define an array to store upload promises
-  //     const uploadPromises = [];
 
-  //     // Upload document if exists
-  //     if (values?.document) {
-  //       const documentFile = values?.document; // Assuming it's a File input
-  //       const documentPath = `documents/${documentFile.name}`;
-  //       uploadPromises.push(
-  //         supabase.storage
-  //           .from("your-bucket-name")
-  //           .upload(documentPath, documentFile)
-  //       );
-  //     }
-
-  //     // Upload photo if exists
-  //     if (values.photo) {
-  //       const photoFile = values.photo[0]; // Assuming it's a File input
-  //       const photoPath = `photos/${photoFile.name}`;
-  //       uploadPromises.push(
-  //         supabase.storage.from("your-bucket-name").upload(photoPath, photoFile)
-  //       );
-  //     }
-
-  //     // Wait for all uploads to complete
-  //     const uploadResults = await Promise.all(uploadPromises);
-
-  //     // Get public URLs for uploaded files
-  //     const publicUrls = await Promise.all(
-  //       uploadResults.map(async (result) => {
-  //         if (result.error) {
-  //           throw new Error("Upload failed");
-  //         }
-  //         const { data } = await supabase.storage
-  //           .from("your-bucket-name")
-  //           .getPublicUrl(result.data.path);
-  //         return data.publicUrl;
-  //       })
-  //     );
-
-  //     // Here you can send `publicUrls` along with other form values to your backend.
-  //     // You might want to map the URLs back to their respective fields (document & photo).
-  //     const resultValues = {
-  //       ...values,
-  //       documentUrl: publicUrls[0], // Map this based on your upload order
-  //       photoUrl: publicUrls[1], // Ensure this order corresponds to your uploads
-  //     };
-
-  //     console.log(resultValues); // Here is your form data along with the URLs
-  //     reset(); // Reset the form fields
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   const roleValue = watch("role");
 
   return (
