@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Review from './Review'; // Update the path if necessary
 
 function LawyerProfile() {
   const location = useLocation();
   const navigate = useNavigate();
   const { lawyer } = location.state || {};
+  const [showForm, setShowForm] = useState(false);
 
   if (!lawyer) {
     return <div>Lawyer not found</div>;
   }
 
   const [firstName, lastName] = lawyer.name.split(' ');
+
+  const handleAddReviewClick = () => {
+    setShowForm(true);
+  };
 
   return (
     <div className="min-h-screen bg-#c7c55b py-12 px-4 sm:px-6 lg:px-8 hover:scale-105 duration-300">
@@ -19,13 +25,12 @@ function LawyerProfile() {
         style={{ background: 'linear-gradient(144deg, #1827f5, #131204 75%)' }}
       >
         <div className="md:flex relative">
-          <div className="md:flex-shrink-0 pl-3 pt-14 relative"> {/* Add padding-top here */}
+          <div className="md:flex-shrink-0 pl-3 pt-14 relative">
             <img
               className="h-48 w-full object-cover md:w-48 rounded-lg"
               src={lawyer.image_url}
               alt={lawyer.name}
             />
-            {/* Back Button on top of the image */}
             <button
               onClick={() => navigate(-1)}
               className="absolute top-2 left-2 bg-blue-500 hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -78,16 +83,23 @@ function LawyerProfile() {
                 </dd>
               </div>
             </dl>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center space-x-4 mt-8">
               <button
                 onClick={() => navigate('/clientchat')}
-                className="bg-blue-500 hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="bg-blue-500 hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Contact Lawyer
+              </button>
+              <button
+                onClick={handleAddReviewClick}
+                className="bg-blue-500 hover:bg-blue-700 text-lg text-white font-bold py-1 px-3 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Add Review
               </button>
             </div>
           </div>
         </div>
+        {showForm && <Review key={lawyer.id} lawyerId={lawyer.id} setShowForm={setShowForm} />}
       </div>
     </div>
   );
