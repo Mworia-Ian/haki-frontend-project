@@ -1,16 +1,12 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-
+import SignUpForm from './components/SignUpForm';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Landing from './pages/Landing';
 import LawyerProfile from './pages/LawyerProfile';
 import LawyersGrid from './pages/LawyersGrid';
 import Chat from './pages/Chat';
-import Footer from './components/Footer';
-import SignUpForm from './components/SignUpForm';
-
 
 function App() {
   return (
@@ -27,7 +23,7 @@ function App() {
           <Route path="/chat" element={<Chat />} />
         </Routes>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }

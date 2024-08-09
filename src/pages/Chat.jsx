@@ -45,7 +45,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-black">
+    <div className="flex flex-col items-center justify-center h-screen bg-#c7c55b">
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md"  style={{ background: 'linear-gradient(144deg, #1827f5, #131204 75%)' }}>
         <button
           onClick={handleBackClick}
@@ -56,12 +56,12 @@ const Chat = () => {
         <div className="h-64 overflow-y-scroll mb-4 space-y-4">
           {messages.length > 0 ? (
             messages.map((msg, index) => (
-              <p key={index} className="bg-gray-700 text-white p-3 rounded-lg shadow-md">
+              <p key={index} className="bg-white text-black p-3 rounded-lg shadow-md">
                 {msg}
               </p>
             ))
           ) : (
-            <p className="bg-gray-700 text-white p-3 rounded-lg shadow-md">
+            <p className="bg-white text-black p-3 rounded-lg shadow-md">
               No messages available.
             </p>
           )}
