@@ -14,7 +14,7 @@ function LawyerProfile() {
   const [firstName, lastName] = lawyer.name.split(' ');
 
   return (
-    <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-#c7c55b py-12 px-4 sm:px-6 lg:px-8 hover:scale-105 duration-300">
       <div
         className="max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden"
         style={{ background: 'linear-gradient(144deg, #1827f5, #131204 75%)' }}

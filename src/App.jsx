@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 import SignUp from './pages/Signup';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -7,12 +7,12 @@ import Landing from './pages/Landing';
 import LawyerProfile from './pages/LawyerProfile';
 import LawyersGrid from './pages/LawyersGrid';
 import Chat from './pages/Chat';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 
 function App() {
   return (
     <Router>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="min-h-screen bg-gray-100">
         <Routes>
           <Route path="/signup" element={<SignUp />} />
@@ -25,7 +25,7 @@ function App() {
           <Route path="/chat" element={<Chat />} />
         </Routes>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }
