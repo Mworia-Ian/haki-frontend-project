@@ -2,8 +2,8 @@ import React from "react";
 
 function Card() {
   return (
-    <div className="flex items-center w-full py-[10rem] px-4 ">
-      <div className='max-w-[1240px] mx-auto grid md:grid-cols-1'>
+    <div id="Plans" className="flex items-center w-full py-[6rem] px-4 bg-white mb-5">
+      <div className='max-w-[1240px] mx-auto grid md:grid-cols-2 gap-8'>
         <div className="w-full shadow-xl bg-[#080e31] text-white flex flex-col p-12 md:my-0 my-8 rounded-lg hover:scale-105 duration-300">
           <img
             className="w-20 mx-auto mt-[3rem] bg-transparent"
@@ -19,6 +19,24 @@ function Card() {
           </div>
           <button className="bg-[#00636D] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-[#CBD4F4] hover:bg-[#CBD4F4] hover:text-[#00636D]">
           Subscribe
+        </button>
+        </div>
+
+        <div className="w-full shadow-xl bg-[#080e31] text-white flex flex-col p-12 md:my-0 my-8 rounded-lg hover:scale-105 duration-300">
+          <img
+            className="w-20 mx-auto mt-[3rem] bg-transparent"
+            src="src/assets/reshot-icon-justice-XH4D3B8RWF.svg"
+            alt="/"
+          />
+          <h2 className="text-2xl font-bold text-center py-8 text-[#00636D]">Membership</h2>
+          <p className="text-center text-4xl font-bold">Free</p>
+          <div className="text-center font-medium">
+            <p className="py-2 border-b mx-8 mt-8">Restricted Access</p>
+            <p className="py-2 border-b mx-8">No Direct Contact with Lawyers</p>
+            <p className="py-2 border- mx-8">8hr Support</p>
+          </div>
+          <button className="bg-[#00636D] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-[#CBD4F4] hover:bg-[#CBD4F4] hover:text-[#00636D]">
+          Get Started
         </button>
         </div>
       </div>
