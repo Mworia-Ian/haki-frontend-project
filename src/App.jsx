@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import SignUp from './pages/Signup';
@@ -9,13 +10,14 @@ import LawyersGrid from './pages/LawyersGrid';
 import Chat from './pages/Chat';
 import Footer from './components/Footer';
 
+
 function App() {
   return (
     <Router>
       <Navbar />
       <div className="min-h-screen bg-gray-100">
         <Routes>
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup" element={<SignUpForm />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Landing />} />
