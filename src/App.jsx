@@ -1,21 +1,19 @@
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import Navbar from './components/Navbar';
-import SignUp from './pages/Signup';
+import SignUpForm from './components/SignUpForm';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Landing from './pages/Landing';
 import LawyerProfile from './pages/LawyerProfile';
 import LawyersGrid from './pages/LawyersGrid';
 import Chat from './pages/Chat';
-// import Footer from './components/Footer';
 
 function App() {
   return (
     <Router>
-      {/* <Navbar /> */}
       <div className="min-h-screen bg-gray-100">
         <Routes>
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup" element={<SignUpForm />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Landing />} />
