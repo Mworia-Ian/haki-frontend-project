@@ -3,12 +3,12 @@ import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 
 // const socket = io("http://localhost:5000");
-const socket = io("http://your-server-address:port");
+// const socket = io("http://your-server-address:port");
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
-  const [username, setUsername] = useState('');
-  const [message, setMessage] = useState('');
+  const [username, setUsername] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
@@ -32,9 +32,9 @@ const Chat = () => {
   const sendMessage = () => {
     if (username && message) {
       const fullMessage = `${username}: ${message}`;
-      socket.emit('message', fullMessage);
+      socket.emit("message", fullMessage);
       setMessages((prevMessages) => [...prevMessages, fullMessage]);
-      setMessage(''); 
+      setMessage("");
     } else {
       alert("Please enter both username and message.");
     }
@@ -46,7 +46,10 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-black">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md"  style={{ background: 'linear-gradient(144deg, #1827f5, #131204 75%)' }}>
+      <div
+        className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md"
+        style={{ background: "linear-gradient(144deg, #1827f5, #131204 75%)" }}
+      >
         <button
           onClick={handleBackClick}
           className="bg-blue-600 hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 rounded-lg mb-4 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -56,7 +59,10 @@ const Chat = () => {
         <div className="h-64 overflow-y-scroll mb-4 space-y-4">
           {messages.length > 0 ? (
             messages.map((msg, index) => (
-              <p key={index} className="bg-gray-700 text-white p-3 rounded-lg shadow-md">
+              <p
+                key={index}
+                className="bg-gray-700 text-white p-3 rounded-lg shadow-md"
+              >
                 {msg}
               </p>
             ))
