@@ -29,16 +29,16 @@ const LawyersCard = ({ lawyer }) => {
           }}
         />
         <h5 className="mb-1 text-xl font-medium text-white dark:text-white">
-          Name: {name}
+          Name:  {name}
         </h5>
         <span className="text-xl text-white dark:text-gray-400">
-          Specialization: {specialization}
+          Specialization:  {specialization}
         </span>
         <span className="text-xl text-white dark:text-gray-400">
-          Years of experience: {experience} years
+          Years of experience:  {experience} years
         </span>
         <span className="text-xl text-white dark:text-gray-400">
-          Rate: KES {rate_per_hour}/hour
+          Rate:  KES  {rate_per_hour}/hour
         </span>
         <div className="flex mt-4 md:mt-6">
           <Link
