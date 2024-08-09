@@ -13,12 +13,10 @@ function Welcome() {
             Welcome to HAKI ⚖️
           </h1>
           <p className="text-base md:text-lg text-white mb-16 leading-relaxed">
-            HAKI is a platform dedicated to connecting individuals who have been
-            harassed by others, including police and con men, with lawyers who
-            can provide the necessary legal assistance.
+            HAKI is a platform dedicated to connecting everyday citizens with credible and reliable legal representation
           </p>
           <p className="text-base md:text-lg text-white leading-relaxed">
-            We are here to help you find the justice and support you need.
+            Your Trusted Partner
           </p>
         </div>
       </div>
