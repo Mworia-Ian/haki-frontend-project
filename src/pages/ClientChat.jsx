@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // const socket = io("http://localhost:5000");
 const socket = io("http://your-server-address:port");
 
-const Chat = () => {
+const ClientChat = () => {
   const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
@@ -100,4 +100,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ClientChat;
