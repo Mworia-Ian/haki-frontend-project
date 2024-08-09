@@ -1,3 +1,4 @@
+// src/pages/LawyerProfile.jsx
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -10,11 +11,10 @@ function LawyerProfile() {
     return <div>Lawyer not found</div>;
   }
 
-  // Split the lawyer's name into first and last name
   const [firstName, lastName] = lawyer.name.split(' ');
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8">
       <div
         className="max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden"
         style={{ background: 'linear-gradient(144deg, #1827f5, #131204 75%)' }}
@@ -75,11 +75,14 @@ function LawyerProfile() {
             <div className="flex justify-between mt-8">
               <button
                 onClick={() => navigate(-1)}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="bg-blue-500 hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Back
               </button>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <button
+                onClick={() => navigate('/chat')}
+                className="bg-blue-500 hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
                 Contact Lawyer
               </button>
             </div>

@@ -1,5 +1,5 @@
-// src/pages/LawyersGrid.jsx
-import React from 'react';
+import React, { useState } from 'react';
+import LawyerSearch from './LawyerSearch';
 import LawyersCard from './LawyersCard';
 
 const lawyers = [
@@ -17,14 +17,29 @@ const lawyers = [
   { id: 12, name: 'Sarah Pink', experience: 5, specialization: 'Criminal Law', rate_per_hour: '5,300', image_url: 'https://media.istockphoto.com/id/1153955734/photo/happy-smiling-african-american-woman-in-formal-business-attire.jpg?s=612x612&w=0&k=20&c=UyNptq9c5l4G0Wi6f8IEMPY4n5hytZ_-8qyCC67_ujQ=' }
 ];
 
-
 const LawyersGrid = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredLawyers = lawyers.filter(lawyer =>
+    lawyer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    lawyer.specialization.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 bg-black">
+      <LawyerSearch setSearchTerm={setSearchTerm} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {lawyers.map((lawyer) => (
-          <LawyersCard key={lawyer.id} lawyer={lawyer} />
-        ))}
+        {filteredLawyers.length > 0 ? (
+          filteredLawyers.map((lawyer) => (
+            <div key={lawyer.id} className="mb-10">
+              <LawyersCard lawyer={lawyer} />
+            </div>
+          ))
+        ) : (
+          <div className="col-span-full text-center text-white mt-10">
+            <p>Lawyer not found.</p>
+          </div>
+        )}
       </div>
     </div>
   );
