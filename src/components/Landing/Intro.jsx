@@ -1,6 +1,8 @@
 import { ReactTyped } from "react-typed";
+import { useNavigate } from "react-router-dom";
 
 function Intro() {
+  const navigate = useNavigate();
   return (
     <div className="text-white bg-[#F2F5F5]">
       <div className="max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center">
@@ -26,7 +28,7 @@ function Intro() {
         <p className="md:text-2xl text-xl font-bold text-[#242d2d]">
           Let us help you find legal reps, tailored to your needs
         </p>
-        <button className="bg-[#37B9F1] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-[#CBD4F4] hover:bg-[#242d2d] hover:text-[#37B9F1]">
+        <button onClick={() => navigate("/signup")} className="bg-[#37B9F1] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-[#CBD4F4] hover:bg-[#242d2d] hover:text-[#37B9F1]">
           Get Started
         </button>
       </div>
