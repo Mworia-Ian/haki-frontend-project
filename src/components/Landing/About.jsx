@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 function About() {
+  const navigate = useNavigate();
+
   return (
     <div id="About">
       <div className="w-full bg-[#F2F5F5] py-16 px-4">
@@ -18,7 +22,7 @@ function About() {
             <p className="text-[#242d2d]">
             Haki aims to connect everyday Kenyans with reliable legal representation. Our platform helps you find customized legal services that match your specific needs.
             </p>
-            <button className="bg-[#37B9F1] text-[#242d2d] hover:bg-[#242d2d] hover:text-[#37B9F1] w-[200px] rounded-md font-medium my-6 mx-auto  md:mx-0 py-3 ">
+            <button onClick={() => navigate("/signup")} className="bg-[#37B9F1] text-[#242d2d] hover:bg-[#242d2d] hover:text-[#37B9F1] w-[200px] rounded-md font-medium my-6 mx-auto  md:mx-0 py-3 ">
               Get Started
             </button>
           </div>
