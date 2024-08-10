@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUpForm from './components/SignUpForm';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Welcome from './components/Welcome'
 import Landing from './pages/Landing';
 import LawyerProfile from './pages/LawyerProfile';
 import LawyersGrid from './pages/LawyersGrid';
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/welcome" element={<Welcome />} />
           <Route path="/" element={<Landing />} />
           <Route path="/profile" element={<LawyerProfile />} />
           <Route path="/lawyers" element={<LawyersGrid />} />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-scroll";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -56,11 +56,11 @@ const Navbar = () => {
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 bg-white text-black">
               <li>
                 <Link
-                  to="/"
+                  to="/welcome"
                   className="block py-2 px-3 text-xl hover:text-blue-700 hover:scale-150 duration-300"
                   aria-current="page"
                 >
-                  Home
+                  Welcome
                 </Link>
               </li>
               <li>
