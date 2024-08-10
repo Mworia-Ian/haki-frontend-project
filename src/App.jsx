@@ -1,13 +1,12 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SignUpForm from "./components/SignUpForm";
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SignUpForm from './components/SignUpForm';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Welcome from './components/Welcome'
-import Landing from './pages/Landing';
-import LawyerProfile from './pages/LawyerProfile';
-import LawyersGrid from './pages/LawyersGrid';
-import ClientChat from './pages/ClientChat';
+import Home from "./pages/Home";
+import Welcome from "./components/Welcome";
+import Landing from "./pages/Landing";
+import LawyerProfile from "./pages/LawyerProfile";
+import LawyersGrid from "./pages/LawyersGrid";
+import ClientChat from "./pages/ClientChat";
 
 function App() {
   return (
@@ -15,7 +14,7 @@ function App() {
       <div className="min-h-screen bg-gray-100">
         <Routes>
           <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/login" element={<Login />} />
+
           <Route path="/home" element={<Home />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/" element={<Landing />} />
