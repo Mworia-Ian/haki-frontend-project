@@ -7,6 +7,7 @@ import Landing from './pages/Landing';
 import LawyerProfile from './pages/LawyerProfile';
 import LawyersGrid from './pages/LawyersGrid';
 import Chat from './pages/Chat';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path="/chat" element={<Chat />} />
         </Routes>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </Router>
   );
 }

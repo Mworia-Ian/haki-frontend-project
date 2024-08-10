@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 function Footer() {
   return (
     <div>
-      <footer className=" shadow bg-[#080e31]">
+      <footer className=" shadow bg-[#37B9F1]">
         <div className="w-full mx-auto max-w-screen-xl p-3 md:flex md:items-center md:justify-between">
           <span className="text-lg text-gray-500 sm:text-center dark:text-white">
             © 2024{" "}
