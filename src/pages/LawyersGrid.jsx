@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import Navbar from '../components/Navbar';
 import LawyerSearch from './LawyerSearch';
 import LawyersCard from './LawyersCard';
+import Footer from '../components/Footer';
 
 const lawyers = [
   { id: 1, name: 'John Doe', experience: 10, specialization: 'Criminal Law', rate_per_hour: '5,000', image_url: 'https://media.istockphoto.com/id/1314997483/photo/portrait-of-a-confident-mature-businessman-working-in-a-modern-office.jpg?s=612x612&w=0&k=20&c=OxN-O2qe4LbgYuOnp_VkgXOV5p7CDC_uWja9iWFM-OA=' },
@@ -26,7 +28,8 @@ const LawyersGrid = () => {
   );
 
   return (
-    <div className="container mx-auto px-4 bg-black">
+    <div className="container mx-auto px-4 bg-#c7c55b">
+      <Navbar />
       <LawyerSearch setSearchTerm={setSearchTerm} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredLawyers.length > 0 ? (
@@ -36,11 +39,12 @@ const LawyersGrid = () => {
             </div>
           ))
         ) : (
-          <div className="col-span-full text-center text-white mt-10">
+          <div className="col-span-full text-center text-black mt-10">
             <p>Lawyer not found.</p>
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

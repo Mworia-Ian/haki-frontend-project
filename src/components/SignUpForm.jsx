@@ -167,12 +167,12 @@ function SignUpForm() {
         );
         const resultValues = {
           ...values,
-          documentUrl: publicUrls[0], // Map this based on your upload order
-          photoUrl: publicUrls[1], // Ensure this order corresponds to your uploads
+          documentUrl: publicUrls[0],
+          photoUrl: publicUrls[1],
         };
 
         console.log(resultValues);
-        reset(); // reset the form fields
+        reset();
       } catch (error) {
         console.error(error);
       }
@@ -189,29 +189,23 @@ function SignUpForm() {
   const roleValue = watch("role");
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#F2F5F5] flex justify-center py-12 sm:px-6 lg:px-8">
+      <img
+        className="w-[500px] mx-auto my-4 rounded-xl drop-shadow-2xl"
+        src="src/assets/images/Plane-Hi-Sign--Streamline-Ux.svg"
+      />
+      
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img
-          className="mx-auto h-10 w-auto"
-          src="https://www.svgrepo.com/show/301692/login.svg"
-          alt="Workflow"
-        />
-        <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-          Create a new account
-        </h2>
-        <p className="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
-          Or
-          <a
-            href="#"
-            className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-          >
-            login to your account
-          </a>
-        </p>
-      </div>
-
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-[#F2F5F5]  py-8 px-4 drop-shadow-2xl sm:rounded-xl sm:px-10">
+          <h2 className="text-[#37B9F1] font-bold text-2xl">
+            Sign Up |{" "}
+            <a
+              href="#"
+              className="font-normal text-[#37B9F1] hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+            >
+              Login
+            </a>
+          </h2>
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <Controller
               name="first_name"
@@ -220,17 +214,17 @@ function SignUpForm() {
                 <div className="mt-6">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium leading-5  text-gray-700"
+                    className="block text-sm font-medium leading-5  text-[#37B9F1]"
                   >
                     First Name
                   </label>
-                  <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1] ">
                     <input
                       name="name"
                       placeholder="John"
                       type="text"
                       required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       {...field}
                     />
                   </div>
@@ -248,18 +242,17 @@ function SignUpForm() {
                 <div className="mt-6">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium leading-5  text-gray-700"
+                    className="block text-sm font-medium leading-5  text-[#37B9F1]"
                   >
                     Last Name
                   </label>
-                  <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
                     <input
                       name="name"
                       placeholder="Doe"
                       type="text"
                       required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                      {...field}
+                      className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                     />
                   </div>
                   {fieldState.invalid && (
@@ -272,17 +265,17 @@ function SignUpForm() {
               name="role"
               control={control}
               render={({ field, fieldState }) => (
-                <div className="mt-6">
+                <div className="mt-6 border-b border-[#37B9F1]">
                   <label
                     htmlFor="role"
-                    className="block text-sm font-medium leading-5  text-gray-700"
+                    className="block text-sm font-medium leading-5  text-[#37B9F1]"
                   >
                     Role
                   </label>
                   <select
                     name="role"
                     required
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                    className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                     {...field}
                   >
                     <option value="">Select a Role</option>
@@ -302,17 +295,17 @@ function SignUpForm() {
                 <div className="mt-6">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium leading-5 text-gray-700"
+                    className="block text-sm font-medium leading-5 text-[#37B9F1]"
                   >
                     Email address
                   </label>
-                  <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
                     <input
                       name="email"
                       placeholder="user@example.com"
                       type="email"
                       required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       {...field}
                     />
                   </div>
@@ -330,17 +323,17 @@ function SignUpForm() {
                 <div className="mt-6">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium leading-5  text-gray-700"
+                    className="block text-sm font-medium leading-5 text-[#37B9F1]"
                   >
                     Phone Number
                   </label>
-                  <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
                     <input
                       name="name"
                       placeholder="0712345678"
                       type="text"
                       required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       {...field}
                     />
                   </div>
@@ -358,17 +351,17 @@ function SignUpForm() {
                 <div className="mt-6">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium leading-5  text-gray-700"
+                    className="block text-sm font-medium leading-5  text-[#37B9F1]"
                   >
                     National Identification Number
                   </label>
-                  <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
                     <input
                       name="name"
                       placeholder="12345678"
                       type="text"
                       required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       {...field}
                     />
                   </div>
@@ -385,17 +378,17 @@ function SignUpForm() {
                 <div className="mt-6">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium leading-5  text-gray-700"
+                    className="block text-sm font-medium leading-5 text-[#37B9F1]"
                   >
                     Area of Residence
                   </label>
-                  <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
                     <input
                       name="name"
                       placeholder="Nairobi"
                       type="text"
                       required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       {...field}
                     />
                   </div>
@@ -415,18 +408,18 @@ function SignUpForm() {
                     <div className="mt-6">
                       <label
                         htmlFor="password"
-                        className="block text-sm font-medium leading-5 text-gray-700"
+                        className="block text-sm font-medium leading-5 text-[#37B9F1]"
                       >
                         Password
                       </label>
-                      <div className="mt-1 rounded-md shadow-sm">
+                      <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
                         <input
                           name="password"
                           type="password"
                           required
                           {...field}
-                          className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        />
+                          className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          />
                       </div>
 
                       {fieldState.invalid && (
@@ -460,17 +453,17 @@ function SignUpForm() {
                     <div className="mt-6">
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium leading-5  text-gray-700"
+                        className="block text-sm font-medium leading-5  text-[#37B9F1]"
                       >
                         Years of Experience
                       </label>
-                      <div className="mt-1 relative rounded-md shadow-sm">
+                      <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
                         <input
                           name="name"
                           placeholder="20"
                           type="text"
                           required
-                          className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                           {...field}
                         />
                       </div>
@@ -490,17 +483,17 @@ function SignUpForm() {
                     <div className="mt-6">
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium leading-5  text-gray-700"
+                        className="block text-sm font-medium leading-5  text-[#37B9F1]"
                       >
                         Specialization
                       </label>
-                      <div className="mt-1 relative rounded-md shadow-sm">
+                      <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
                         <input
                           name="name"
                           placeholder="Family Law"
                           type="text"
                           required
-                          className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                           {...field}
                         />
                       </div>
@@ -519,17 +512,17 @@ function SignUpForm() {
                     <div className="mt-6">
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium leading-5  text-gray-700"
+                        className="block text-sm font-medium leading-5  text-[#37B9F1]"
                       >
                         Rate/Hour
                       </label>
-                      <div className="mt-1 relative rounded-md shadow-sm">
+                      <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
                         <input
                           name="name"
                           placeholder="2000"
                           type="text"
                           required
-                          className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                           {...field}
                         />
                       </div>
@@ -548,14 +541,14 @@ function SignUpForm() {
                     <div className="mt-6">
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium leading-5  text-gray-700"
+                        className="block text-sm font-medium leading-5  text-[#37B9F1]"
                       >
                         Upload your Image
                       </label>
                       <div className="mt-1 relative rounded-md shadow-sm">
                         <input
                           type="file"
-                          className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium"
+                          className="flex h-10 w-full rounded-md border border-input bg-[#F2F5F5] px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium"
                           {...field}
                         />
                       </div>
@@ -574,14 +567,14 @@ function SignUpForm() {
                     <div className="mt-6">
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium leading-5  text-gray-700"
+                        className="block text-sm font-medium leading-5  text-[#37B9F1]"
                       >
                         Upload your Document
                       </label>
                       <div className="mt-1 relative rounded-md shadow-sm">
                         <input
                           type="file"
-                          className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium"
+                          className="flex h-10 w-full rounded-md border border-input bg-[#F2F5F5] px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium"
                           {...field}
                         />
                       </div>
@@ -600,18 +593,18 @@ function SignUpForm() {
                     <div className="mt-6">
                       <label
                         htmlFor="password"
-                        className="block text-sm font-medium leading-5 text-gray-700"
+                        className="block text-sm font-medium leading-5 text-[#37B9F1]"
                       >
                         Password
                       </label>
-                      <div className="mt-1 rounded-md shadow-sm">
+                      <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
                         <input
                           name="password"
                           type="password"
                           required
                           {...field}
-                          className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        />
+                          className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          />
                       </div>
 
                       {fieldState.invalid && (
@@ -626,7 +619,7 @@ function SignUpForm() {
                   <span className="block w-full rounded-md shadow-sm">
                     <button
                       type="submit"
-                      className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                      className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#37B9F1] hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
                       disabled={formState.isSubmitting}
                     >
                       {formState.isSubmitting

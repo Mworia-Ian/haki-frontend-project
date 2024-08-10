@@ -3,9 +3,9 @@ import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 
 // const socket = io("http://localhost:5000");
-// const socket = io("http://your-server-address:port");
+const socket = io("http://your-server-address:port");
 
-const Chat = () => {
+const ClientChat = () => {
   const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
@@ -45,7 +45,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-black">
+    <div className="flex flex-col items-center justify-center h-screen bg-#c7c55b">
       <div
         className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md"
         style={{ background: "linear-gradient(144deg, #1827f5, #131204 75%)" }}
@@ -61,13 +61,13 @@ const Chat = () => {
             messages.map((msg, index) => (
               <p
                 key={index}
-                className="bg-gray-700 text-white p-3 rounded-lg shadow-md"
+                className="bg-white text-black p-3 rounded-lg shadow-md"
               >
                 {msg}
               </p>
             ))
           ) : (
-            <p className="bg-gray-700 text-white p-3 rounded-lg shadow-md">
+            <p className="bg-white text-black p-3 rounded-lg shadow-md">
               No messages available.
             </p>
           )}
@@ -106,4 +106,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ClientChat;
