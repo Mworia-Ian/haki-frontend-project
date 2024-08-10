@@ -25,7 +25,6 @@ function App() {
           <Route path="/clientchat" element={<ClientChat />} />
         </Routes>
       </div>
-      {/* <Footer /> */}
     </Router>
   );
 }
