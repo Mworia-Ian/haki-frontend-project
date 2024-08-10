@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUpForm from './components/SignUpForm';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Welcome from './components/Welcome'
 import Landing from './pages/Landing';
 import LawyerProfile from './pages/LawyerProfile';
 import LawyersGrid from './pages/LawyersGrid';
-import Chat from './pages/Chat';
-import Footer from './components/Footer';
+import ClientChat from './pages/ClientChat';
 
 function App() {
   return (
@@ -17,14 +17,14 @@ function App() {
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/welcome" element={<Welcome />} />
           <Route path="/" element={<Landing />} />
           <Route path="/profile" element={<LawyerProfile />} />
           <Route path="/lawyers" element={<LawyersGrid />} />
           <Route path="/lawyers/:id" element={<LawyerProfile />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/clientchat" element={<ClientChat />} />
         </Routes>
       </div>
-      <Footer />
     </Router>
   );
 }
