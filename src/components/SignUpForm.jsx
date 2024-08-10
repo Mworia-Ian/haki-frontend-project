@@ -194,7 +194,7 @@ function SignUpForm() {
         className="w-[500px] mx-auto my-4 rounded-xl drop-shadow-2xl"
         src="src/assets/images/Plane-Hi-Sign--Streamline-Ux.svg"
       />
-      
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-[#F2F5F5]  py-8 px-4 drop-shadow-2xl sm:rounded-xl sm:px-10">
           <h2 className="text-[#37B9F1] font-bold text-2xl">
@@ -253,6 +253,7 @@ function SignUpForm() {
                       type="text"
                       required
                       className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      {...field}
                     />
                   </div>
                   {fieldState.invalid && (
@@ -419,7 +420,7 @@ function SignUpForm() {
                           required
                           {...field}
                           className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                          />
+                        />
                       </div>
 
                       {fieldState.invalid && (
@@ -604,7 +605,7 @@ function SignUpForm() {
                           required
                           {...field}
                           className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                          />
+                        />
                       </div>
 
                       {fieldState.invalid && (
