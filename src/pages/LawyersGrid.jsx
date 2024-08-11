@@ -32,7 +32,7 @@ const LawyersGrid = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
         {filteredLawyers.length > 0 ? (
           filteredLawyers.map((lawyer) => (
-            <div key={lawyer.id} className="mb-10">
+            <div key={lawyer.id} className="mb-5">
               <LawyersCard lawyer={lawyer} />
             </div>
           ))
@@ -42,7 +42,7 @@ const LawyersGrid = () => {
           </div>
         )}
       </div>
-      <Footer />
+      <Footer  />
     </div>
   );
 };
