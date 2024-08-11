@@ -55,31 +55,31 @@ function ClientHome() {
       </div>
       <div className="flex items-center w-full py-[3rem] px-4">
         <div className="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-8">
-          <div class="max-w-sm bg-[#F2F5F5] border border-[#F2F5F5] rounded-lg shadow flex flex-col items-center">
+          <div className="max-w-sm bg-[#F2F5F5] border border-[#F2F5F5] rounded-lg shadow flex flex-col items-center">
             <a href="#">
               <img
-                class="rounded-t-lg"
+                className="rounded-t-lg"
                 src="src/assets/images/8778031.jpg"
                 alt=""
               />
             </a>
-            <div class="p-5">
+            <div className="p-5">
               <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#37B9F1]">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-[#37B9F1]">
                   Find Lawyers
                 </h5>
               </a>
-              <p class="mb-3 font-normal text-[#242d2d]">
+              <p className="mb-3 font-normal text-[#242d2d]">
                 Search through our extensive database for a lawyer. Tailored to
                 your needs
               </p>
               <a
                 href="#"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#55add3] focus:ring-4 focus:outline-none"
+                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#55add3] focus:ring-4 focus:outline-none"
               >
                 Find Lawyers
                 <svg
-                  class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                  className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -96,31 +96,31 @@ function ClientHome() {
               </a>
             </div>
           </div>
-          <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+          <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
             <a href="#">
               <img
-                class="rounded-t-lg"
+                className="rounded-t-lg"
                 src="src/assets/images/8170228.jpg"
                 alt=""
               />
             </a>
-            <div class="p-5">
+            <div className="p-5">
               <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#37B9F1]">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-[#37B9F1]">
                   Cases
                 </h5>
               </a>
-              <p class="mb-3 font-normal text-[#242d2d]">
+              <p className="mb-3 font-normal text-[#242d2d]">
                 Create a case, view your past cases and check the status of your
                 ongoing cases.
               </p>
               <a
                 href="#"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#55add3] focus:ring-4 focus:outline-none"
+                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#55add3] focus:ring-4 focus:outline-none"
               >
                 Cases
                 <svg
-                  class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                  className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
