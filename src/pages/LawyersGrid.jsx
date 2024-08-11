@@ -27,24 +27,74 @@ const LawyersGrid = () => {
   );
 
   return (
-    <div className="container mx-auto px-4 bg-#c7c55b">
-      <LawyerSearch setSearchTerm={setSearchTerm} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
-        {filteredLawyers.length > 0 ? (
-          filteredLawyers.map((lawyer) => (
-            <div key={lawyer.id} className="mb-10">
-              <LawyersCard lawyer={lawyer} />
+    <>
+      <div className="container mx-auto px-4 bg-#c7c55b">
+        <LawyerSearch setSearchTerm={setSearchTerm} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          {filteredLawyers.length > 0 ? (
+            filteredLawyers.map((lawyer) => (
+              <div key={lawyer.id} className="mb-1">
+                <LawyersCard lawyer={lawyer} />
+              </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center text-black mt-10">
+              <p>Lawyer not found.</p>
             </div>
-          ))
-        ) : (
-          <div className="col-span-full text-center text-black mt-10">
-            <p>Lawyer not found.</p>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 
 export default LawyersGrid;
+
+// import React, { useState, useEffect } from 'react';
+// import LawyersCard from './LawyersCard';
+// import LawyerSearch from './LawyerSearch';
+// import Footer from '../components/Footer';
+
+// const LawyersGrid = () => {
+//   const [lawyers, setLawyers] = useState([]);
+//   const [searchTerm, setSearchTerm] = useState('');
+
+//   useEffect(() => {
+//     fetch('http://localhost:5000/lawyers')
+//       .then((response) => response.json())
+//       .then((data) => setLawyers(data))
+//       .catch((error) => console.error('Error fetching lawyers:', error));
+//   }, []);
+
+//   const filteredLawyers = lawyers.filter((lawyer) =>
+//     lawyer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+//     lawyer.specialization.toLowerCase().includes(searchTerm.toLowerCase())
+//   );
+
+//   return (
+//     <>
+//       <div className="container mx-auto px-4">
+//         <h1 className="text-2xl font-bold text-center mb-4">Our Lawyers</h1>
+//         <LawyerSearch setSearchTerm={setSearchTerm} />
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+//           {filteredLawyers.length > 0 ? (
+//             filteredLawyers.map((lawyer) => (
+//               <div key={lawyer.id} className="mb-4">
+//                 <LawyersCard lawyer={lawyer} />
+//               </div>
+//             ))
+//           ) : (
+//             <div className="col-span-full text-center text-black mt-10">
+//               <p>Lawyer not found.</p>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//       <Footer />
+//     </>
+//   );
+// };
+
+// export default LawyersGrid;
+
