@@ -3,9 +3,7 @@ import ClientHome from "./ClientHome";
 import LawyerHome from "../components/LawyerHome";
 
 function Home() {
-  const user = {role: "lawyer" };
-  
-
+  const user = {role: "client" };
   return (
     <div>
       <div>

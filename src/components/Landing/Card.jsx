@@ -11,7 +11,7 @@ function Card() {
             alt="/"
           />
           <h2 className="text-2xl font-bold text-center py-8 text-[#242d2d]">Membership</h2>
-          <p className="text-center text-4xl font-bold">KES 450/Month</p>
+          <p className="text-center text-4xl font-bold">KES 150/Month</p>
           <div className="text-center font-medium">
             <p className="py-2 border-b mx-8 mt-8">Unrestricted Access</p>
             <p className="py-2 border-b mx-8">Direct Contact with Lawyers</p>
