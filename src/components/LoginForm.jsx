@@ -2,6 +2,8 @@ import React from "react";
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+
 function LoginForm() {
   const schema = z.object({
     email: z
@@ -22,29 +24,23 @@ function LoginForm() {
     console.log(values);
     reset();
   };
+
+  const navigate = useNavigate();
   return (
     <>
-      <section className="bg-gray-50 dark:bg-gray-900">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <a
-            href="#"
-            className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-          >
-            <img
-              className="w-8 h-8 mr-2"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-              alt="logo"
-            />
-            Welcome Back
-          </a>
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <section className="bg-[#F2F5F5]">
+        <div className="flex flex-col-2 items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 gap-52">
+          <div>
+            <img className="w-[400px] mx-auto my-4 rounded-full drop-shadow-md" src="src/assets/images/Login.jpg"/>
+          </div>
+          <div className="w-full bg-[#F2F5F5] drop-shadow-2xl rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-[#37B9F1] md:text-2xl">
                 Sign in to your account
               </h1>
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="space-y-4 md:space-y-6"
+                className="space-y-4 md:space-y-6 bg-[#F2F5F5]"
                 noValidate
               >
                 <Controller
@@ -54,7 +50,7 @@ function LoginForm() {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="block mb-2 text-sm font-medium text-[#37B9F1]"
                       >
                         Your email
                       </label>
@@ -62,7 +58,7 @@ function LoginForm() {
                         type="email"
                         name="email"
                         id="email"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="border-b border-[#37B9F1] bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#37B9F1] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         placeholder="name@company.com"
                         required
                         {...field}
@@ -82,7 +78,7 @@ function LoginForm() {
                     <div>
                       <label
                         htmlFor="password"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="block mb-2 text-sm font-medium text-[#37B9F1]"
                       >
                         Password
                       </label>
@@ -90,7 +86,7 @@ function LoginForm() {
                         type="password"
                         id="password"
                         placeholder="••••••••"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="border-b border-[#37B9F1] bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#37B9F1] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         required
                         {...field}
                       />
@@ -104,19 +100,19 @@ function LoginForm() {
                 />
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">
-                    <div className="flex items-center h-5">
+                    <div className="flex items-center h-5 border-[#37B9F1]">
                       <input
                         id="remember"
                         aria-describedby="remember"
                         type="checkbox"
-                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                        className="w-4 h-4 border border-[#37B9F1] rounded bg-[#37B9F1] focus:ring-3 focus:ring-primary-300"
                         required=""
                       />
                     </div>
                     <div className="ml-3 text-sm">
                       <label
                         htmlFor="remember"
-                        className="text-gray-500 dark:text-gray-300"
+                        className="text-[#37B9F1]"
                       >
                         Remember me
                       </label>
@@ -125,16 +121,17 @@ function LoginForm() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 "
+                  className="w-full text-white bg-[#37B9F1] hover:bg-[#46adda] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800 "
                   disabled={formState.isSubmitting}
                 >
                   {formState.isSubmitting ? "Signing in...." : "Sign in"}
                 </button>
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                <p className="text-sm font-light text-[#242d2d]">
                   Don't have an account yet?
                   <a
+                    onClick={() => navigate("/signup")}
                     href="#"
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    className="ml-2 font-medium text-[#37B9F1] hover:underline dark:text-primary-500"
                   >
                     Sign up
                   </a>

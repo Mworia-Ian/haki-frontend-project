@@ -2,8 +2,8 @@ import { Link } from "react-scroll";
 
 function Nav() {
   return (
-    <div className="flex justify-between border-b-2 border-[#37B9F1] items-center h-24 mx-auto px-4 text-white bg-[#F2F5F5] w-full mb-10">
-      <h1 className="w-full text-3xl font-bold  text-[#37B9F1] hover:text-[#242d2d] pl-7">
+    <div className="flex justify-between items-center h-24 mx-auto px-4 bg-[#F2F5F5] w-full mb-10">
+      <h1 className="w-full text-3xl font-bold  pl-7">
         <a href="#">Haki</a>
       </h1>
       <ul className="flex text-[#37B9F1] pr-7 ">

@@ -1,11 +1,13 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar"
 
 function Home() {
   const user = { name: "John Doe", role: "client" };
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Navbar />
       <div className="flex min-h-screen items-center justify-center">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <h1 className="mb-4 text-2xl font-bold text-center text-blue-700">
@@ -22,6 +24,7 @@ function Home() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

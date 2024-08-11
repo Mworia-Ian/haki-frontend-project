@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClient } from "@supabase/supabase-js";
+
 function SignUpForm() {
   const navigate = useNavigate();
   const supabaseUrl = "https://xjwquyggfukertlnbeqp.supabase.co";
@@ -151,9 +152,7 @@ function SignUpForm() {
             supabase.storage.from("files").upload(photoPath, photoFile)
           );
         }
-        // Wait for all uploads to complete
         const uploadResults = await Promise.all(uploadPromises);
-        // Get public URLs for uploaded files
         const publicUrls = await Promise.all(
           uploadResults.map(async (result) => {
             if (result.error) {
@@ -187,9 +186,10 @@ function SignUpForm() {
   };
 
   const roleValue = watch("role");
+  
 
   return (
-    <div className="min-h-screen bg-[#F2F5F5] flex justify-center py-12 sm:px-6 lg:px-8">
+    <div id="signup" className="min-h-screen bg-[#F2F5F5] flex justify-center py-12 sm:px-6 lg:px-8">
       <img
         className="w-[500px] mx-auto my-4 rounded-xl drop-shadow-2xl"
         src="src/assets/images/Plane-Hi-Sign--Streamline-Ux.svg"
@@ -200,6 +200,7 @@ function SignUpForm() {
           <h2 className="text-[#37B9F1] font-bold text-2xl">
             Sign Up |{" "}
             <a
+              onClick={() => navigate("/login")}
               href="#"
               className="font-normal text-[#37B9F1] hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
             >
