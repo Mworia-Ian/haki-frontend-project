@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="shadow bg-[#37B9F1] w-full m-0 p-0">
+    <footer className="sticky shadow bg-[#37B9F1] w-full m-0 p-0">
       <div className="w-full  p-3 flex flex-col md:flex-row md:items-center md:justify-between">
         <span className="text-lg text-[#242d2d] text-center">
           © 2024{" "}
