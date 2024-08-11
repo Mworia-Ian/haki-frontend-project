@@ -1,4 +1,3 @@
-// src/pages/LawyersCard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -13,8 +12,9 @@ const LawyersCard = ({ lawyer }) => {
   } = lawyer;
 
   return (
-    <div className="w-auto max-w-sm h-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-5 p-4 ml-10 hover:scale-105 duration-300"
-      style={{ background: 'linear-gradient(144deg, #1827f5, #131204 75%)' }}>
+    <div
+      className="w-auto max-w-sm h-auto bg-white border rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-5 p-4 ml-10 hover:scale-105 duration-300"
+    >
       <div className="flex flex-col items-center pb-10">
         <img
           className="w-60 h-60 mb-3 rounded-full shadow-lg mt-4"
@@ -25,20 +25,20 @@ const LawyersCard = ({ lawyer }) => {
             height: '250px',
             borderRadius: '100%',
             objectFit: 'cover',
-            background: '#e8e8e8',
+            background: '#040000d7',
           }}
         />
-        <h5 className="mb-1 text-xl font-medium text-white dark:text-white">
-          Name:  {name}
+        <h5 className="mb-1 text-xl font-medium text-black dark:text-white">
+          Name: {name}
         </h5>
-        <span className="text-xl text-white dark:text-gray-400">
-          Specialization:  {specialization}
+        <span className="text-xl text-black dark:text-gray-400">
+          Specialization: {specialization}
         </span>
-        <span className="text-xl text-white dark:text-gray-400">
-          Years of experience:  {experience} years
+        <span className="text-xl text-black dark:text-gray-400">
+          Years of experience: {experience} years
         </span>
-        <span className="text-xl text-white dark:text-gray-400">
-          Rate:  KES  {rate_per_hour}/hour
+        <span className="text-xl text-black dark:text-gray-400">
+          Rate: KES {rate_per_hour}/hour
         </span>
         <div className="flex mt-4 md:mt-6">
           <Link
