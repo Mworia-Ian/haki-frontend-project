@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import About from "../components/Landing/About";
 import Card from "../components/Landing/Card";
 import Intro from "../components/Landing/Intro";
@@ -10,6 +11,7 @@ function Landing() {
       <Intro />
       <About />
       <Card />
+      <Footer />
     </div>
   );
 }
