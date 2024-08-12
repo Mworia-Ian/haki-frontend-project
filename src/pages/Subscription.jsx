@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const schema = z.object({
   phoneNumber: z
@@ -11,12 +12,12 @@ const schema = z.object({
       /^07\d{8}$/,
       "Phone number must start with 07 and have 10 digits in total"
     )
-    .min(10, "Phone number must be 10 digits")
-    .max(10, "Phone number must be 10 digits"),
+    .length(10, "Phone number must be 10 digits"),
 });
 
 function Subscription() {
   const navigate = useNavigate();
+  const [transactionId, setTransactionId] = useState(null);
   const {
     register,
     handleSubmit,
@@ -25,16 +26,77 @@ function Subscription() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  // Poll the payment status at intervals to check if the payment was successful
+  const pollPaymentStatus = async (transactionId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/payment_status/${transactionId}`, {
+        headers: {
+          Authorization: `Bearer ${yourJWTtoken}`, // Replace with actual JWT token
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await response.json();
+  
+      if (response.ok) {
+        if (result.status === 'completed') {
+          toast.success("Payment received successfully!");
+        } else {
+          toast.error("Payment not completed. Please try again.");
+        }
+      } else {
+        toast.error(`Error: ${result.error}`);
+      }
+    } catch (error) {
+      toast.error("Something went wrong while checking the payment status.");
+      console.error("Error during payment status check:", error);
+    }
   };
+  
+  
+
+  // Handle form submission
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch("http://localhost:5000/stk_push", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${yourJWTtoken}`, // Replace with actual JWT token
+        },
+        body: JSON.stringify({
+          phone: data.phoneNumber,
+          amount: 1, // Example amount
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success("STK Push initiated. Please complete the payment.");
+        setTransactionId(result.transaction_id);
+
+        // Start polling the payment status every 10 seconds
+        const pollingInterval = setInterval(() => {
+          pollPaymentStatus(result.transaction_id).then(() => {
+            clearInterval(pollingInterval); // Stop polling once payment status is checked
+          });
+        }, 10000);
+      } else {
+        toast.error(`Error: ${result.error}`);
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <div>
+      <Toaster />
       <div className="flex justify-between items-center h-24 mx-auto px-4 bg-[#F2F5F5] w-full mb-3">
-        <h1 className="w-full text-3xl font-bold  pl-7 text-[#37B9F1] hover:text-[#6ab6d6]">
+        <h1 className="w-full text-3xl font-bold pl-7 text-[#37B9F1] hover:text-[#6ab6d6]">
           <a href="#">Haki</a>
         </h1>
-        <ul className="flex text-[#37B9F1] pr-7 ">
+        <ul className="flex text-[#37B9F1] pr-7">
           <a onClick={() => navigate("/home")}>
             <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">
               Home
@@ -49,7 +111,7 @@ function Subscription() {
 
           <a onClick={() => navigate("/subscriptions")}>
             <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">
-              Subcribe
+              Subscribe
             </li>
           </a>
         </ul>
@@ -66,14 +128,14 @@ function Subscription() {
       >
         <div className="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-52 items-center">
           <div className="w-[400px] mx-auto my-4 rounded-full">
-            <img src="src/assets/images/Subscribe-01.png" />
+            <img src="src/assets/images/Subscribe-01.png" alt="Subscription" />
           </div>
 
           <div className="w-full shadow-2xl bg-[#F2F5F5] text-[#242d2d] flex flex-col py-12 px-0 md:my-0 my-8 rounded-lg hover:scale-105 duration-300">
             <img
               className="w-20 mx-auto mt-[3rem] bg-transparent"
               src="src/assets/reshot-icon-justice-XH4D3B8RWF.svg"
-              alt="/"
+              alt="Justice Icon"
             />
             <h2 className="text-2xl font-bold text-center py-8 text-[#242d2d]">
               Membership
