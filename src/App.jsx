@@ -7,6 +7,7 @@ import LawyerProfile from "./pages/LawyerProfile";
 import LawyersGrid from "./pages/LawyersGrid";
 import Login from "./pages/Login";
 import ClientChat from "./pages/ClientChat";
+import Subscription from "./pages/Subscription";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/lawyers" element={<LawyersGrid />} />
           <Route path="/lawyers/:id" element={<LawyerProfile />} />
           <Route path="/clientchat" element={<ClientChat />} />
+          <Route path="/subscriptions" element={<Subscription />} />
         </Routes>
       </div>
     </Router>

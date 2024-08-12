@@ -25,7 +25,7 @@ function ClientHome() {
             </li>
           </a>
 
-          <a onClick={() => navigate("")}>
+          <a onClick={() => navigate("/subscriptions")}>
             <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">
               Subcribe
             </li>
@@ -74,7 +74,7 @@ function ClientHome() {
                 your needs
               </p>
               <a
-                href="#"
+                onClick={() => navigate("/lawyers")}
                 className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#55add3] focus:ring-4 focus:outline-none"
               >
                 Find Lawyers

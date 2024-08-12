@@ -41,18 +41,17 @@ const ClientChat = () => {
   };
 
   const handleBackClick = () => {
-    navigate(-1); // Go back one step in history
+    navigate(-1);
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-#c7c55b">
       <div
-        className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md"
-        style={{ background: "linear-gradient(144deg, #1827f5, #131204 75%)" }}
+        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md drop-shadow-2xl"
       >
         <button
           onClick={handleBackClick}
-          className="bg-blue-600 hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 rounded-lg mb-4 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-2 px-4 rounded-lg mb-4 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Back
         </button>
@@ -61,13 +60,13 @@ const ClientChat = () => {
             messages.map((msg, index) => (
               <p
                 key={index}
-                className="bg-white text-black p-3 rounded-lg shadow-md"
+                className="bg-[#37B9F1]text-black p-3 rounded-lg shadow-md"
               >
                 {msg}
               </p>
             ))
           ) : (
-            <p className="bg-white text-black p-3 rounded-lg shadow-md">
+            <p className="bg-[#37B9F1] text-white p-3 rounded-lg shadow-md">
               No messages available.
             </p>
           )}
@@ -81,7 +80,7 @@ const ClientChat = () => {
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="flex-1 bg-gray-900 border border-blue-500 rounded-lg px-2 py-1 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="flex-1 bg-[#37B9F1] hover:bg-[#32a6d8] border border-blue-500 rounded-lg px-2 py-1 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-600"
               />
               <input
                 type="text"
@@ -89,13 +88,13 @@ const ClientChat = () => {
                 placeholder="Type a message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="flex-1 bg-gray-900 border border-blue-500 rounded-lg px-2 py-1 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="flex-1 bg-[#37B9F1] hover:bg-[#32a6d8] border border-blue-500 rounded-lg px-2 py-1 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-600"
               />
             </div>
             <button
               id="sendBtn"
               onClick={sendMessage}
-              className="bg-blue-600 text-lg text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-2 px-4 rounded-lg  focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Send
             </button>

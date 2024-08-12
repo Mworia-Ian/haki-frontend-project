@@ -14,7 +14,7 @@ const LawyersCard = ({ lawyer }) => {
   return (
     <div className="flex items-center w-full py-[1rem] px-1">
       <div className="w-auto max-w-[1240px] mx-auto grid md:grid-cols-2 ">
-        <div className="w-[350px] bg-white border border-[#F2F5F5] rounded-lg shadow flex flex-col items-center mb-1 drop-shadow-xl">
+        <div className="w-[350px] bg-white border border-[#F2F5F5] rounded-lg shadow flex flex-col items-center mb-1 drop-shadow-2xl">
           <div className="flex flex-col items-center pb-10">
             <img
               className="w-60 h-60 mb-3 rounded-full shadow-lg mt-4"
