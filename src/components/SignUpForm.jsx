@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClient } from "@supabase/supabase-js";
+import { SERVER_URL } from "../../utils";
 
 function SignUpForm() {
   const navigate = useNavigate();
@@ -12,12 +13,12 @@ function SignUpForm() {
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   const schema = z.object({
-    first_name: z
+    firstname: z
       .string({
         required_error: "First Name is required",
       })
       .min(1, { message: "First Name is required" }),
-    last_name: z
+    lastname: z
       .string({
         required_error: "Last Name is required",
       })
@@ -27,7 +28,7 @@ function SignUpForm() {
         required_error: "Role is required",
       })
       .min(1, { message: "Role is required" }),
-    phone_number: z
+    phone: z
       .string({
         required_error: "Phone Number must be 10 characters",
       })
@@ -114,10 +115,10 @@ function SignUpForm() {
   const { control, formState, reset, watch, handleSubmit } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      first_name: "",
-      last_name: "",
+      firstname: "",
+      lastname: "",
       role: "",
-      phone_number: "",
+      phone: "",
       email: "",
       id: "",
       area_of_residence: "",
@@ -130,7 +131,6 @@ function SignUpForm() {
     },
   });
   const onSubmit = async (values, e) => {
-    console.log(values.photo[0]);
     if (values?.role === "lawyer") {
       try {
         // your submission logic here...
@@ -166,11 +166,26 @@ function SignUpForm() {
         );
         const resultValues = {
           ...values,
-          documentUrl: publicUrls[0],
-          photoUrl: publicUrls[1],
+          qualification_certificate: publicUrls[0],
+          image: publicUrls[1],
+          id_no: Number(values.id),
+          rate_per_hour: Number(values.rate),
+          years_of_experience: Number(values.experience),
         };
-
         console.log(resultValues);
+        await fetch(`${SERVER_URL}/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...resultValues,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
+
         reset();
       } catch (error) {
         console.error(error);
@@ -178,6 +193,20 @@ function SignUpForm() {
     } else {
       try {
         console.log(values);
+        await fetch(`${SERVER_URL}/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...values,
+            id_no: Number(values.id),
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
+
         reset();
       } catch (error) {
         console.error(error);
@@ -215,7 +244,7 @@ function SignUpForm() {
             </h2>
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
               <Controller
-                name="first_name"
+                name="firstname"
                 control={control}
                 render={({ field, fieldState }) => (
                   <div className="mt-6">
@@ -243,7 +272,7 @@ function SignUpForm() {
               />
 
               <Controller
-                name="last_name"
+                name="lastname"
                 control={control}
                 render={({ field, fieldState }) => (
                   <div className="mt-6">
@@ -325,7 +354,7 @@ function SignUpForm() {
                 )}
               />
               <Controller
-                name="phone_number"
+                name="phone"
                 control={control}
                 render={({ field, fieldState }) => (
                   <div className="mt-6">
