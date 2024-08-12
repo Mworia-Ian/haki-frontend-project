@@ -173,7 +173,7 @@ const LawyersGrid = () => {
           )}
         </div>
       </div>
-      <Footer />
+      <Footer className ="sticky bottom-0" />
     </>
   );
 };
