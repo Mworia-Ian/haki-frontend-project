@@ -260,7 +260,7 @@ function SignUpForm() {
                         placeholder="John"
                         type="text"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -288,7 +288,7 @@ function SignUpForm() {
                         placeholder="Doe"
                         type="text"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -312,7 +312,7 @@ function SignUpForm() {
                     <select
                       name="role"
                       required
-                      className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       {...field}
                     >
                       <option value="">Select a Role</option>
@@ -342,7 +342,7 @@ function SignUpForm() {
                         placeholder="user@example.com"
                         type="email"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -370,7 +370,7 @@ function SignUpForm() {
                         placeholder="0712345678"
                         type="text"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -398,7 +398,7 @@ function SignUpForm() {
                         placeholder="12345678"
                         type="text"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -425,7 +425,7 @@ function SignUpForm() {
                         placeholder="Nairobi"
                         type="text"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -455,7 +455,7 @@ function SignUpForm() {
                             type="password"
                             required
                             {...field}
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                           />
                         </div>
 
@@ -500,7 +500,7 @@ function SignUpForm() {
                             placeholder="20"
                             type="text"
                             required
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                             {...field}
                           />
                         </div>
@@ -530,7 +530,7 @@ function SignUpForm() {
                             placeholder="Family Law"
                             type="text"
                             required
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                             {...field}
                           />
                         </div>
@@ -559,7 +559,7 @@ function SignUpForm() {
                             placeholder="2000"
                             type="text"
                             required
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                             {...field}
                           />
                         </div>
@@ -640,7 +640,7 @@ function SignUpForm() {
                             type="password"
                             required
                             {...field}
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                           />
                         </div>
 
