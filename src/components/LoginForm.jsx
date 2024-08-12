@@ -1,10 +1,18 @@
-import React from "react";
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-
+import { SERVER_URL } from "../../utils";
+import toast from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
   const schema = z.object({
     email: z
       .string()
@@ -20,9 +28,38 @@ function LoginForm() {
     },
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
-    reset();
+  const onSubmit = async (values) => {
+    await fetch(`${SERVER_URL}/login`, {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "fail") {
+          toast.error(data.message);
+        } else {
+          const user = data.user;
+          const accessToken = data.access_token;
+          // save user session to local storage
+          localStorage.setItem(
+            "session",
+            JSON.stringify({ user, accessToken })
+          );
+          toast.success(data.message);
+          console.log(user);
+          if (user?.role === "lawyer") {
+            reset();
+            navigate("/profile");
+          } else {
+            reset();
+            navigate("/");
+          }
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const navigate = useNavigate();
@@ -34,7 +71,10 @@ function LoginForm() {
       <section className="bg-[#F2F5F5]">
         <div className="flex flex-col-2 items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 gap-52">
           <div>
-            <img className="w-[400px] mx-auto my-4 rounded-full drop-shadow-md" src="src/assets/images/Login.jpg"/>
+            <img
+              className="w-[400px] mx-auto my-4 rounded-full drop-shadow-md"
+              src="src/assets/images/Login.jpg"
+            />
           </div>
           <div className="w-full bg-[#F2F5F5] drop-shadow-2xl rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -79,20 +119,30 @@ function LoginForm() {
                   control={control}
                   render={({ field, fieldState }) => (
                     <div>
-                      <label
-                        htmlFor="password"
-                        className="block mb-2 text-sm font-medium text-[#37B9F1]"
-                      >
-                        Password
-                      </label>
-                      <input
-                        type="password"
-                        id="password"
-                        placeholder="••••••••"
-                        className="border-b border-[#37B9F1] bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#37B9F1] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        required
-                        {...field}
-                      />
+                      <div>
+                        <label
+                          htmlFor="password"
+                          className="block mb-2 text-sm font-medium text-[#37B9F1]"
+                        >
+                          Password
+                        </label>
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          id="password"
+                          placeholder="••••••••"
+                          className="border-b border-[#37B9F1] bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#37B9F1] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          required
+                          {...field}
+                        />
+                        <span
+                          onClick={togglePasswordVisibility}
+                          className="absolute inset-y-20 top-[6rem] right-[10px] pr-[25px] pl-[20px] flex items-center cursor-pointer"
+                        >
+                          <FontAwesomeIcon
+                            icon={showPassword ? faEyeSlash : faEye}
+                          />
+                        </span>
+                      </div>
                       {fieldState.invalid && (
                         <p className="text-red-500">
                           {fieldState.error.message}
@@ -113,10 +163,7 @@ function LoginForm() {
                       />
                     </div>
                     <div className="ml-3 text-sm">
-                      <label
-                        htmlFor="remember"
-                        className="text-[#37B9F1]"
-                      >
+                      <label htmlFor="remember" className="text-[#37B9F1]">
                         Remember me
                       </label>
                     </div>
