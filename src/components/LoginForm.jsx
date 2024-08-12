@@ -4,8 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { SERVER_URL } from "../../utils";
 import toast from "react-hot-toast";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
   const schema = z.object({
     email: z
       .string()
@@ -111,20 +118,30 @@ function LoginForm() {
                   control={control}
                   render={({ field, fieldState }) => (
                     <div>
-                      <label
-                        htmlFor="password"
-                        className="block mb-2 text-sm font-medium text-[#37B9F1]"
-                      >
-                        Password
-                      </label>
-                      <input
-                        type="password"
-                        id="password"
-                        placeholder="••••••••"
-                        className="border-b border-[#37B9F1] bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#37B9F1] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        required
-                        {...field}
-                      />
+                      <div>
+                        <label
+                          htmlFor="password"
+                          className="block mb-2 text-sm font-medium text-[#37B9F1]"
+                        >
+                          Password
+                        </label>
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          id="password"
+                          placeholder="••••••••"
+                          className="border-b border-[#37B9F1] bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#37B9F1] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          required
+                          {...field}
+                        />
+                        <span
+                          onClick={togglePasswordVisibility}
+                          className="absolute inset-y-20 top-[6rem] right-[10px] pr-[25px] pl-[20px] flex items-center cursor-pointer"
+                        >
+                          <FontAwesomeIcon
+                            icon={showPassword ? faEyeSlash : faEye}
+                          />
+                        </span>
+                      </div>
                       {fieldState.invalid && (
                         <p className="text-red-500">
                           {fieldState.error.message}
