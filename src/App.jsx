@@ -3,7 +3,6 @@ import SignUpForm from "./components/SignUpForm";
 import Home from "./pages/Home";
 import Welcome from "./components/Welcome";
 import Landing from "./pages/Landing";
-
 import LawyerProfile from "./pages/LawyerProfile";
 import LawyersGrid from "./pages/LawyersGrid";
 import Login from "./pages/Login";
