@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 
 // const socket = io("http://localhost:5000");
-const socket = io("http://your-server-address:port");
+// const socket = io("http://your-server-address:port");
 
 const ClientChat = () => {
   const [messages, setMessages] = useState([]);
