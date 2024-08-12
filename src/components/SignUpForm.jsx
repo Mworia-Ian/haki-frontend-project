@@ -674,7 +674,7 @@ function SignUpForm() {
                           </div>
                           <span
                             onClick={togglePasswordVisibility}
-                            className="absolute inset-y-20 top-[73rem] right-[20px] pr-[25px] pl-[20px] flex cursor-pointer"
+                            className="absolute inset-y-20 top-[72rem] right-[20px] pr-[25px] pl-[20px] flex cursor-pointer"
                           >
                             <FontAwesomeIcon
                               icon={showPassword ? faEyeSlash : faEye}
