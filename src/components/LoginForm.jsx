@@ -52,7 +52,7 @@ function LoginForm() {
           console.log(user);
           if (user?.role === "lawyer") {
             reset();
-            navigate("/profile");
+            navigate("/home");
           } else {
             reset();
             navigate("/");

@@ -90,20 +90,20 @@ function Subscription() {
             </div>
             <div>
               <img
-                className="h-[100px] flex justify-center"
+                className="h-[100px] flex justify-center ml-28"
                 src="src/assets/images/M-PESA-logo-2.png"
               />
             </div>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="w-full max-w-sm mt-10 p-9"
+              className="w-full max-w-sm mt-3 p-9"
             >
-              <div className="flex items-center border-b border-[#37B9F1] py-2">
+              <div className="flex items-center border-b border-[#37B9F1]">
                 <input
                   {...register("phoneNumber")}
                   className="appearance-none bg-transparent border-none w-full text-[#242d2d]  mr-3 py-1 px-2 leading-tight focus:outline-none"
                   type="text"
-                  placeholder="07xxxxxxxx"
+                  placeholder="07XXXXXXXX"
                   aria-label="Phone number"
                 />
                 <button
