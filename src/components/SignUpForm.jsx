@@ -137,18 +137,18 @@ function SignUpForm() {
         // your submission logic here...
 
         const formData = new FormData(e.target);
-
+        const timestamp = Date.now();
         const uploadPromises = [];
         if (values?.document) {
           const documentFile = formData.get("document");
-          const documentPath = `documents/${documentFile.name}`;
+          const documentPath = `documents/${timestamp}_${documentFile.name}`;
           uploadPromises.push(
             supabase.storage.from("files").upload(documentPath, documentFile)
           );
         }
         if (values?.photo) {
           const photoFile = formData.get("photo");
-          const photoPath = `photos/${photoFile.name}`;
+          const photoPath = `photos/${timestamp}_${photoFile.name}`;
           uploadPromises.push(
             supabase.storage.from("files").upload(photoPath, photoFile)
           );
@@ -157,12 +157,12 @@ function SignUpForm() {
         const publicUrls = await Promise.all(
           uploadResults.map(async (result) => {
             if (result.error) {
-              throw new Error("Upload failed");
+              return { error: `Upload failed for path: ${result.data.path}` }; // Collect error info
             }
-            const { data } = await supabase.storage
+            const { data } = supabase.storage
               .from("files")
               .getPublicUrl(result.data.path);
-            return data.publicUrl;
+            return { publicUrl: data.publicUrl }; // Return an object containing the public URL
           })
         );
         const resultValues = {
@@ -185,17 +185,15 @@ function SignUpForm() {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             if (data.status === "fail") {
               toast.error(data.message);
             } else {
               toast.success(data.message);
+              reset();
+              navigate("/login");
             }
           })
           .catch((err) => toast.error(err));
-
-        reset();
-        navigate("/login");
       } catch (error) {
         toast.error(error);
       }
@@ -214,17 +212,15 @@ function SignUpForm() {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data.status);
             if (data.status === "fail") {
               toast.error(data.message);
             } else {
               toast.success(data.message);
+              reset();
+              navigate("/login");
             }
           })
           .catch((err) => console.log(err));
-
-        reset();
-        navigate("/login");
       } catch (error) {
         toast.error(error);
       }
