@@ -84,10 +84,15 @@ function Subscription() {
               <p className="py-2 border-b mx-8">Direct Contact with Lawyers</p>
               <p className="py-2 border-b mx-8">24hr Support</p>
               <h4 className="py-2 border- mx-8 text-">
-                {" "}
                 Please enter your MPesa number below to <br />
                 complete the payment
               </h4>
+            </div>
+            <div>
+              <img
+                className="h-[100px] flex justify-center"
+                src="src/assets/images/M-PESA-logo-2.png"
+              />
             </div>
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -102,7 +107,7 @@ function Subscription() {
                   aria-label="Phone number"
                 />
                 <button
-                  className="flex-shrink-0 bg-[#37B9F1] hover:bg-[#37B9F1] hover:border-[#37B9F1] text-sm border-4 text-white py-1 px-2 rounded-lg"
+                  className="flex-shrink-0 bg-[#0b8511] hover:bg-[#0b8511c4] text-sm border-4 text-white py-1 px-2 rounded-lg"
                   type="submit"
                 >
                   Subscribe
