@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const LawyersCard = ({ lawyer }) => {
+  console.log (lawyer)
+  // console.log (lawyer_details)
   const {
     image_url = 'url-to-image.jpg',
     name = 'John Doe',
@@ -11,6 +13,8 @@ const LawyersCard = ({ lawyer }) => {
     id = '1',
   } = lawyer;
 
+
+  console.log (lawyer.lawyer_details)
   return (
     <div className="flex items-center w-full py-[1rem] px-1">
       <div className="w-auto max-w-[1240px] mx-auto grid md:grid-cols-2 ">
@@ -18,7 +22,7 @@ const LawyersCard = ({ lawyer }) => {
           <div className="flex flex-col items-center pb-10">
             <img
               className="w-60 h-60 mb-3 rounded-full shadow-lg mt-4"
-              src={image_url}
+              src={['lawyer_details']['image']}
               alt={name}
               style={{
                 width: '250px',
@@ -29,16 +33,16 @@ const LawyersCard = ({ lawyer }) => {
               }}
             />
             <h5 className="mb-1 text-xl font-medium text-black dark:text-white">
-              Name: {name}
+              Name: {lawyer.firstname} {lawyer.lastname}
             </h5>
             <span className="text-xl text-black dark:text-gray-400">
-              Specialization: {specialization}
+              Specialization: {lawyer['lawyer_details']['specialization']}
             </span>
             <span className="text-xl text-black dark:text-gray-400">
-              Years of experience: {experience} years
+              Years of experience: {lawyer['lawyer_details']['years_of_experience']} years
             </span>
             <span className="text-xl text-black dark:text-gray-400">
-              Rate: KES {rate_per_hour}/hour
+              Rate: KES {lawyer['lawyer_details']['rate_per_hour']}/hour
             </span>
             <div className="flex mt-4 md:mt-6">
               <Link
