@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClient } from "@supabase/supabase-js";
 import { SERVER_URL } from "../../utils";
@@ -12,7 +14,11 @@ function SignUpForm() {
   const supabaseUrl = "https://xjwquyggfukertlnbeqp.supabase.co";
   const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
   const schema = z.object({
     firstname: z
       .string({
@@ -456,22 +462,31 @@ function SignUpForm() {
                     control={control}
                     render={({ field, fieldState }) => (
                       <div className="mt-6">
-                        <label
-                          htmlFor="password"
-                          className="block text-sm font-medium leading-5 text-[#37B9F1]"
-                        >
-                          Password
-                        </label>
-                        <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
-                          <input
-                            name="password"
-                            type="password"
-                            required
-                            {...field}
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                          />
+                        <div>
+                          <label
+                            htmlFor="password"
+                            className="block text-sm font-medium leading-5 text-[#37B9F1]"
+                          >
+                            Password
+                          </label>
+                          <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
+                            <input
+                              name="password"
+                              type={showPassword ? "text" : "password"}
+                              required
+                              {...field}
+                              className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            />
+                          </div>
+                          <span
+                            onClick={togglePasswordVisibility}
+                            className="absolute inset-y-20 top-[710px] right-[20px] pr-[25px] pl-[20px] flex cursor-pointer"
+                          >
+                            <FontAwesomeIcon
+                              icon={showPassword ? faEyeSlash : faEye}
+                            />
+                          </span>
                         </div>
-
                         {fieldState.invalid && (
                           <p className="text-red-500">
                             {fieldState.error.message}
@@ -641,22 +656,31 @@ function SignUpForm() {
                     control={control}
                     render={({ field, fieldState }) => (
                       <div className="mt-6">
-                        <label
-                          htmlFor="password"
-                          className="block text-sm font-medium leading-5 text-[#37B9F1]"
-                        >
-                          Password
-                        </label>
-                        <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
-                          <input
-                            name="password"
-                            type="password"
-                            required
-                            {...field}
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                          />
+                        <div>
+                          <label
+                            htmlFor="password"
+                            className="block text-sm font-medium leading-5 text-[#37B9F1]"
+                          >
+                            Password
+                          </label>
+                          <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
+                            <input
+                              name="password"
+                              type={showPassword ? "text" : "password"}
+                              required
+                              {...field}
+                              className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            />
+                          </div>
+                          <span
+                            onClick={togglePasswordVisibility}
+                            className="absolute inset-y-20 top-[73rem] right-[20px] pr-[25px] pl-[20px] flex cursor-pointer"
+                          >
+                            <FontAwesomeIcon
+                              icon={showPassword ? faEyeSlash : faEye}
+                            />
+                          </span>
                         </div>
-
                         {fieldState.invalid && (
                           <p className="text-red-500">
                             {fieldState.error.message}
