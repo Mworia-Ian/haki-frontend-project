@@ -13,7 +13,7 @@ function About() {
             alt="/"
           />
           <div className="flex flex-col justify-center">
-            <p className="text-[#242d2d] font-bold text-xl">
+            <p className="text-[#242d2d] font-bold text-2xl">
               About us
             </p>
             <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold py-2 text-[#37B9F1]">
@@ -22,7 +22,7 @@ function About() {
             <p className="text-[#242d2d]">
             Haki aims to connect everyday Kenyans with reliable legal representation. Our platform helps you find customized legal services that match your specific needs.
             </p>
-            <button onClick={() => navigate("/signup")} className="bg-[#37B9F1] text-[#242d2d] hover:bg-[#242d2d] hover:text-[#37B9F1] w-[200px] rounded-md font-medium my-6 mx-auto  md:mx-0 py-3 ">
+            <button onClick={() => navigate("/signup")} className="bg-[#37B9F1] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-white hover:bg-[#32a6d8] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
               Get Started
             </button>
           </div>
