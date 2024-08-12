@@ -28,7 +28,7 @@ function Intro() {
         <p className="md:text-2xl text-xl font-bold text-[#242d2d]">
           Let us help you find legal reps, tailored to your needs
         </p>
-        <button onClick={() => navigate("/signup")} className="bg-[#37B9F1] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-[#CBD4F4] hover:bg-[#242d2d] hover:text-[#37B9F1]">
+        <button onClick={() => navigate("/signup")} className="bg-[#37B9F1] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-white hover:bg-[#32a6d8] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           Get Started
         </button>
       </div>
