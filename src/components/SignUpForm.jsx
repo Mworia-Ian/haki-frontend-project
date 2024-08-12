@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClient } from "@supabase/supabase-js";
 import { SERVER_URL } from "../../utils";
+import toast from "react-hot-toast";
 
 function SignUpForm() {
   const navigate = useNavigate();
@@ -172,7 +173,7 @@ function SignUpForm() {
           rate_per_hour: Number(values.rate),
           years_of_experience: Number(values.experience),
         };
-        console.log(resultValues);
+
         await fetch(`${SERVER_URL}/signup`, {
           method: "POST",
           headers: {
@@ -183,12 +184,20 @@ function SignUpForm() {
           }),
         })
           .then((res) => res.json())
-          .then((data) => console.log(data))
-          .catch((err) => console.log(err));
+          .then((data) => {
+            console.log(data);
+            if (data.status === "fail") {
+              toast.error(data.message);
+            } else {
+              toast.success(data.message);
+            }
+          })
+          .catch((err) => toast.error(err));
 
         reset();
+        navigate("/login");
       } catch (error) {
-        console.error(error);
+        toast.error(error);
       }
     } else {
       try {
@@ -204,12 +213,20 @@ function SignUpForm() {
           }),
         })
           .then((res) => res.json())
-          .then((data) => console.log(data))
+          .then((data) => {
+            console.log(data.status);
+            if (data.status === "fail") {
+              toast.error(data.message);
+            } else {
+              toast.success(data.message);
+            }
+          })
           .catch((err) => console.log(err));
 
         reset();
+        navigate("/login");
       } catch (error) {
-        console.error(error);
+        toast.error(error);
       }
     }
   };
