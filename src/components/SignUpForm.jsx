@@ -168,7 +168,7 @@ function SignUpForm() {
             const { data } = supabase.storage
               .from("files")
               .getPublicUrl(result.data.path);
-            return { publicUrl: data.publicUrl }; // Return an object containing the public URL
+            return data.publicUrl; // Return an object containing the public URL
           })
         );
         const resultValues = {
@@ -179,7 +179,7 @@ function SignUpForm() {
           rate_per_hour: Number(values.rate),
           years_of_experience: Number(values.experience),
         };
-
+        console.log(resultValues);
         await fetch(`${SERVER_URL}/signup`, {
           method: "POST",
           headers: {
