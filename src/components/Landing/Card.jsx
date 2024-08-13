@@ -33,7 +33,7 @@ function Card() {
           <div className="text-center font-medium">
             <p className="py-2 border-b mx-8 mt-8">Restricted Access</p>
             <p className="py-2 border-b mx-8">No Direct Contact with Lawyers</p>
-            <p className="py-2 border- mx-8">8hr Support</p>
+            <p className="py-2 border- mx-8">4hr Support</p>
           </div>
           <button className="bg-[#242d2d] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-[#37B9F1] hover:bg-[#CBD4F4] hover:text-[#00636D]">
           Get Started
