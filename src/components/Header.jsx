@@ -1,10 +1,82 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoIosNotifications } from 'react-icons/io';
 import { MdOutlineMessage } from 'react-icons/md';
+import { parseISO, format } from 'date-fns';
 
 const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
-  const [showMessages, setShowMessages] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const fetchSubscriptionStatus = async () => {
+      try {
+        const session = JSON.parse(localStorage.getItem('session'))
+        const token = session?.accessToken
+        console.log('Retrieved token from localStorage:', token);
+
+        if (!token) {
+          console.error('No token found in localStorage');
+          setNotifications(["Error: No token found. Please log in again."]);
+          return;
+        }
+
+        const response = await fetch('http://localhost:5000/subscription', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        console.log('Response status:', response.status);
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Fetched subscription data:', data);
+
+          // Check if date fields are present
+          const { start_date, end_date } = data;
+          console.log('Raw start_date:', start_date);
+          console.log('Raw end_date:', end_date);
+
+          let formattedStartDate = 'N/A';
+          let formattedEndDate = 'N/A';
+
+          if (start_date && end_date) {
+            try {
+              // Attempt to parse and format dates
+              const startDate = parseISO(start_date);
+              const endDate = parseISO(end_date);
+
+              if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                throw new Error('Invalid date format');
+              }
+
+              formattedStartDate = format(startDate, 'MM/dd/yyyy');
+              formattedEndDate = format(endDate, 'MM/dd/yyyy');
+            } catch (error) {
+              console.error('Error parsing dates:', error);
+              setNotifications(["Error: Invalid date format received."]);
+              return;
+            }
+          } else {
+            console.warn('Date fields are missing in the response.');
+          }
+
+          setNotifications([`Your subscription is active from ${formattedStartDate} to ${formattedEndDate}.`]);
+        } else if (response.status === 404) {
+          console.warn('No active subscription found.');
+          setNotifications(["No active subscription found."]);
+        } else {
+          console.error('Failed to fetch subscription status:', response.statusText);
+          setNotifications(["Error fetching subscription status."]);
+        }
+      } catch (error) {
+        console.error('Error occurred while fetching subscription status:', error);
+        setNotifications(["Error fetching subscription status."]);
+      }
+    };
+
+    fetchSubscriptionStatus();
+  }, []);
 
   return (
     <div className="flex justify-end">
@@ -15,23 +87,20 @@ const Header = () => {
           </button>
           {showNotifications && (
             <div className="text-sm absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 z-10">
-              {/* Notifications content */}
-              <div className="px-4 py-2">Notification 1</div>
-              <div className="px-4 py-2">Notification 2</div>
+              {notifications.length > 0 ? (
+                notifications.map((notification, index) => (
+                  <div key={index} className="px-4 py-2">{notification}</div>
+                ))
+              ) : (
+                <div className="px-4 py-2">No notifications available.</div>
+              )}
             </div>
           )}
         </div>
         <div className="relative">
-          <button onClick={() => setShowMessages(!showMessages)}>
+          <button>
             <MdOutlineMessage />
           </button>
-          {showMessages && (
-            <div className="text-sm absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 z-10">
-              {/* Messages content */}
-              <div className="px-4 py-2">Message 1</div>
-              <div className="px-4 py-2">Message 2</div>
-            </div>
-          )}
         </div>
       </div>
     </div>
