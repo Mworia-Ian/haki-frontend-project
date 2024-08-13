@@ -10,6 +10,7 @@ import ClientChat from "./pages/ClientChat";
 import Subscription from "./pages/Subscription";
 import { UserProvider } from './UserContext';
 import { useState } from "react";
+import Cases from "./pages/Cases";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route path="/lawyers/:id" element={<LawyerProfile />} />
             <Route path="/clientchat" element={<ClientChat />} />
             <Route path="/subscriptions" element={<Subscription />} />
+            <Route path="/cases" element={<Cases />} />
           </Routes>
         </div>
       </Router>
