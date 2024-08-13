@@ -105,7 +105,7 @@ function Subscription() {
       <Toaster position="top-right" /> {/* Set toast position to the right */}
       <div className="flex justify-between items-center h-24 mx-auto px-4 bg-[#F2F5F5] w-full mb-3">
         <h1 className="w-full text-3xl font-bold pl-7 text-[#37B9F1] hover:text-[#6ab6d6]">
-          <a href="#">Haki</a>
+          <a onClick={() => navigate("/home")} href="#">Haki</a>
         </h1>
         <ul className="flex text-[#37B9F1] pr-7">
           <a onClick={() => navigate("/home")}>
