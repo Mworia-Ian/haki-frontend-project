@@ -10,7 +10,8 @@ const Header = () => {
   useEffect(() => {
     const fetchSubscriptionStatus = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const session = JSON.parse(localStorage.getItem('session'))
+        const token = session?.accessToken
         console.log('Retrieved token from localStorage:', token);
 
         if (!token) {

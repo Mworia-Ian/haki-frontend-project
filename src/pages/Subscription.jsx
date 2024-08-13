@@ -26,13 +26,15 @@ function Subscription() {
   } = useForm({
     resolver: zodResolver(schema),
   });
-
+  const session = JSON.parse(localStorage.getItem('session'))
+  const token = session?.accessToken
+  console.log(token);
   // Poll the payment status at intervals to check if the payment was successful
   const pollPaymentStatus = async (transactionId) => {
     try {
       const response = await fetch(`http://localhost:5000/payment_status/${transactionId}`, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzU0MTQwNiwianRpIjoiZTU5ZWNiZDktMTU1Mi00ZGE4LWE4NWYtN2ViYjRmYTkzYWRlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTQxNDA2LCJjc3JmIjoiOTE0MGYwZjItMmIyNS00ZTJlLTgxOTEtY2Y2ZTI0OGJlOTExIiwiZXhwIjoxNzIzNjI3ODA2LCJyb2xlIjoiY2xpZW50In0.i5fxnGtvf73wjXKUb_SnP9th-i_sVDcI6uZ2qPQEygE`, // Replace with actual JWT token
+          Authorization: `Bearer ${token}`, // Replace with actual JWT token
           "Content-Type": "application/json",
         },
       });
@@ -63,7 +65,7 @@ function Subscription() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzU0MTQwNiwianRpIjoiZTU5ZWNiZDktMTU1Mi00ZGE4LWE4NWYtN2ViYjRmYTkzYWRlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTQxNDA2LCJjc3JmIjoiOTE0MGYwZjItMmIyNS00ZTJlLTgxOTEtY2Y2ZTI0OGJlOTExIiwiZXhwIjoxNzIzNjI3ODA2LCJyb2xlIjoiY2xpZW50In0.i5fxnGtvf73wjXKUb_SnP9th-i_sVDcI6uZ2qPQEygE`, // Replace with actual JWT token
+          Authorization: `Bearer ${token}`, 
         },
         body: JSON.stringify({
           phone: data.phoneNumber,
