@@ -22,7 +22,7 @@ function About() {
             <p className="text-[#242d2d]">
             Haki aims to connect everyday Kenyans with reliable legal representation. Our platform helps you find customized legal services that match your specific needs.
             </p>
-            <button onClick={() => navigate("/signup")} className="bg-[#37B9F1] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-white hover:bg-[#32a6d8] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
+            <button onClick={() => navigate("/signup")} className="bg-[#37B9F1] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-white hover:bg-[#2cb0e9] focus:ring-4 focus:outline-none">
               Get Started
             </button>
           </div>

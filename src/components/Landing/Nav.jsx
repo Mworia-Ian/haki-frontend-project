@@ -23,11 +23,6 @@ function Nav() {
             Plans
           </li>
         </Link>
-        <Link to="Services" smooth={true} duration={500}>
-          <li className="p-4 hover:text-[#242d2d]  hover:scale-150 duration-300">
-            Services
-          </li>
-        </Link>
       </ul>
     </div>
   );
