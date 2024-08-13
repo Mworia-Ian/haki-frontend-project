@@ -11,6 +11,7 @@ import Subscription from "./pages/Subscription";
 import { UserProvider } from './UserContext';
 import { useState } from "react";
 
+
 function App() {
   const [user, setUser] = useState(() => {
     const savedSession = localStorage.getItem('session');
