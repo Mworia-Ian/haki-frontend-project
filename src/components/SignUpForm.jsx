@@ -171,8 +171,6 @@ function SignUpForm() {
             return data.publicUrl; // Return an object containing the public URL
           })
         );
-        const url = publicUrls[0];
-        console.log(url);
         const resultValues = {
           ...values,
           qualification_certificate: publicUrls[0],
