@@ -101,7 +101,7 @@ function SignUpForm() {
         }
       }
     }),
-    photo: z.string().superRefine((data, ctx) => {
+    image: z.string().superRefine((data, ctx) => {
       if (data?.role === "lawyer" && !data.photo) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -134,7 +134,7 @@ function SignUpForm() {
       specialization: "",
       rate: "",
       document: "",
-      photo: "",
+      image: "",
     },
   });
   const onSubmit = async (values, e) => {
@@ -152,8 +152,8 @@ function SignUpForm() {
             supabase.storage.from("files").upload(documentPath, documentFile)
           );
         }
-        if (values?.photo) {
-          const photoFile = formData.get("photo");
+        if (values?.image) {
+          const photoFile = formData.get("image");
           const photoPath = `photos/${timestamp}_${photoFile.name}`;
           uploadPromises.push(
             supabase.storage.from("files").upload(photoPath, photoFile)
@@ -171,6 +171,7 @@ function SignUpForm() {
             return data.publicUrl; // Return an object containing the public URL
           })
         );
+        console.log(publicUrls);
         const resultValues = {
           ...values,
           qualification_certificate: publicUrls[0],
@@ -600,7 +601,7 @@ function SignUpForm() {
                     )}
                   />
                   <Controller
-                    name="photo"
+                    name="image"
                     control={control}
                     render={({ field, fieldState }) => (
                       <div className="mt-6">
