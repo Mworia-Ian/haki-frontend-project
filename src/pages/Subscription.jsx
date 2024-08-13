@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { useUser } from "../UserContext";
 
 const schema = z.object({
   phoneNumber: z
@@ -31,7 +32,7 @@ function Subscription() {
     try {
       const response = await fetch(`http://localhost:5000/payment_status/${transactionId}`, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzUyNjQ0MiwianRpIjoiYTRhNmViZWItMmYzYS00MTMwLTlmZmYtNzMzMTRiMjRhMzliIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTI2NDQyLCJjc3JmIjoiNjJlMzMzM2EtZTkyMi00YmQxLWJlY2QtOWUwMThlMzhkODJmIiwiZXhwIjoxNzIzNjEyODQyLCJyb2xlIjoiY2xpZW50In0.-Fx-emRcRhIcPc2lNEP4C9ySL8RIv7XWF92y_4601TMeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzUyNzI5OCwianRpIjoiNmMzMjZmOGQtMTc3OS00NDRjLWJkMjMtNTljYmIyZmExODU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTI3Mjk4LCJjc3JmIjoiOGJiMDk5NzYtMzMzZC00NjBmLThmZDctMTRlODY4ZTM3YThjIiwiZXhwIjoxNzIzNjEzNjk4LCJyb2xlIjoiY2xpZW50In0.reO1Vb8EOwrCha3SPEwRvVSHoaSwAJP2gCvL161BaNg`, // Replace with actual JWT token
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzU0MTQwNiwianRpIjoiZTU5ZWNiZDktMTU1Mi00ZGE4LWE4NWYtN2ViYjRmYTkzYWRlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTQxNDA2LCJjc3JmIjoiOTE0MGYwZjItMmIyNS00ZTJlLTgxOTEtY2Y2ZTI0OGJlOTExIiwiZXhwIjoxNzIzNjI3ODA2LCJyb2xlIjoiY2xpZW50In0.i5fxnGtvf73wjXKUb_SnP9th-i_sVDcI6uZ2qPQEygE`, // Replace with actual JWT token
           "Content-Type": "application/json",
         },
       });
@@ -62,7 +63,7 @@ function Subscription() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzUyNDExMiwianRpIjoiNTVlYzgxZDQtNGIzMC00ZjllLTk0YWMtM2M4ZDJlODllNWNhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTI0MTEyLCJjc3JmIjoiZDhjNTc5YmQtZjk0NS00OWNlLTgwYmUtZDkwMGM3YTg4YmZhIiwiZXhwIjoxNzIzNjEwNTEyLCJyb2xlIjoiY2xpZW50In0.B-w6KUwr8znYvejLwh5ili3n4RQ-7MtnfxJaQqueVJI`, // Replace with actual JWT token
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzU0MTQwNiwianRpIjoiZTU5ZWNiZDktMTU1Mi00ZGE4LWE4NWYtN2ViYjRmYTkzYWRlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTQxNDA2LCJjc3JmIjoiOTE0MGYwZjItMmIyNS00ZTJlLTgxOTEtY2Y2ZTI0OGJlOTExIiwiZXhwIjoxNzIzNjI3ODA2LCJyb2xlIjoiY2xpZW50In0.i5fxnGtvf73wjXKUb_SnP9th-i_sVDcI6uZ2qPQEygE`, // Replace with actual JWT token
         },
         body: JSON.stringify({
           phone: data.phoneNumber,
@@ -89,6 +90,15 @@ function Subscription() {
       toast.error("Something went wrong. Please try again.");
     }
   };
+
+  const {user, setUser} = useUser();
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('session');
+    navigate("/login")
+  }
+
 
   return (
     <div>
@@ -117,6 +127,7 @@ function Subscription() {
           </a>
         </ul>
         <button
+          onClick={handleLogout}
           type="button"
           className="text-white bg-[#37B9F1] text-xl hover:bg-[#40a8d4] focus:ring-4 focus:outline-none font-medium rounded-lg px-4 py-2 text-center mr-8"
         >

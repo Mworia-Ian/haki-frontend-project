@@ -46,7 +46,7 @@ function LoginForm() {
           const user = data.user;
           const accessToken = data.access_token;
           console.log(accessToken);
-          // save user session to local storage
+          setUser(user)
           localStorage.setItem(
             "session",
             JSON.stringify({ user, accessToken })
