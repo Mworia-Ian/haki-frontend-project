@@ -27,10 +27,10 @@ const Header = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched subscription data:', data);
+      
 
           if (data.message) {
-            console.warn(data.message);
+            
             setNotifications([data.message]);
             return;
           }
@@ -63,11 +63,11 @@ const Header = () => {
 
           setNotifications([`Your subscription is active from ${formattedStartDate} to ${formattedEndDate}.`]);
         } else {
-          console.error('Failed to fetch subscription status:', response.statusText);
+          
           setNotifications(["Error fetching subscription status."]);
         }
       } catch (error) {
-        console.error('Error occurred while fetching subscription status:', error);
+      
         setNotifications(["Error fetching subscription status."]);
       }
     };
