@@ -26,15 +26,14 @@ function Subscription() {
   } = useForm({
     resolver: zodResolver(schema),
   });
-  const session = JSON.parse(localStorage.getItem('session'))
-  const token = session?.accessToken
-  console.log(token);
-  // Poll the payment status at intervals to check if the payment was successful
+  const session = JSON.parse(localStorage.getItem('session'));
+  const token = session?.accessToken;
+  
   const pollPaymentStatus = async (transactionId) => {
     try {
       const response = await fetch(`http://localhost:5000/payment_status/${transactionId}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Replace with actual JWT token
+          Authorization: `Bearer ${token}`, 
           "Content-Type": "application/json",
         },
       });
@@ -43,7 +42,7 @@ function Subscription() {
       if (response.ok) {
         if (result.status === 'completed') {
           toast.success("Payment received successfully!");
-          navigate("/lawyers"); // Redirect to lawyers page
+          navigate("/lawyers"); 
         } else {
           toast.error("Payment not completed. Please try again.");
         }
@@ -56,9 +55,6 @@ function Subscription() {
     }
   };
   
-  
-
-  // Handle form submission
   const onSubmit = async (data) => {
     try {
       const response = await fetch("http://localhost:5000/stk_push", {
@@ -69,7 +65,7 @@ function Subscription() {
         },
         body: JSON.stringify({
           phone: data.phoneNumber,
-          amount: 1, // Example amount
+          amount: 1, 
         }),
       });
 
@@ -79,10 +75,9 @@ function Subscription() {
         toast.success("STK Push initiated. Please complete the payment.");
         setTransactionId(result.transaction_id);
 
-        // Start polling the payment status every 10 seconds
         const pollingInterval = setInterval(() => {
           pollPaymentStatus(result.transaction_id).then(() => {
-            clearInterval(pollingInterval); // Stop polling once payment status is checked
+            clearInterval(pollingInterval); 
           });
         }, 10000);
       } else {
@@ -93,7 +88,7 @@ function Subscription() {
     }
   };
 
-  const {user, setUser} = useUser();
+  const { user, setUser } = useUser();
 
   const handleLogout = () => {
     setUser(null);
@@ -101,13 +96,12 @@ function Subscription() {
     navigate("/login")
   }
 
-
   return (
     <div>
-      <Toaster position="top-right" /> {/* Set toast position to the right */}
+      <Toaster position="top-right" />
       <div className="flex justify-between items-center h-24 mx-auto px-4 bg-[#F2F5F5] w-full mb-3">
         <h1 className="w-full text-3xl font-bold pl-7 text-[#37B9F1] hover:text-[#6ab6d6]">
-          <a onClick={() => navigate("/home")} href="#">Haki</a>
+          <a href="#">Haki</a>
         </h1>
         <ul className="flex text-[#37B9F1] pr-7">
           <a onClick={() => navigate("/home")}>
