@@ -1,17 +1,16 @@
 import React from "react";
 import ClientHome from "./ClientHome";
 import LawyerHome from "../components/LawyerHome";
+import { useUser } from "../UserContext";
 
 function Home() {
-  const user = {role: "client" };
+  const {user} = useUser();
+
+  
   return (
     <div>
       <div>
-          {user.role === "lawyer" ? (
-            <LawyerHome />
-          ) : (
-            <ClientHome />
-          )}
+      {user.role === "lawyer" ? <LawyerHome /> : <ClientHome />}
       </div>
     </div>
   );

@@ -7,9 +7,11 @@ import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useUser } from "../UserContext";
+
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const { setUser } = useUser();
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
@@ -50,13 +52,8 @@ function LoginForm() {
           );
           toast.success(data.message);
           console.log(user);
-          if (user?.role === "lawyer") {
-            reset();
-            navigate("/home");
-          } else {
-            reset();
-            navigate("/");
-          }
+          reset();
+          navigate(user?.role === "lawyer" ? "/home" : "/home");
         }
       })
       .catch((err) => console.log(err));
