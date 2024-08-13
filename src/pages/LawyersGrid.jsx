@@ -51,6 +51,7 @@
 
 // export default LawyersGrid;
 
+
 import React, { useState, useEffect } from 'react';
 import LawyersCard from './LawyersCard';
 import LawyerSearch from './LawyerSearch';
@@ -70,30 +71,25 @@ const LawyersGrid = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
-
-        // if (Array.isArray(data)) {
         setLawyers(data);
         console.log(lawyers)
-        console.log(filteredLawyers)
-        // } else {
-        //   console.error('Expected an array of lawyers:', data);
-        //   setLawyers([]); // Default to an empty array if the data isn't an array
-
       })
       .catch((error) => console.error('Error fetching lawyers:', error));
   }, []);
 
   const filteredLawyers = lawyers.filter((lawyer) => {
-    console.log(lawyer)
-    return lawyer['lawyer_details']['specialization'].toLowerCase().includes(searchTerm.toLowerCase()) || lawyer.firstname.toLowerCase().includes(searchTerm.toLowerCase())
-  })
-
+    if (!lawyer || !lawyer['lawyer_details']) {
+      return false;
+    }
+    return lawyer['lawyer_details']['specialization'].toLowerCase().includes(searchTerm.toLowerCase()) ||
+      lawyer.firstname.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   return (
     <>
       <div className="container mx-auto px-4">
-        <h1 className="text-2xl font-bold text-center mb-4">Our Lawyers</h1>
+      <h1 className="text-3xl font-bold text-center mb-4 underline">OUR LAWYERS</h1>
+
         <LawyerSearch setSearchTerm={setSearchTerm} />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {lawyers.length > 0 ? (
@@ -115,6 +111,7 @@ const LawyersGrid = () => {
 };
 
 export default LawyersGrid;
+
 
 
 

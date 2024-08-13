@@ -2,22 +2,30 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClient } from "@supabase/supabase-js";
+import { SERVER_URL } from "../../utils";
+import toast from "react-hot-toast";
 
 function SignUpForm() {
   const navigate = useNavigate();
   const supabaseUrl = "https://xjwquyggfukertlnbeqp.supabase.co";
   const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
   const schema = z.object({
-    first_name: z
+    firstname: z
       .string({
         required_error: "First Name is required",
       })
       .min(1, { message: "First Name is required" }),
-    last_name: z
+    lastname: z
       .string({
         required_error: "Last Name is required",
       })
@@ -27,7 +35,7 @@ function SignUpForm() {
         required_error: "Role is required",
       })
       .min(1, { message: "Role is required" }),
-    phone_number: z
+    phone: z
       .string({
         required_error: "Phone Number must be 10 characters",
       })
@@ -93,7 +101,7 @@ function SignUpForm() {
         }
       }
     }),
-    photo: z.string().superRefine((data, ctx) => {
+    image: z.string().superRefine((data, ctx) => {
       if (data?.role === "lawyer" && !data.photo) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -114,10 +122,10 @@ function SignUpForm() {
   const { control, formState, reset, watch, handleSubmit } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      first_name: "",
-      last_name: "",
+      firstname: "",
+      lastname: "",
       role: "",
-      phone_number: "",
+      phone: "",
       email: "",
       id: "",
       area_of_residence: "",
@@ -126,28 +134,27 @@ function SignUpForm() {
       specialization: "",
       rate: "",
       document: "",
-      photo: "",
+      image: "",
     },
   });
   const onSubmit = async (values, e) => {
-    console.log(values.photo[0]);
     if (values?.role === "lawyer") {
       try {
         // your submission logic here...
 
         const formData = new FormData(e.target);
-
+        const timestamp = Date.now();
         const uploadPromises = [];
         if (values?.document) {
           const documentFile = formData.get("document");
-          const documentPath = `documents/${documentFile.name}`;
+          const documentPath = `documents/${timestamp}_${documentFile.name}`;
           uploadPromises.push(
             supabase.storage.from("files").upload(documentPath, documentFile)
           );
         }
-        if (values?.photo) {
-          const photoFile = formData.get("photo");
-          const photoPath = `photos/${photoFile.name}`;
+        if (values?.image) {
+          const photoFile = formData.get("image");
+          const photoPath = `photos/${timestamp}_${photoFile.name}`;
           uploadPromises.push(
             supabase.storage.from("files").upload(photoPath, photoFile)
           );
@@ -156,31 +163,73 @@ function SignUpForm() {
         const publicUrls = await Promise.all(
           uploadResults.map(async (result) => {
             if (result.error) {
-              throw new Error("Upload failed");
+              return { error: `Upload failed for path: ${result.data.path}` }; // Collect error info
             }
-            const { data } = await supabase.storage
+            const { data } = supabase.storage
               .from("files")
               .getPublicUrl(result.data.path);
-            return data.publicUrl;
+            return data.publicUrl; // Return an object containing the public URL
           })
         );
+        console.log(publicUrls);
         const resultValues = {
           ...values,
-          documentUrl: publicUrls[0],
-          photoUrl: publicUrls[1],
+          qualification_certificate: publicUrls[0],
+          image: publicUrls[1],
+          id_no: Number(values.id),
+          rate_per_hour: Number(values.rate),
+          years_of_experience: Number(values.experience),
         };
-
         console.log(resultValues);
-        reset();
+        await fetch(`${SERVER_URL}/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...resultValues,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status === "fail") {
+              toast.error(data.message);
+            } else {
+              toast.success(data.message);
+              reset();
+              navigate("/login");
+            }
+          })
+          .catch((err) => toast.error(err));
       } catch (error) {
-        console.error(error);
+        toast.error(error);
       }
     } else {
       try {
         console.log(values);
-        reset();
+        await fetch(`${SERVER_URL}/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...values,
+            id_no: Number(values.id),
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status === "fail") {
+              toast.error(data.message);
+            } else {
+              toast.success(data.message);
+              reset();
+              navigate("/login");
+            }
+          })
+          .catch((err) => console.log(err));
       } catch (error) {
-        console.error(error);
+        toast.error(error);
       }
     }
   };
@@ -215,7 +264,7 @@ function SignUpForm() {
             </h2>
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
               <Controller
-                name="first_name"
+                name="firstname"
                 control={control}
                 render={({ field, fieldState }) => (
                   <div className="mt-6">
@@ -231,7 +280,7 @@ function SignUpForm() {
                         placeholder="John"
                         type="text"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -243,7 +292,7 @@ function SignUpForm() {
               />
 
               <Controller
-                name="last_name"
+                name="lastname"
                 control={control}
                 render={({ field, fieldState }) => (
                   <div className="mt-6">
@@ -259,7 +308,7 @@ function SignUpForm() {
                         placeholder="Doe"
                         type="text"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -283,7 +332,7 @@ function SignUpForm() {
                     <select
                       name="role"
                       required
-                      className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       {...field}
                     >
                       <option value="">Select a Role</option>
@@ -313,7 +362,7 @@ function SignUpForm() {
                         placeholder="user@example.com"
                         type="email"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -325,7 +374,7 @@ function SignUpForm() {
                 )}
               />
               <Controller
-                name="phone_number"
+                name="phone"
                 control={control}
                 render={({ field, fieldState }) => (
                   <div className="mt-6">
@@ -341,7 +390,7 @@ function SignUpForm() {
                         placeholder="0712345678"
                         type="text"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -369,7 +418,7 @@ function SignUpForm() {
                         placeholder="12345678"
                         type="text"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -396,7 +445,7 @@ function SignUpForm() {
                         placeholder="Nairobi"
                         type="text"
                         required
-                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         {...field}
                       />
                     </div>
@@ -414,22 +463,31 @@ function SignUpForm() {
                     control={control}
                     render={({ field, fieldState }) => (
                       <div className="mt-6">
-                        <label
-                          htmlFor="password"
-                          className="block text-sm font-medium leading-5 text-[#37B9F1]"
-                        >
-                          Password
-                        </label>
-                        <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
-                          <input
-                            name="password"
-                            type="password"
-                            required
-                            {...field}
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                          />
+                        <div>
+                          <label
+                            htmlFor="password"
+                            className="block text-sm font-medium leading-5 text-[#37B9F1]"
+                          >
+                            Password
+                          </label>
+                          <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
+                            <input
+                              name="password"
+                              type={showPassword ? "text" : "password"}
+                              required
+                              {...field}
+                              className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            />
+                          </div>
+                          <span
+                            onClick={togglePasswordVisibility}
+                            className="absolute inset-y-20 top-[710px] right-[20px] pr-[25px] pl-[20px] flex cursor-pointer"
+                          >
+                            <FontAwesomeIcon
+                              icon={showPassword ? faEyeSlash : faEye}
+                            />
+                          </span>
                         </div>
-
                         {fieldState.invalid && (
                           <p className="text-red-500">
                             {fieldState.error.message}
@@ -471,7 +529,7 @@ function SignUpForm() {
                             placeholder="20"
                             type="text"
                             required
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                             {...field}
                           />
                         </div>
@@ -501,7 +559,7 @@ function SignUpForm() {
                             placeholder="Family Law"
                             type="text"
                             required
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                             {...field}
                           />
                         </div>
@@ -530,7 +588,7 @@ function SignUpForm() {
                             placeholder="2000"
                             type="text"
                             required
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                             {...field}
                           />
                         </div>
@@ -543,7 +601,7 @@ function SignUpForm() {
                     )}
                   />
                   <Controller
-                    name="photo"
+                    name="image"
                     control={control}
                     render={({ field, fieldState }) => (
                       <div className="mt-6">
@@ -599,22 +657,31 @@ function SignUpForm() {
                     control={control}
                     render={({ field, fieldState }) => (
                       <div className="mt-6">
-                        <label
-                          htmlFor="password"
-                          className="block text-sm font-medium leading-5 text-[#37B9F1]"
-                        >
-                          Password
-                        </label>
-                        <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
-                          <input
-                            name="password"
-                            type="password"
-                            required
-                            {...field}
-                            className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#F2F5F5] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                          />
+                        <div>
+                          <label
+                            htmlFor="password"
+                            className="block text-sm font-medium leading-5 text-[#37B9F1]"
+                          >
+                            Password
+                          </label>
+                          <div className="mt-1 relative rounded-md shadow-sm border-b border-[#37B9F1]">
+                            <input
+                              name="password"
+                              type={showPassword ? "text" : "password"}
+                              required
+                              {...field}
+                              className="bg-[#F2F5F5] appearance-none block w-full px-3 py-2 rounded-md placeholder-[#acacac] focus:outline-none focus:shadow-outline-blue focus:border-[#F2F5F5] transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            />
+                          </div>
+                          <span
+                            onClick={togglePasswordVisibility}
+                            className="absolute inset-y-20 top-[72rem] right-[20px] pr-[25px] pl-[20px] flex cursor-pointer"
+                          >
+                            <FontAwesomeIcon
+                              icon={showPassword ? faEyeSlash : faEye}
+                            />
+                          </span>
                         </div>
-
                         {fieldState.invalid && (
                           <p className="text-red-500">
                             {fieldState.error.message}
@@ -626,7 +693,6 @@ function SignUpForm() {
                   <div className="mt-6">
                     <span className="block w-full rounded-md shadow-sm">
                       <button
-                        onClick={() => navigate("/welcome")}
                         type="submit"
                         className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#37B9F1] hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
                         disabled={formState.isSubmitting}
