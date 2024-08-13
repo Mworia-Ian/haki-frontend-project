@@ -31,7 +31,7 @@ function Subscription() {
     try {
       const response = await fetch(`http://localhost:5000/payment_status/${transactionId}`, {
         headers: {
-          Authorization: `Bearer ${yourJWTtoken}`, // Replace with actual JWT token
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzUyNjQ0MiwianRpIjoiYTRhNmViZWItMmYzYS00MTMwLTlmZmYtNzMzMTRiMjRhMzliIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTI2NDQyLCJjc3JmIjoiNjJlMzMzM2EtZTkyMi00YmQxLWJlY2QtOWUwMThlMzhkODJmIiwiZXhwIjoxNzIzNjEyODQyLCJyb2xlIjoiY2xpZW50In0.-Fx-emRcRhIcPc2lNEP4C9ySL8RIv7XWF92y_4601TMeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzUyNzI5OCwianRpIjoiNmMzMjZmOGQtMTc3OS00NDRjLWJkMjMtNTljYmIyZmExODU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTI3Mjk4LCJjc3JmIjoiOGJiMDk5NzYtMzMzZC00NjBmLThmZDctMTRlODY4ZTM3YThjIiwiZXhwIjoxNzIzNjEzNjk4LCJyb2xlIjoiY2xpZW50In0.reO1Vb8EOwrCha3SPEwRvVSHoaSwAJP2gCvL161BaNg`, // Replace with actual JWT token
           "Content-Type": "application/json",
         },
       });
@@ -40,6 +40,7 @@ function Subscription() {
       if (response.ok) {
         if (result.status === 'completed') {
           toast.success("Payment received successfully!");
+          navigate("/lawyers"); // Redirect to lawyers page
         } else {
           toast.error("Payment not completed. Please try again.");
         }
@@ -61,7 +62,7 @@ function Subscription() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${yourJWTtoken}`, // Replace with actual JWT token
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzUyNDExMiwianRpIjoiNTVlYzgxZDQtNGIzMC00ZjllLTk0YWMtM2M4ZDJlODllNWNhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTI0MTEyLCJjc3JmIjoiZDhjNTc5YmQtZjk0NS00OWNlLTgwYmUtZDkwMGM3YTg4YmZhIiwiZXhwIjoxNzIzNjEwNTEyLCJyb2xlIjoiY2xpZW50In0.B-w6KUwr8znYvejLwh5ili3n4RQ-7MtnfxJaQqueVJI`, // Replace with actual JWT token
         },
         body: JSON.stringify({
           phone: data.phoneNumber,
@@ -91,7 +92,7 @@ function Subscription() {
 
   return (
     <div>
-      <Toaster />
+      <Toaster position="top-right" /> {/* Set toast position to the right */}
       <div className="flex justify-between items-center h-24 mx-auto px-4 bg-[#F2F5F5] w-full mb-3">
         <h1 className="w-full text-3xl font-bold pl-7 text-[#37B9F1] hover:text-[#6ab6d6]">
           <a href="#">Haki</a>
