@@ -41,12 +41,12 @@ const Review = ({ lawyerId, setShowForm }) => {
 
   return (
     <div className="p-4">
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-4 mx-auto max-w-xl">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-0 mx-auto max-w-xl">
         <Controller
           name="review"
           control={control}
           render={({ field }) => (
-            <div className="mb-4">
+            <div className="mb-0">
               <textarea
                 {...field}
                 rows={3}
@@ -64,30 +64,30 @@ const Review = ({ lawyerId, setShowForm }) => {
         <div className="flex justify-center space-x-4 mx-4">
           <button
             type="submit"
-            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-3 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Submit Review
           </button>
         </div>
       </form>
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded shadow-lg">
             <h2 className="text-xl font-bold mb-4">Review Submitted</h2>
             <p>Your review has been submitted successfully!</p>
             <button
               onClick={handleClose}
-              className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded"
+              className="mt-4 bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-1 px-3 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Close
             </button>
           </div>
         </div>
       )}
-      <div className="reviews-section mt-8 mx-4">
+      <div className="reviews-section mt-0 mx-4">
         <h2 className="text-3xl font-bold underline text-white">Reviews</h2>
         {reviews.length === 0 ? (
-          <p className="text-lg mt-4 text-white">No reviews yet. Be the first to add one!</p>
+          <p className="text-lg mt-0 text-white">No reviews yet. Be the first to add one!</p>
         ) : (
           reviews.map((review) => (
             <div key={review.id} className="review mt-4">

@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 const LawyersCard = ({ lawyer }) => {
   const navigate = useNavigate();
 
-
-
   return (
     <div className="flex items-center w-full py-[1rem] px-1">
       <div className="w-auto max-w-[1240px] mx-auto grid md:grid-cols-2 ">
