@@ -27,7 +27,7 @@ function ClientHome() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.active===true) {
+        if (data.active===false) {
           navigate("/lawyers");
         } else {
           setIsModalOpen(true);  

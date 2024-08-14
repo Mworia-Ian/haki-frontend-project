@@ -19,6 +19,7 @@ const schema = z.object({
 function Subscription() {
   const navigate = useNavigate();
   const [transactionId, setTransactionId] = useState(null);
+  const [isConfirming, setIsConfirming] = useState(false); // New state for button
   const {
     register,
     handleSubmit,
@@ -52,10 +53,13 @@ function Subscription() {
     } catch (error) {
       toast.error("Something went wrong while checking the payment status.");
       console.error("Error during payment status check:", error);
+    } finally {
+      setIsConfirming(false); // Reset the button after checking the status
     }
   };
   
   const onSubmit = async (data) => {
+    setIsConfirming(true); // Disable the button and show "Confirming"
     try {
       const response = await fetch("http://localhost:5000/stk_push", {
         method: "POST",
@@ -82,9 +86,11 @@ function Subscription() {
         }, 10000);
       } else {
         toast.error(`Error: ${result.error}`);
+        setIsConfirming(false); // Re-enable the button if there's an error
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
+      setIsConfirming(false); // Re-enable the button if there's an error
     }
   };
 
@@ -175,12 +181,14 @@ function Subscription() {
                   type="text"
                   placeholder="07XXXXXXXX"
                   aria-label="Phone number"
+                  disabled={isConfirming} // Disable input while confirming
                 />
                 <button
-                  className="flex-shrink-0 bg-[#0b8511] hover:bg-[#0b8511c4] text-sm border-4 text-white py-1 px-2 rounded-lg"
+                  className={`flex-shrink-0 ${isConfirming ? 'bg-gray-500' : 'bg-[#0b8511]'} hover:bg-[#0b8511c4] text-sm border-4 text-white py-1 px-2 rounded-lg`}
                   type="submit"
+                  disabled={isConfirming} // Disable the button while confirming
                 >
-                  Subscribe
+                  {isConfirming ? "Confirming..." : "Subscribe"}
                 </button>
               </div>
               {errors.phoneNumber && (
