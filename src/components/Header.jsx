@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { IoIosNotifications } from 'react-icons/io';
 import { MdOutlineMessage } from 'react-icons/md';
 import { parseISO, format } from 'date-fns';
+import Messaging from './Messaging';
 
 const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [showMessaging, setShowMessaging] = useState(false);
 
   useEffect(() => {
     const fetchSubscriptionStatus = async () => {
@@ -95,9 +97,12 @@ const Header = () => {
           )}
         </div>
         <div className="relative">
-          <button>
+          <button onClick={() => setShowMessaging(!showMessaging)}>
             <MdOutlineMessage />
           </button>
+        </div>
+        <div>
+        <Messaging isOpen={showMessaging} onClose={() => setShowMessaging(false)} />
         </div>
       </div>
     </div>
