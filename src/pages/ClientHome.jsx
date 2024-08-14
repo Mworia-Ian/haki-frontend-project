@@ -182,8 +182,6 @@ function ClientHome() {
         </div>
       </div>
       <Footer />
-
-      {/* Modal Component */}
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
