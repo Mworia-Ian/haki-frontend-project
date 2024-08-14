@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Card() {
+function CasesCard() {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate('/home');
+  };
+
   const cards = [
     {
       id: 1,
@@ -54,7 +61,18 @@ function Card() {
 
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-4xl text-[#37B9F1] font-bold text-center mb-4 mt-2">CLIENT CASES</h1>
+      <h1 className="text-4xl text-[#37B9F1] font-bold text-center mb-4 mt-2" style={{
+        textDecoration: 'underline',
+        textDecorationColor: 'black',
+        textDecorationThickness: '5px',
+        textUnderlineOffset: '8px',
+      }} >CLIENT CASES</h1>
+      <button
+        onClick={handleBack}
+        className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#32a6d8] focus:ring-4 focus:outline-none focus:ring-blue-300 mt-1 mb-3"
+      >
+        Back
+      </button>
       <div className="grid grid-cols-1 gap-6">
         {cards.length > 0 ? (
           cards.map((card) => (
@@ -116,4 +134,4 @@ function Card() {
   );
 }
 
-export default Card;
+export default CasesCard;

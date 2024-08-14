@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import Review from './Review';
 
 const LawyerProfile = () => {
   const location = useLocation();
   const [lawyerDetails, setLawyerDetails] = useState(null);
+  const [reviews, setReviews] = useState([]); // Initialize reviews as an empty array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showForm, setShowForm] = useState(false); // State to toggle review form
   const lawyerId = location.state?.lawyerId;
 
   useEffect(() => {
@@ -24,6 +27,7 @@ const LawyerProfile = () => {
         }
         const data = await response.json();
         setLawyerDetails(data);
+        setReviews(data.reviews || []); // Ensure reviews is an array
       } catch (error) {
         console.error('Error fetching lawyer details:', error);
         setError('Error fetching lawyer details');
@@ -34,6 +38,11 @@ const LawyerProfile = () => {
 
     fetchLawyerDetails();
   }, [lawyerId]);
+
+  const addReview = (newReview) => {
+    setReviews((prevReviews) => [...prevReviews, newReview]); // Add new review to the existing list
+    setShowForm(false); // Close the review form after submission
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -121,13 +130,35 @@ const LawyerProfile = () => {
                 Contact Lawyer
               </button>
               <button
-                onClick={() => console.log('Add Review')}
+                onClick={() => setShowForm(true)}
                 className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-1 px-3 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Add Review
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Conditionally render the review form */}
+        {showForm && (
+          <div className="w-full p-6">
+            <Review lawyerId={lawyerId} addReview={addReview} setShowForm={setShowForm} />
+          </div>
+        )}
+
+        {/* Display submitted reviews */}
+        <div className="mt-0 w-full p-6">
+          <h3 className="text-3xl font-bold text-[#37B9F1]">Reviews</h3>
+          {reviews.length > 0 ? (
+            reviews.map((review, index) => (
+              <div key={index} className="bg-gray-100 p-4 my-4 rounded-lg shadow">
+                <p className="text-lg font-semibold">{review.reviewer_name}</p>
+                <p className="text-sm text-gray-700">{review.review_text}</p>
+              </div>
+            ))
+          ) : (
+            <p className="text-lg text-black">No reviews yet. Be the first to add a review!</p>
+          )}
         </div>
       </div>
     </div>

@@ -34,7 +34,12 @@ const LawyersGrid = () => {
   return (
     <>
       <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold text-center mb-4 underline">OUR LAWYERS</h1>
+      <h1 className="text-4xl text-[#37B9F1] font-bold text-center mb-4 mt-2" style={{
+        textDecoration: 'underline',
+        textDecorationColor: 'black',
+        textDecorationThickness: '5px',
+        textUnderlineOffset: '8px',
+      }} > OUR LAWYERS </h1>
 
         <LawyerSearch setSearchTerm={setSearchTerm} />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
