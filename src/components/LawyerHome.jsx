@@ -50,7 +50,6 @@ function LawyerHome() {
         </button>
       </div>
       <div className="flex justify-end">
-        <Header />
       </div>
       <div className="text-center">
         <h1 className="mb-4 text-3xl font-bold text-[#37B9F1]">

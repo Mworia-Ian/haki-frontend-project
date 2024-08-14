@@ -238,8 +238,11 @@ function SignUpForm() {
 
   return (
     <>
-      <div className="flex justify-center h-[150px] pt-5">
+      <div>
+        <a className="flex justify-center h-[150px] pt-5" href="#" onClick={() => navigate("/")}>
         <img src="src/assets/images/haki logo_Mesa de trabajo 1 copia 5.png" />
+        </a>
+        
       </div>
       <div
         id="signup"

@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { IoIosNotifications } from 'react-icons/io';
 import { MdOutlineMessage } from 'react-icons/md';
 import { parseISO, format } from 'date-fns';
+import Messaging from './Messaging';
 
 const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [showMessaging, setShowMessaging] = useState(false);
 
   useEffect(() => {
     const fetchSubscriptionStatus = async () => {
       try {
-        const session = JSON.parse(localStorage.getItem('session'))
-        const token = session?.accessToken
-        console.log('Retrieved token from localStorage:', token);
+        const session = JSON.parse(localStorage.getItem('session'));
+        const token = session?.accessToken;
 
         if (!token) {
           console.error('No token found in localStorage');
@@ -26,51 +27,49 @@ const Header = () => {
           },
         });
 
-        console.log('Response status:', response.status);
-
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched subscription data:', data);
+      
 
-          // Check if date fields are present
+          if (data.message) {
+            
+            setNotifications([data.message]);
+            return;
+          }
+
           const { start_date, end_date } = data;
-          console.log('Raw start_date:', start_date);
-          console.log('Raw end_date:', end_date);
+
+          if (!start_date || !end_date) {
+            setNotifications(["Error: Subscription data is missing dates."]);
+            return;
+          }
 
           let formattedStartDate = 'N/A';
           let formattedEndDate = 'N/A';
 
-          if (start_date && end_date) {
-            try {
-              // Attempt to parse and format dates
-              const startDate = parseISO(start_date);
-              const endDate = parseISO(end_date);
+          try {
+            const startDate = parseISO(start_date);
+            const endDate = parseISO(end_date);
 
-              if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                throw new Error('Invalid date format');
-              }
-
-              formattedStartDate = format(startDate, 'MM/dd/yyyy');
-              formattedEndDate = format(endDate, 'MM/dd/yyyy');
-            } catch (error) {
-              console.error('Error parsing dates:', error);
-              setNotifications(["Error: Invalid date format received."]);
-              return;
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+              throw new Error('Invalid date format');
             }
-          } else {
-            console.warn('Date fields are missing in the response.');
+
+            formattedStartDate = format(startDate, 'MM/dd/yyyy');
+            formattedEndDate = format(endDate, 'MM/dd/yyyy');
+          } catch (error) {
+            console.error('Error parsing dates:', error);
+            setNotifications(["Error: Invalid date format received."]);
+            return;
           }
 
           setNotifications([`Your subscription is active from ${formattedStartDate} to ${formattedEndDate}.`]);
-        } else if (response.status === 404) {
-          console.warn('No active subscription found.');
-          setNotifications(["No active subscription found."]);
         } else {
-          console.error('Failed to fetch subscription status:', response.statusText);
+          
           setNotifications(["Error fetching subscription status."]);
         }
       } catch (error) {
-        console.error('Error occurred while fetching subscription status:', error);
+      
         setNotifications(["Error fetching subscription status."]);
       }
     };
@@ -98,9 +97,12 @@ const Header = () => {
           )}
         </div>
         <div className="relative">
-          <button>
+          <button onClick={() => setShowMessaging(!showMessaging)}>
             <MdOutlineMessage />
           </button>
+        </div>
+        <div>
+        <Messaging isOpen={showMessaging} onClose={() => setShowMessaging(false)} />
         </div>
       </div>
     </div>

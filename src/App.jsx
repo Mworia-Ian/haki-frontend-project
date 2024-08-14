@@ -11,6 +11,8 @@ import Subscription from "./pages/Subscription";
 import { UserProvider } from './UserContext';
 import { useState } from "react";
 import Cases from "./pages/Cases";
+import Messaging from "./components/Messaging";
+
 
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
             <Route path="/clientchat" element={<ClientChat />} />
             <Route path="/subscriptions" element={<Subscription />} />
             <Route path="/cases" element={<Cases />} />
+            <Route path="/messaging" element={<Messaging />} />
+
           </Routes>
         </div>
       </Router>
