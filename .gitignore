@@ -2,4 +2,3 @@ node_modules
 .env
 utils.js
 FirebaseConfig.jsx
-Messaging.jsx
