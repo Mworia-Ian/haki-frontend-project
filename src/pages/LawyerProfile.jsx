@@ -49,7 +49,7 @@ const LawyerProfile = () => {
 
   return (
     <div className="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden relative drop-shadow-2xl">
+      <div className="max-w-3xl mx-auto bg-white border-b border-l border-cyan-400 rounded-lg shadow flex flex-col items-center mb-1 drop-shadow-2xl">
         <div className="md:flex relative">
           <div className="md:flex-shrink-0 pl-3 pt-14 relative">
             <img
