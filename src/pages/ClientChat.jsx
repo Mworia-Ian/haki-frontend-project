@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { collection, query, where, orderBy, onSnapshot } from 'firebase/firestore';
-import { db } from '/firebase'; // Import the Firestore instance
 
 const ClientChat = () => {
   const [messages, setMessages] = useState([]);
@@ -10,8 +8,8 @@ const ClientChat = () => {
 
   const session = JSON.parse(localStorage.getItem('session'));
   const token = session?.accessToken;
-  const receiverId = 3; // Replace with the actual lawyer ID
-  const currentUserId = 1; // Replace with the actual user ID
+  const receiverId = 13; 
+  const currentUserId = 1; 
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -36,25 +34,11 @@ const ClientChat = () => {
 
     fetchMessages();
 
-    const messagesRef = collection(db, 'messages');
-    const messagesQuery = query(
-      messagesRef,
-      where('sender_id', 'in', [currentUserId, receiverId]),
-      where('receiver_id', 'in', [currentUserId, receiverId]),
-      orderBy('timestamp')
-    );
+    const interval = setInterval(fetchMessages, 5000); // Poll every 5 seconds
 
-    const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
-      const newMessages = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setMessages(newMessages);
-    });
-
-    // Cleanup Firestore listener on component unmount
-    return () => unsubscribe();
-  }, [token, currentUserId, receiverId]);
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, [token]);
 
   const handleSendMessage = async () => {
     if (inputMessage.trim() !== '') {
@@ -76,6 +60,8 @@ const ClientChat = () => {
         if (response.ok) {
           const messageData = await response.json();
           setInputMessage('');
+          // Optionally fetch messages again after sending
+          // fetchMessages();
         } else {
           console.error('Failed to send message');
         }
