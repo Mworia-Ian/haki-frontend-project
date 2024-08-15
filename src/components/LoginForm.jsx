@@ -45,14 +45,12 @@ function LoginForm() {
         } else {
           const user = data.user;
           const accessToken = data.access_token;
-          console.log(accessToken);
-          setUser(user)
+          setUser(user);
           localStorage.setItem(
             "session",
             JSON.stringify({ user, accessToken })
           );
           toast.success(data.message);
-          console.log(user);
           reset();
           navigate(user?.role === "lawyer" ? "/home" : "/home");
         }
@@ -64,8 +62,12 @@ function LoginForm() {
   return (
     <>
       <div>
-        <a className="flex justify-center h-[150px] pt-5" onClick={() => navigate("/")} href="#">
-        <img src="src/assets/images/haki logo_Mesa de trabajo 1 copia 5.png" />
+        <a
+          className="flex justify-center h-[150px] pt-5"
+          onClick={() => navigate("/")}
+          href="#"
+        >
+          <img src="src/assets/images/haki logo_Mesa de trabajo 1 copia 5.png" />
         </a>
       </div>
       <section className="bg-[#F2F5F5]">
