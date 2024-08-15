@@ -39,6 +39,25 @@ const LawyerProfile = () => {
     fetchLawyerDetails();
   }, [lawyerId]);
 
+  const session = JSON.parse(localStorage.getItem("session"));
+  const token = session?.accessToken;
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews?lawyer_id=${lawyerId}`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Fetched Data:", data); 
+        setReviews(data);
+      })
+      .catch((error) => console.error('Error fetching reviews:', error));
+  }, []);
+
   const addReview = (newReview) => {
     setReviews((prevReviews) => [...prevReviews, newReview]); 
     setShowForm(false);
@@ -133,7 +152,7 @@ const LawyerProfile = () => {
                 onClick={() => setShowForm(true)}
                 className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-1 px-3 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
-                Add Review
+                Show Reviews
               </button>
             </div>
           </div>
@@ -145,7 +164,15 @@ const LawyerProfile = () => {
           </div>
         )}
 
-        <div className="mt-0 w-full p-6">
+      </div>
+    </div>
+  );
+};
+
+export default LawyerProfile;
+
+
+        {/* <div className="mt-0 w-full p-6">
           <h3 className="text-3xl font-bold text-[#37B9F1]">Reviews</h3>
           {reviews.length > 0 ? (
             reviews.map((review, index) => (
@@ -157,10 +184,4 @@ const LawyerProfile = () => {
           ) : (
             <p className="text-lg text-black">No reviews yet. Be the first to add a review!</p>
           )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default LawyerProfile;
+        </div> */}
