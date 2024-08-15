@@ -5,10 +5,10 @@ import Review from './Review';
 const LawyerProfile = () => {
   const location = useLocation();
   const [lawyerDetails, setLawyerDetails] = useState(null);
-  const [reviews, setReviews] = useState([]); // Initialize reviews as an empty array
+  const [reviews, setReviews] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showForm, setShowForm] = useState(false); // State to toggle review form
+  const [showForm, setShowForm] = useState(false); 
   const lawyerId = location.state?.lawyerId;
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const LawyerProfile = () => {
         }
         const data = await response.json();
         setLawyerDetails(data);
-        setReviews(data.reviews || []); // Ensure reviews is an array
+        setReviews(data.reviews || []); 
       } catch (error) {
         console.error('Error fetching lawyer details:', error);
         setError('Error fetching lawyer details');
@@ -40,8 +40,8 @@ const LawyerProfile = () => {
   }, [lawyerId]);
 
   const addReview = (newReview) => {
-    setReviews((prevReviews) => [...prevReviews, newReview]); // Add new review to the existing list
-    setShowForm(false); // Close the review form after submission
+    setReviews((prevReviews) => [...prevReviews, newReview]); 
+    setShowForm(false);
   };
 
   if (loading) {
@@ -96,9 +96,9 @@ const LawyerProfile = () => {
               <span className="text-black">{lawyerDetails.firstname} </span>
               <span className="text-[#37B9F1]">{lawyerDetails.lastname}</span>
             </h2>
-            <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <dl className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
               <div className="px-4 py-5 bg-[#37B9F1] shadow rounded-lg overflow-hidden sm:p-6">
-                <dt className="text-lg font-medium text-white truncate">
+                <dt className="text-lg font-small text-white truncate">
                   Years of Experience
                 </dt>
                 <dd className="mt-1 text-3xl font-semibold text-gray-900">
@@ -139,14 +139,12 @@ const LawyerProfile = () => {
           </div>
         </div>
 
-        {/* Conditionally render the review form */}
         {showForm && (
           <div className="w-full p-6">
             <Review lawyerId={lawyerId} addReview={addReview} setShowForm={setShowForm} />
           </div>
         )}
 
-        {/* Display submitted reviews */}
         <div className="mt-0 w-full p-6">
           <h3 className="text-3xl font-bold text-[#37B9F1]">Reviews</h3>
           {reviews.length > 0 ? (
