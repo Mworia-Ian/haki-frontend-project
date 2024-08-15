@@ -1,106 +1,126 @@
-import React, { useEffect, useState } from "react";
-import io from "socket.io-client";
-import { useNavigate } from "react-router-dom";
-
-// const socket = io("http://localhost:5000");
-// const socket = io("http://your-server-address:port");
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ClientChat = () => {
   const [messages, setMessages] = useState([]);
-  const [username, setUsername] = useState("");
-  const [message, setMessage] = useState("");
-  const navigate = useNavigate(); // Hook for navigation
+  const [inputMessage, setInputMessage] = useState('');
+  const navigate = useNavigate();
+
+  const session = JSON.parse(localStorage.getItem('session'));
+  const token = session?.accessToken;
+  const receiverId = 13; 
+  const currentUserId = 1; 
 
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Connected to the server");
-    });
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/messages', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
 
-    socket.on("disconnect", () => {
-      console.log("Disconnected from the server");
-    });
+        if (!response.ok) {
+          throw new Error(`Failed to fetch messages: ${response.statusText}`);
+        }
 
-    socket.on("message", (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    });
-
-    return () => {
-      socket.disconnect();
+        const data = await response.json();
+        setMessages(data);
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+        alert('Error fetching messages: ' + error.message);
+      }
     };
-  }, []);
 
-  const sendMessage = () => {
-    if (username && message) {
-      const fullMessage = `${username}: ${message}`;
-      socket.emit("message", fullMessage);
-      setMessages((prevMessages) => [...prevMessages, fullMessage]);
-      setMessage("");
-    } else {
-      alert("Please enter both username and message.");
+    fetchMessages();
+
+    const interval = setInterval(fetchMessages, 5000); // Poll every 5 seconds
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, [token]);
+
+  const handleSendMessage = async () => {
+    if (inputMessage.trim() !== '') {
+      const newMessage = {
+        receiver_id: receiverId,
+        message: inputMessage,
+      };
+
+      try {
+        const response = await fetch('http://localhost:5000/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(newMessage),
+        });
+
+        if (response.ok) {
+          const messageData = await response.json();
+          setInputMessage('');
+          // Optionally fetch messages again after sending
+          // fetchMessages();
+        } else {
+          console.error('Failed to send message');
+        }
+      } catch (error) {
+        console.error('Error sending message:', error);
+      }
     }
   };
 
-  const handleBackClick = () => {
-    navigate(-1);
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-#c7c55b">
-      <div
-        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md drop-shadow-2xl"
-      >
-        <button
-          onClick={handleBackClick}
-          className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-2 px-4 rounded-lg mb-4 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Back
-        </button>
-        <div className="h-64 overflow-y-scroll mb-4 space-y-4">
-          {messages.length > 0 ? (
-            messages.map((msg, index) => (
-              <p
-                key={index}
-                className="bg-[#37B9F1]text-black p-3 rounded-lg shadow-md"
-              >
-                {msg}
-              </p>
-            ))
-          ) : (
-            <p className="bg-[#37B9F1] text-white p-3 rounded-lg shadow-md">
-              No messages available.
-            </p>
-          )}
+    <div className="flex flex-col min-h-screen bg-[#F2F5F5]">
+      <header className="bg-[#37B9F1] text-white py-4 px-6 shadow-md">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Chat with Lawyer</h1>
+          <button
+            onClick={() => navigate('/lawyers')}
+            className="text-lg bg-white text-[#37B9F1] font-semibold py-2 px-4 rounded-lg hover:bg-gray-200"
+          >
+            Back to Lawyers
+          </button>
         </div>
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <div className="flex gap-2">
-              <input
-                type="text"
-                id="username"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="flex-1 bg-[#37B9F1] hover:bg-[#32a6d8] border border-blue-500 rounded-lg px-2 py-1 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-              />
-              <input
-                type="text"
-                id="message"
-                placeholder="Type a message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="flex-1 bg-[#37B9F1] hover:bg-[#32a6d8] border border-blue-500 rounded-lg px-2 py-1 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-              />
-            </div>
-            <button
-              id="sendBtn"
-              onClick={sendMessage}
-              className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-2 px-4 rounded-lg  focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      </header>
+
+      <div className="flex-grow p-6 bg-white shadow-md rounded-lg overflow-auto mt-4 mx-4">
+        {messages.length === 0 ? (
+          <div className="text-center text-gray-500">Start the conversation...</div>
+        ) : (
+          messages.map((message, index) => (
+            <div
+              key={index}
+              className={`flex ${message.sender_id === currentUserId ? 'justify-end' : 'justify-start'} mb-4`}
             >
-              Send
-            </button>
-          </div>
-        </div>
+              <div
+                className={`max-w-xs p-4 rounded-lg ${
+                  message.sender_id === currentUserId ? 'bg-[#37B9F1] text-white' : 'bg-gray-200 text-black'
+                }`}
+              >
+                {message.message}
+              </div>
+            </div>
+          ))
+        )}
       </div>
+
+      <footer className="bg-white p-4 shadow-md flex items-center">
+        <input
+          type="text"
+          placeholder="Type your message..."
+          value={inputMessage}
+          onChange={(e) => setInputMessage(e.target.value)}
+          className="flex-grow p-2 border border-gray-300 rounded-lg mr-4"
+        />
+        <button
+          onClick={handleSendMessage}
+          className="bg-[#37B9F1] text-white py-2 px-4 rounded-lg hover:bg-[#2a9dd3]"
+        >
+          Send
+        </button>
+      </footer>
     </div>
   );
 };

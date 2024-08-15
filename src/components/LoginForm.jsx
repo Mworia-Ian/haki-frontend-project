@@ -46,7 +46,7 @@ function LoginForm() {
           const user = data.user;
           const accessToken = data.access_token;
           console.log(accessToken);
-          // save user session to local storage
+          setUser(user)
           localStorage.setItem(
             "session",
             JSON.stringify({ user, accessToken })
@@ -63,8 +63,10 @@ function LoginForm() {
   const navigate = useNavigate();
   return (
     <>
-      <div className="flex justify-center h-[150px] pt-5">
+      <div>
+        <a className="flex justify-center h-[150px] pt-5" onClick={() => navigate("/")} href="#">
         <img src="src/assets/images/haki logo_Mesa de trabajo 1 copia 5.png" />
+        </a>
       </div>
       <section className="bg-[#F2F5F5]">
         <div className="flex flex-col-2 items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 gap-52">

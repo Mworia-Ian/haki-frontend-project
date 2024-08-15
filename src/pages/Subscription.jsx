@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { useUser } from "../UserContext";
 
 const schema = z.object({
   phoneNumber: z
@@ -18,6 +19,7 @@ const schema = z.object({
 function Subscription() {
   const navigate = useNavigate();
   const [transactionId, setTransactionId] = useState(null);
+  const [isConfirming, setIsConfirming] = useState(false); // New state for button
   const {
     register,
     handleSubmit,
@@ -25,13 +27,14 @@ function Subscription() {
   } = useForm({
     resolver: zodResolver(schema),
   });
-
-  // Poll the payment status at intervals to check if the payment was successful
+  const session = JSON.parse(localStorage.getItem('session'));
+  const token = session?.accessToken;
+  
   const pollPaymentStatus = async (transactionId) => {
     try {
       const response = await fetch(`http://localhost:5000/payment_status/${transactionId}`, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzUyNjQ0MiwianRpIjoiYTRhNmViZWItMmYzYS00MTMwLTlmZmYtNzMzMTRiMjRhMzliIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTI2NDQyLCJjc3JmIjoiNjJlMzMzM2EtZTkyMi00YmQxLWJlY2QtOWUwMThlMzhkODJmIiwiZXhwIjoxNzIzNjEyODQyLCJyb2xlIjoiY2xpZW50In0.-Fx-emRcRhIcPc2lNEP4C9ySL8RIv7XWF92y_4601TMeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzUyNzI5OCwianRpIjoiNmMzMjZmOGQtMTc3OS00NDRjLWJkMjMtNTljYmIyZmExODU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTI3Mjk4LCJjc3JmIjoiOGJiMDk5NzYtMzMzZC00NjBmLThmZDctMTRlODY4ZTM3YThjIiwiZXhwIjoxNzIzNjEzNjk4LCJyb2xlIjoiY2xpZW50In0.reO1Vb8EOwrCha3SPEwRvVSHoaSwAJP2gCvL161BaNg`, // Replace with actual JWT token
+          Authorization: `Bearer ${token}`, 
           "Content-Type": "application/json",
         },
       });
@@ -40,7 +43,7 @@ function Subscription() {
       if (response.ok) {
         if (result.status === 'completed') {
           toast.success("Payment received successfully!");
-          navigate("/lawyers"); // Redirect to lawyers page
+          navigate("/lawyers"); 
         } else {
           toast.error("Payment not completed. Please try again.");
         }
@@ -50,23 +53,23 @@ function Subscription() {
     } catch (error) {
       toast.error("Something went wrong while checking the payment status.");
       console.error("Error during payment status check:", error);
+    } finally {
+      setIsConfirming(false); // Reset the button after checking the status
     }
   };
   
-  
-
-  // Handle form submission
   const onSubmit = async (data) => {
+    setIsConfirming(true); // Disable the button and show "Confirming"
     try {
       const response = await fetch("http://localhost:5000/stk_push", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzUyNDExMiwianRpIjoiNTVlYzgxZDQtNGIzMC00ZjllLTk0YWMtM2M4ZDJlODllNWNhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzIzNTI0MTEyLCJjc3JmIjoiZDhjNTc5YmQtZjk0NS00OWNlLTgwYmUtZDkwMGM3YTg4YmZhIiwiZXhwIjoxNzIzNjEwNTEyLCJyb2xlIjoiY2xpZW50In0.B-w6KUwr8znYvejLwh5ili3n4RQ-7MtnfxJaQqueVJI`, // Replace with actual JWT token
+          Authorization: `Bearer ${token}`, 
         },
         body: JSON.stringify({
           phone: data.phoneNumber,
-          amount: 1, // Example amount
+          amount: 1, 
         }),
       });
 
@@ -76,23 +79,32 @@ function Subscription() {
         toast.success("STK Push initiated. Please complete the payment.");
         setTransactionId(result.transaction_id);
 
-        // Start polling the payment status every 10 seconds
         const pollingInterval = setInterval(() => {
           pollPaymentStatus(result.transaction_id).then(() => {
-            clearInterval(pollingInterval); // Stop polling once payment status is checked
+            clearInterval(pollingInterval); 
           });
         }, 10000);
       } else {
         toast.error(`Error: ${result.error}`);
+        setIsConfirming(false); // Re-enable the button if there's an error
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
+      setIsConfirming(false); // Re-enable the button if there's an error
     }
   };
 
+  const { user, setUser } = useUser();
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('session');
+    navigate("/login")
+  }
+
   return (
     <div>
-      <Toaster position="top-right" /> {/* Set toast position to the right */}
+      <Toaster position="top-right" />
       <div className="flex justify-between items-center h-24 mx-auto px-4 bg-[#F2F5F5] w-full mb-3">
         <h1 className="w-full text-3xl font-bold pl-7 text-[#37B9F1] hover:text-[#6ab6d6]">
           <a href="#">Haki</a>
@@ -117,6 +129,7 @@ function Subscription() {
           </a>
         </ul>
         <button
+          onClick={handleLogout}
           type="button"
           className="text-white bg-[#37B9F1] text-xl hover:bg-[#40a8d4] focus:ring-4 focus:outline-none font-medium rounded-lg px-4 py-2 text-center mr-8"
         >
@@ -168,12 +181,14 @@ function Subscription() {
                   type="text"
                   placeholder="07XXXXXXXX"
                   aria-label="Phone number"
+                  disabled={isConfirming} // Disable input while confirming
                 />
                 <button
-                  className="flex-shrink-0 bg-[#0b8511] hover:bg-[#0b8511c4] text-sm border-4 text-white py-1 px-2 rounded-lg"
+                  className={`flex-shrink-0 ${isConfirming ? 'bg-gray-500' : 'bg-[#0b8511]'} hover:bg-[#0b8511c4] text-sm border-4 text-white py-1 px-2 rounded-lg`}
                   type="submit"
+                  disabled={isConfirming} // Disable the button while confirming
                 >
-                  Subscribe
+                  {isConfirming ? "Confirming..." : "Subscribe"}
                 </button>
               </div>
               {errors.phoneNumber && (

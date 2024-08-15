@@ -5,8 +5,6 @@ import { useUser } from "../UserContext";
 
 function Home() {
   const {user} = useUser();
-
-  
   return (
     <div>
       <div>

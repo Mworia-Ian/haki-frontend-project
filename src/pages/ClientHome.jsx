@@ -1,19 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Modal from "../components/Modal";  // Import the modal component
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
 
 function ClientHome() {
   const navigate = useNavigate();
-  const {user, setUser} = useUser();
-
-
+  const { user, setUser } = useUser();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const session = JSON.parse(localStorage.getItem('session'));
+  const token = session?.accessToken;
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('session');
-    navigate("/login")
-  }
+    localStorage.removeItem("session");
+    navigate("/login");
+  };
+
+  const handleFindLawyers = () => {
+    fetch("http://localhost:5000/subscription", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.active===false) {
+          navigate("/lawyers");
+        } else {
+          setIsModalOpen(true);  
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching subscription status:", error);
+      });
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleConfirmModal = () => {
+    setIsModalOpen(false);
+    navigate("/subscriptions");
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center h-24 mx-auto px-4 bg-[#F2F5F5] w-full mb-3">
@@ -27,7 +60,7 @@ function ClientHome() {
             </li>
           </a>
 
-          <a onClick={() => navigate("/lawyers")}>
+          <a onClick={handleFindLawyers}>
             <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">
               Lawyers
             </li>
@@ -35,7 +68,7 @@ function ClientHome() {
 
           <a onClick={() => navigate("/subscriptions")}>
             <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">
-              Subcribe
+              Subscribe
             </li>
           </a>
         </ul>
@@ -83,7 +116,7 @@ function ClientHome() {
                 your needs
               </p>
               <a
-                onClick={() => navigate("/lawyers")}
+                onClick={handleFindLawyers}
                 className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#55add3] focus:ring-4 focus:outline-none"
               >
                 Find Lawyers
@@ -149,6 +182,11 @@ function ClientHome() {
         </div>
       </div>
       <Footer />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmModal}
+      />
     </div>
   );
 }
