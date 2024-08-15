@@ -45,7 +45,6 @@ function LoginForm() {
         } else {
           const user = data.user;
           const accessToken = data.access_token;
-
           setUser(user);
           localStorage.setItem(
             "session",
