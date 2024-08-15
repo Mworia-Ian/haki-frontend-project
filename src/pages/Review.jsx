@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useUser } from "../UserContext";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// Define schema to validate form input
 const schema = z.object({
   review: z
     .string()
     .min(3, "Review must be at least 3 characters")
     .max(500, "Review must not exceed 500 characters"),
-  rating: z.preprocess(val => Number(val), z
+  rating: z.preprocess((val) => Number(val), z
     .number()
     .min(1, "Rating must be at least 1")
     .max(5, "Rating must not exceed 5")),
@@ -19,6 +19,8 @@ const Review = ({ lawyerId, setShowForm }) => {
   const [reviews, setReviews] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  const { user } = useUser();
+
   const {
     control,
     handleSubmit,
@@ -26,35 +28,40 @@ const Review = ({ lawyerId, setShowForm }) => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: {
+      review: "",
+      rating: "",
+    },
   });
 
-  // Fetch reviews on component mount
   useEffect(() => {
-    fetchReviews();
-  }, [lawyerId]);
+    console.log(reviews);
+  }, [reviews]);
 
-  const session = JSON.parse(localStorage.getItem('session'));
+  const session = JSON.parse(localStorage.getItem("session"));
   const token = session?.accessToken;
-  // Function to fetch all reviews for a lawyer
-  const fetchReviews = () => {
-    fetch(`http://localhost:5000/reviews?lawyer_id=${lawyerId}`, {
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews/${lawyerId}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
       },
     })
-      .then((response) =>
-        response.ok ? response.json() : Promise.reject("Failed to fetch reviews")
-      )
-      .then((data) => setReviews(data))
-      .catch((error) => console.error("Failed to fetch reviews:", error));
-  };
+      .then((response) => response.json())
+      .then((data) => { 
+        if (data.status !== 'fail'){
+          setReviews(data);
+        }
+        console.log("Fetched Data:", data);
+      })
+      .catch((error) => console.error('Error fetching reviews:', error));
+  }, []);
 
-  // Function to handle form submission
   const onSubmit = (data) => {
     const newReview = {
-      user_id: 1, // Adjust based on your authentication logic
+      user_id: user.id,
       lawyer_id: lawyerId,
       review: data.review,
       rating: data.rating,
@@ -66,20 +73,19 @@ const Review = ({ lawyerId, setShowForm }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(newReview),
+      body: JSON.stringify({...newReview})
     })
       .then((response) =>
         response.ok ? response.json() : Promise.reject("Failed to submit review")
       )
       .then((result) => {
-        setShowModal(true);  // Show modal upon success
-        fetchReviews();  // Refresh reviews after posting
-        reset();  // Reset form
+        setShowModal(true);
+        reset();
       })
       .catch((error) => console.error("Failed to submit review:", error));
   };
 
-  // Function to close the modal
+  // Close the modal and form
   const handleClose = () => {
     setShowModal(false);
     setShowForm(false);
@@ -115,8 +121,7 @@ const Review = ({ lawyerId, setShowForm }) => {
               <input
                 {...field}
                 type="number"
-                min="1"
-                max="5"
+
                 placeholder="Rating (1-5)"
                 className="w-full p-2 border rounded-lg"
               />
@@ -137,6 +142,17 @@ const Review = ({ lawyerId, setShowForm }) => {
           </button>
         </div>
       </form>
+
+      <div className="reviews-section mt-4">
+        <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', textDecoration: 'underline' }}>REVIEWS</h1>
+        {reviews.length === 0 ? (<p>No reviews yet. Be the first to add one!</p>) : (<>{reviews.map((review) => (
+          <div key={review.id} className="review mt-2" style={{ fontSize: '1rem' }}>
+            <p><strong>{review?.user?.firstname} {review?.user?.lastname} → </strong> {review.review} </p>
+            <p>Rating: {review.rating}</p>
+          </div>
+        ))}</>)}
+
+      </div>
 
       {/* Modal */}
       {showModal && (
@@ -160,3 +176,22 @@ const Review = ({ lawyerId, setShowForm }) => {
 };
 
 export default Review;
+
+
+{/* Display Reviews */ }
+{/* <div className="mt-8 mx-4">
+        <h3 className="text-3xl font-bold text-[#37B9F1]">Reviews</h3>
+        {reviews.length === 0 ? (
+          <p className="text-lg text-black">No reviews yet. Be the first to add a review!</p>
+        ) : (
+          reviews.map((review) => (
+            review.lawyer_id === lawyerId && ( // Ensure only reviews for this lawyer are displayed
+              <div key={review.id} className="mb-4 p-4 border rounded-lg">
+                <p className="font-semibold">Rating: {review.rating} / 5</p>
+                <p>{review.review}</p>
+                <p className="text-gray-600 text-sm">Posted by: {review.user_id}</p>
+              </div>
+            )
+          ))
+        )}
+      </div> */}

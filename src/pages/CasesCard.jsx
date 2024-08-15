@@ -3,21 +3,23 @@ import { useNavigate } from 'react-router-dom';
 
 function CasesCard() {
   const navigate = useNavigate();
-
+  
   const handleBack = () => {
     navigate('/home');
   };
 
   const [cards, setCards] = useState([]);
-
-  const [toggleStates, setToggleStates] = useState({});
+  const [activeToggleId, setActiveToggleId] = useState(null);
 
   useEffect(() => {
+    const session = JSON.parse(localStorage.getItem('session'));
+    const token = session?.accessToken;
+
     fetch("http://localhost:5000/cases", {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
-        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMzY2NDg4OCwianRpIjoiYTlhNzNhNjQtMTgxYi00YWYwLWIwYzEtNDc0ZDVjZGE2Mzk4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MiwibmJmIjoxNzIzNjY0ODg4LCJjc3JmIjoiOGM5Yjc2ZjctNTUwYS00YWI1LWIwZmMtNzQ5ZGVlZmQ2ZjE0IiwiZXhwIjoxNzIzNzUxMjg4LCJyb2xlIjoibGF3eWVyIn0.oBvLrtsprVRkeolpYzaT8BHo3V36-FggLBeMQ8CzLHk"
+        Authorization: `Bearer ${token}`
       }
     })
       .then((response) => {
@@ -27,27 +29,25 @@ function CasesCard() {
         return response.json();
       })
       .then((data) => {
-        console.log('Fetched data:', data);  // Inspect the fetched data
+        console.log('Fetched data:', data);
         if (Array.isArray(data)) {
+          // Check for duplicate IDs
+          const ids = data.map(card => card.id);
+          const uniqueIds = new Set(ids);
+          if (ids.length !== uniqueIds.size) {
+            console.warn('Duplicate IDs detected:', ids);
+          }
           setCards(data);
-          const initialToggleStates = data.reduce((acc, card) => {
-            acc[card.id] = false;
-            return acc;
-          }, {});
-          setToggleStates(initialToggleStates);
         } else {
           console.error('Expected an array, but received:', data);
         }
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-  
 
   const handleToggle = (id) => {
-    setToggleStates((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
+    setActiveToggleId(prevId => prevId === id ? null : id);
+    console.log(`Toggled ID: ${id}, Active ID: ${activeToggleId}`);
   };
 
   return (
@@ -71,23 +71,23 @@ function CasesCard() {
       </button>
       <div className="grid grid-cols-1 gap-6">
         {cards.length > 0 ? (
-          cards.map((card) => (
+          cards.map((card, index) => (
             <div
-              key={card.id}
+              key={card.id || index}  // Use index as fallback if id is not available
               className="relative w-full h-75 bg-white border-b border-l border-cyan-400 rounded-lg shadow flex flex-row items-stretch drop-shadow-2xl"
             >
-              <div className="absolute top-2 right-2 flex items-center">
+                      <div className="absolute top-2 right-2 flex items-center">
                 <label className="inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     value=""
                     className="sr-only peer"
-                    checked={toggleStates[card.id]}
+                    checked={activeToggleId === card.id}
                     onChange={() => handleToggle(card.id)}
                   />
                   <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#32a6d8]"></div>
                   <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    {toggleStates[card.id] ? 'Active' : 'Inactive'}
+                    {activeToggleId === card.id ? 'Active' : 'Inactive'}
                   </span>
                 </label>
               </div>
@@ -100,9 +100,6 @@ function CasesCard() {
                 </p>
                 <p className="font-semibold text-black dark:text-white">
                   Court Date: {card.court_date}
-                </p>
-                <p className="font-semibold text-black dark:text-white">
-                  Status: {card.status} {/* Displaying the case status */}
                 </p>
               </div>
             </div>

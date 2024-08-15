@@ -11,6 +11,7 @@ const LawyersGrid = () => {
 
   const session = JSON.parse(localStorage.getItem('session'));
   const token = session?.accessToken;
+  
   useEffect(() => {
     fetch('http://localhost:5000/lawyers', {
       method: "GET",
