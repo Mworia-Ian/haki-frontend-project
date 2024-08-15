@@ -51,7 +51,6 @@ function LoginForm() {
             JSON.stringify({ user, accessToken })
           );
           toast.success(data.message);
-          console.log(user);
           reset();
           navigate(user?.role === "lawyer" ? "/home" : "/home");
         }
