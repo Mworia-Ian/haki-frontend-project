@@ -37,9 +37,9 @@ function LawyerHome() {
           >
             Cases
           </li>
-          <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300 cursor-pointer">
+          {/* <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300 cursor-pointer">
             History
-          </li>
+          </li> */}
         </ul>
         <button
           onClick={handleLogout}
@@ -58,8 +58,8 @@ function LawyerHome() {
         <p>You can manage your clients and provide legal services.</p>
       </div>
       <div className="flex items-center w-full py-[3rem] px-4">
-        <div className="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-8">
-          <div className="max-w-sm bg-white border border-[#F2F5F5] rounded-lg shadow flex flex-col items-center">
+        <div className="max-w-[1240px] mx-auto grid md:grid-cols gap-8">
+          {/* <div className="max-w-sm bg-white border border-[#F2F5F5] rounded-lg shadow flex flex-col items-center">
             <a href="#">
               <img
                 className="rounded-t-lg"
@@ -98,7 +98,7 @@ function LawyerHome() {
                 </svg>
               </a>
             </div>
-          </div>
+          </div> */}
           <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
             <a href="#">
               <img

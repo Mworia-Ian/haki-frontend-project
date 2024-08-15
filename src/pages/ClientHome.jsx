@@ -96,7 +96,7 @@ function ClientHome() {
         </p>
       </div>
       <div className="flex items-center w-full py-[3rem] px-4">
-        <div className="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-8">
+        <div className="max-w-[1240px] mx-auto grid md:grid-cols gap-8">
           <div className="max-w-sm bg-[#F2F5F5] border border-[#F2F5F5] rounded-lg shadow flex flex-col items-center">
             <a href="#">
               <img
@@ -138,7 +138,7 @@ function ClientHome() {
               </a>
             </div>
           </div>
-          <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+          {/* <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
             <a href="#">
               <img
                 className="rounded-t-lg"
@@ -178,7 +178,7 @@ function ClientHome() {
                 </svg>
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <Footer />
