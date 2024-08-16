@@ -3,6 +3,7 @@ import { IoIosNotifications } from 'react-icons/io';
 import { MdOutlineMessage } from 'react-icons/md';
 import { parseISO, format } from 'date-fns';
 import Messaging from './Messaging';
+import { SERVER_URL } from '../../utils';
 
 const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -21,7 +22,7 @@ const Header = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:5000/subscription', {
+        const response = await fetch(`${SERVER_URL}/subscription`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
