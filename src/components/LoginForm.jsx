@@ -67,7 +67,7 @@ function LoginForm() {
           onClick={() => navigate("/")}
           href="#"
         >
-          <img src="src/assets/images/haki logo_Mesa de trabajo 1 copia 5.png" />
+          <img src="/assets/images/haki logo_Mesa de trabajo 1 copia 5.png" />
         </a>
       </div>
       <section className="bg-[#F2F5F5]">
@@ -75,7 +75,7 @@ function LoginForm() {
           <div>
             <img
               className="w-[400px] mx-auto my-4 rounded-full drop-shadow-md"
-              src="src/assets/images/Login.jpg"
+              src="/assets/images/Login.jpg"
             />
           </div>
           <div className="w-full bg-[#F2F5F5] drop-shadow-2xl rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">

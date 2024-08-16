@@ -240,7 +240,7 @@ function SignUpForm() {
     <>
       <div>
         <a className="flex justify-center h-[150px] pt-5" href="#" onClick={() => navigate("/")}>
-        <img src="src/assets/images/haki logo_Mesa de trabajo 1 copia 5.png" />
+        <img src="/assets/images/haki logo_Mesa de trabajo 1 copia 5.png" />
         </a>
         
       </div>
@@ -250,7 +250,7 @@ function SignUpForm() {
       >
         <img
           className="w-[500px] mx-auto my-4 rounded-xl drop-shadow-2xl"
-          src="src/assets/images/Plane-Hi-Sign--Streamline-Ux.svg"
+          src="/assets/images/Plane-Hi-Sign--Streamline-Ux.svg"
         />
 
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
