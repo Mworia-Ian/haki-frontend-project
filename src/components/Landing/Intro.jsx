@@ -9,7 +9,7 @@ function Intro() {
         <p className="text-[#242d2d] font-bold p-2 text-2xl">
           WELCOME TO HAKI
         </p>
-        <img className="w-[100px] mx-auto my-4 rounded-xl drop-shadow-2xl" src="src/assets/images/Gavel--Streamline-Ux.png"/>
+        <img className="w-[100px] mx-auto my-4 rounded-xl drop-shadow-2xl" src="/assets/images/Gavel--Streamline-Ux.png"/>
         <h1 className="md:text-7xl sm:text-6xl text-4xl font-bold md:py-6 text-[#37B9F1]">
           LEGAL SERVICES
         </h1>

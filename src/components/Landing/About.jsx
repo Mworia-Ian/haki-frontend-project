@@ -9,7 +9,7 @@ function About() {
         <div className="max-w-[1240px] mx-auto grid md:grid-cols-2">
           <img
             className="w-[500px] mx-auto my-4 rounded-xl drop-shadow-2xl"
-            src="src/assets/images/Lawyer-Judge-3--Streamline-Ux.png"
+            src="/assets/images/Lawyer-Judge-3--Streamline-Ux.png"
             alt="/"
           />
           <div className="flex flex-col justify-center">
