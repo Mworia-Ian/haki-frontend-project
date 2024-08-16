@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Modal from "../components/Modal";  // Import the modal component
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
-
+import { SERVER_URL } from "../../utils";
 function ClientHome() {
   const navigate = useNavigate();
   const { user, setUser } = useUser();
@@ -18,7 +18,7 @@ function ClientHome() {
   };
 
   const handleFindLawyers = () => {
-    fetch("http://localhost:5000/subscription", {
+    fetch(`${SERVER_URL}/subscription`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
