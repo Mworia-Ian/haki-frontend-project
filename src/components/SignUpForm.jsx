@@ -181,7 +181,7 @@ function SignUpForm() {
           years_of_experience: Number(values.experience),
         };
         console.log(resultValues);
-        await fetch(`http://localhost:5000/signup`, {
+        await fetch(`${SERVER_URL}/signup`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
