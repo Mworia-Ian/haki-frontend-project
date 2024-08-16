@@ -1,68 +1,95 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CasesCard() {
   const navigate = useNavigate();
-  
+
   const handleBack = () => {
-    navigate('/home');
+    navigate("/home");
   };
 
   const [cards, setCards] = useState([]);
   const [activeToggleId, setActiveToggleId] = useState(null);
 
   useEffect(() => {
-    const session = JSON.parse(localStorage.getItem('session'));
+    const session = JSON.parse(localStorage.getItem("session"));
     const token = session?.accessToken;
 
     fetch("http://localhost:5000/cases", {
       method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return response.json();
       })
       .then((data) => {
-        console.log('Fetched data:', data);
+        console.log("Fetched data:", data);
         if (Array.isArray(data)) {
           // Check for duplicate IDs
-          const ids = data.map(card => card.id);
+          const ids = data.map((card) => card.id);
           const uniqueIds = new Set(ids);
           if (ids.length !== uniqueIds.size) {
-            console.warn('Duplicate IDs detected:', ids);
+            console.warn("Duplicate IDs detected:", ids);
           }
           setCards(data);
         } else {
-          console.error('Expected an array, but received:', data);
+          console.error("Expected an array, but received:", data);
         }
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   const handleToggle = (id) => {
-    setActiveToggleId(prevId => prevId === id ? null : id);
+    setActiveToggleId((prevId) => (prevId === id ? null : id));
     console.log(`Toggled ID: ${id}, Active ID: ${activeToggleId}`);
+  };
+  const handleNavigateToCases = () => {
+    navigate("/cases");
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('session');
+    navigate("/login");
   };
 
   return (
     <div className="container mx-auto px-4">
-      <h1
-        className="text-4xl text-[#37B9F1] font-bold text-center mb-4 mt-2"
-        style={{
-          textDecoration: 'underline',
-          textDecorationColor: 'black',
-          textDecorationThickness: '5px',
-          textUnderlineOffset: '8px',
-        }}
-      >
-        CLIENT CASES
-      </h1>
+      <div className="flex justify-between items-center h-24 mx-auto px-4 bg-[#F2F5F5] w-full mb-3">
+        <h1 className="w-full text-3xl font-bold pl-7 text-[#37B9F1] hover:text-[#6ab6d6]">
+          <a href="#">Haki</a>
+        </h1>
+        <ul className="flex text-[#37B9F1] pr-7">
+          <li
+            onClick={() => navigate("/home")}
+            className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300 cursor-pointer"
+          >
+            Home
+          </li>
+          <li
+            onClick={handleNavigateToCases}
+            className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300 cursor-pointer"
+          >
+            Cases
+          </li>
+          {/* <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300 cursor-pointer">
+            History
+          </li> */}
+        </ul>
+        <button
+          onClick={handleLogout}
+          type="button"
+          className="text-white bg-[#37B9F1] text-xl hover:bg-[#40a8d4] focus:ring-4 focus:outline-none font-medium rounded-lg px-4 py-2 text-center mr-8"
+        >
+          Logout
+        </button>
+      </div>
       <button
         onClick={handleBack}
         className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#32a6d8] focus:ring-4 focus:outline-none focus:ring-blue-300 mt-1 mb-3"
@@ -73,10 +100,10 @@ function CasesCard() {
         {cards.length > 0 ? (
           cards.map((card, index) => (
             <div
-              key={card.id || index}  // Use index as fallback if id is not available
+              key={card.id || index} // Use index as fallback if id is not available
               className="relative w-full h-75 bg-white border-b border-l border-cyan-400 rounded-lg shadow flex flex-row items-stretch drop-shadow-2xl"
             >
-                      <div className="absolute top-2 right-2 flex items-center">
+              <div className="absolute top-2 right-2 flex items-center">
                 <label className="inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -87,18 +114,18 @@ function CasesCard() {
                   />
                   <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#32a6d8]"></div>
                   <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    {activeToggleId === card.id ? 'Active' : 'Inactive'}
+                    {activeToggleId === card.id ? "Active" : "Inactive"}
                   </span>
                 </label>
               </div>
               <div className="flex flex-col justify-between p-4 leading-normal flex-grow">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                   {card?.user?.firstname} {card?.user?.lastname}
                 </h5>
-                <p className="mb-1 font-semibold text-black dark:text-gray-400">
+                <p className="mb-1 font-semibold text-black">
                   Description: {card.description}
                 </p>
-                <p className="font-semibold text-black dark:text-white">
+                <p className="font-semibold text-black">
                   Court Date: {card.court_date}
                 </p>
               </div>
