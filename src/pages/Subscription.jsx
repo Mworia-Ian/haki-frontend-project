@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { useUser } from "../UserContext";
+import { SERVER_URL } from "../../utils";
 
 const schema = z.object({
   phoneNumber: z
@@ -32,7 +33,7 @@ function Subscription() {
   
   const pollPaymentStatus = async (transactionId) => {
     try {
-      const response = await fetch(`http://localhost:5000/payment_status/${transactionId}`, {
+      const response = await fetch(`${SERVER_URL}/payment_status/${transactionId}`, {
         headers: {
           Authorization: `Bearer ${token}`, 
           "Content-Type": "application/json",
@@ -61,7 +62,7 @@ function Subscription() {
   const onSubmit = async (data) => {
     setIsConfirming(true); // Disable the button and show "Confirming"
     try {
-      const response = await fetch("http://localhost:5000/stk_push", {
+      const response = await fetch(`${SERVER_URL}/stk_push`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
