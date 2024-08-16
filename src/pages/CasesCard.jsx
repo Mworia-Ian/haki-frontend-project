@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { SERVER_URL } from "../../utils";
 
 function CasesCard() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function CasesCard() {
     const session = JSON.parse(localStorage.getItem("session"));
     const token = session?.accessToken;
 
-    fetch("http://localhost:5000/cases", {
+    fetch(`${SERVER_URL}/cases`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

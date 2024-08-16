@@ -3,6 +3,7 @@ import LawyersCard from './LawyersCard';
 import LawyerSearch from './LawyerSearch';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
+import { SERVER_URL } from '../../utils';
 
 const LawyersGrid = () => {
   const [lawyers, setLawyers] = useState([]);
@@ -14,7 +15,7 @@ const LawyersGrid = () => {
   const token = session?.accessToken;
 
   useEffect(() => {
-    fetch('http://localhost:5000/lawyers', {
+    fetch(`${SERVER_URL}/lawyers`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

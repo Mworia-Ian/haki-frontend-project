@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Review from './Review';
+import { SERVER_URL } from '../../utils';
 
 const LawyerProfile = () => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const LawyerProfile = () => {
 
     const fetchLawyerDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/lawyers/${lawyerId}`);
+        const response = await fetch(`${SERVER_URL}/lawyers/${lawyerId}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -43,7 +44,7 @@ const LawyerProfile = () => {
   const token = session?.accessToken;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?lawyer_id=${lawyerId}`, {
+    fetch(`${SERVER_URL}/reviews?lawyer_id=${lawyerId}`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',

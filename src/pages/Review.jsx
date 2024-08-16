@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useUser } from "../UserContext";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SERVER_URL } from "../../utils";
 
 const schema = z.object({
   review: z
@@ -42,7 +43,7 @@ const Review = ({ lawyerId, setShowForm }) => {
   const token = session?.accessToken;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews/${lawyerId}`, {
+    fetch(`${SERVER_URL}/reviews/${lawyerId}`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
