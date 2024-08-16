@@ -64,12 +64,6 @@ const LawyersGrid = () => {
             <a onClick={() => navigate('/home')}>
               <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">Home</li>
             </a>
-            <a onClick={() => navigate('/cases')}>
-              <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">Cases</li>
-            </a>
-            <a onClick={() => navigate('')}>
-              <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">History</li>
-            </a>
           </ul>
           <button
             onClick={handleLogout}
