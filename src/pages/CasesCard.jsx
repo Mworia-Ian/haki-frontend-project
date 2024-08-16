@@ -133,7 +133,7 @@ function CasesCard() {
           ))
         ) : (
           <div className="col-span-full text-center text-black mt-10">
-            <p>No cards found.</p>
+            <p>Loading</p>
           </div>
         )}
       </div>
