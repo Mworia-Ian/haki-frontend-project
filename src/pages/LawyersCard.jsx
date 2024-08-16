@@ -21,16 +21,16 @@ const LawyersCard = ({ lawyer }) => {
                 background: '#040000d7',
               }}
             />
-            <h5 className="mb-1 text-xl font-medium text-black dark:text-white">
+            <h5 className="mb-1 text-xl font-medium text-black">
               Name: {lawyer?.firstname} {lawyer?.lastname}
             </h5>
-            <span className="text-xl text-black dark:text-gray-400">
+            <span className="text-xl text-black">
               Specialization: {lawyer?.lawyer_details?.specialization || 'Criminal Law'}
             </span>
-            <span className="text-xl text-black dark:text-gray-400">
+            <span className="text-xl text-black">
               Years of experience: {lawyer?.lawyer_details?.years_of_experience || '10'} years
             </span>
-            <span className="text-xl text-black dark:text-gray-400">
+            <span className="text-xl text-black">
               Rate: KES {lawyer?.lawyer_details?.rate_per_hour || '5,000'}/hour
             </span>
             <div className="flex mt-4 md:mt-6">
