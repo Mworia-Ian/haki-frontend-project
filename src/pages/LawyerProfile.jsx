@@ -94,7 +94,7 @@ const LawyerProfile = () => {
             />
             <button
               onClick={() => window.history.back()}
-              className="absolute top-2 left-2 bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-2 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="absolute top-2 left-2 bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-2 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
             >
               Back
             </button>
@@ -144,13 +144,13 @@ const LawyerProfile = () => {
             <div className="flex justify-center space-x-4 mt-8">
               <button
                 onClick={() => window.location.href = '/clientchat'}
-                className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-2 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-2 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 Contact Lawyer
               </button>
               <button
                 onClick={() => setShowForm(true)}
-                className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-1 px-3 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-1 px-3 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 Show Reviews
               </button>

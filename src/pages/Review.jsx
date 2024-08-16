@@ -136,7 +136,7 @@ const Review = ({ lawyerId, setShowForm }) => {
         <div className="flex justify-center space-x-4 mx-4">
           <button
             type="submit"
-            className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-3 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-3 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
           >
             Submit Review
           </button>
@@ -163,7 +163,7 @@ const Review = ({ lawyerId, setShowForm }) => {
               <p>Your review has been submitted successfully!</p>
               <button
                 onClick={handleClose}
-                className="mt-4 bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-1 px-3 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="mt-4 bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-1 px-3 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 Close
               </button>

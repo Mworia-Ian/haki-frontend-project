@@ -36,7 +36,7 @@ const LawyersCard = ({ lawyer }) => {
             <div className="flex mt-4 md:mt-6">
               <button
                 onClick={() => navigate(`/lawyers/${lawyer.id}`, { state: { lawyerId: lawyer.id } })}
-                className="inline-flex items-center px-4 py-2 text-lg font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#32a6d8] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="inline-flex items-center px-4 py-2 text-lg font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#32a6d8] focus:ring-4 focus:outline-none focus:ring-blue-300  "
               >
                 View Details
               </button>
