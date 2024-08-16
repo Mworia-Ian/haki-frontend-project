@@ -7,26 +7,31 @@ import { useNavigate } from 'react-router-dom';
 const LawyersGrid = () => {
   const [lawyers, setLawyers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);  // Added loading state
   const navigate = useNavigate();
 
   const session = JSON.parse(localStorage.getItem('session'));
   const token = session?.accessToken;
-  
+
   useEffect(() => {
     fetch('http://localhost:5000/lawyers', {
-      method: "GET",
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched Data:", data); 
+        console.log('Fetched Data:', data);
         setLawyers(data);
+        setLoading(false);  // Data fetched, set loading to false
       })
-      .catch((error) => console.error('Error fetching lawyers:', error));
-  }, []);
+      .catch((error) => {
+        console.error('Error fetching lawyers:', error);
+        setLoading(false);  // Handle error, set loading to false
+      });
+  }, [token]);
 
   const filteredLawyers = lawyers.filter((lawyer) => {
     if (!lawyer || !lawyer.lawyer_details) {
@@ -40,7 +45,11 @@ const LawyersGrid = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('session');
-    navigate("/login");
+    navigate('/login');
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;  // Display a loading message while fetching
   }
 
   return (
@@ -51,13 +60,13 @@ const LawyersGrid = () => {
             <a href="#">Haki</a>
           </h1>
           <ul className="flex text-[#37B9F1] pr-7">
-            <a onClick={() => navigate("/home")}>
+            <a onClick={() => navigate('/home')}>
               <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">Home</li>
             </a>
-            <a onClick={() => navigate("/cases")}>
+            <a onClick={() => navigate('/cases')}>
               <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">Cases</li>
             </a>
-            <a onClick={() => navigate("")}>
+            <a onClick={() => navigate('')}>
               <li className="p-4 hover:text-[#242d2d] hover:scale-150 duration-300">History</li>
             </a>
           </ul>
@@ -72,16 +81,12 @@ const LawyersGrid = () => {
         <div className="container mx-auto px-4">
           <LawyerSearch setSearchTerm={setSearchTerm} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {lawyers.length > 0 ? (
+            {filteredLawyers.length > 0 && (
               filteredLawyers.map((lawyer) => (
                 <div key={lawyer.id} className="mb-4">
                   <LawyersCard lawyer={lawyer} />
                 </div>
               ))
-            ) : (
-              <div className="col-span-full text-center text-black mt-10">
-                <p>Loading</p>
-              </div>
             )}
           </div>
         </div>
