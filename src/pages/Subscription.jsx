@@ -142,13 +142,13 @@ function Subscription() {
       >
         <div className="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-52 items-center">
           <div className="w-[400px] mx-auto my-4 rounded-full">
-            <img src="src/assets/images/Subscribe-01.png" alt="Subscription" />
+            <img src="/assets/images/Subscribe-01.png" alt="Subscription" />
           </div>
 
           <div className="w-full shadow-2xl bg-[#F2F5F5] text-[#242d2d] flex flex-col py-12 px-0 md:my-0 my-8 rounded-lg hover:scale-105 duration-300">
             <img
               className="w-20 mx-auto mt-[3rem] bg-transparent"
-              src="src/assets/reshot-icon-justice-XH4D3B8RWF.svg"
+              src="/assets/reshot-icon-justice-XH4D3B8RWF.svg"
               alt="Justice Icon"
             />
             <h2 className="text-2xl font-bold text-center py-8 text-[#242d2d]">
@@ -167,7 +167,7 @@ function Subscription() {
             <div>
               <img
                 className="h-[100px] flex justify-center ml-28"
-                src="src/assets/images/M-PESA-logo-2.png"
+                src="/assets/images/M-PESA-logo-2.png"
               />
             </div>
             <form

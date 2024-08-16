@@ -103,7 +103,7 @@ function LawyerHome() {
             <a href="#">
               <img
                 className="rounded-t-lg"
-                src="src/assets/images/8170228.jpg"
+                src="/assets/images/8170228.jpg"
                 alt=""
               />
             </a>

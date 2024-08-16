@@ -101,7 +101,7 @@ function ClientHome() {
             <a href="#">
               <img
                 className="rounded-t-lg"
-                src="src/assets/images/8778031.jpg"
+                src="/assets/images/8778031.jpg"
                 alt=""
               />
             </a>
