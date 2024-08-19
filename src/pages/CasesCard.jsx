@@ -1,6 +1,6 @@
+// CasesCard.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { SERVER_URL } from "../../utils";
 
 function CasesCard() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function CasesCard() {
     const session = JSON.parse(localStorage.getItem("session"));
     const token = session?.accessToken;
 
-    fetch(`${SERVER_URL}/cases`, {
+    fetch("http://localhost:5000/cases", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -96,6 +96,12 @@ function CasesCard() {
         className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#32a6d8] focus:ring-4 focus:outline-none focus:ring-blue-300 mt-1 mb-3"
       >
         Back
+      </button>
+      <button
+        onClick={() => navigate('/cases/add')}
+        className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#37B9F1] rounded-lg hover:bg-[#32a6d8] focus:ring-4 focus:outline-none focus:ring-blue-300 mb-3 ml-4"
+      >
+        Add Case
       </button>
       <div className="grid grid-cols-1 gap-6">
         {cards.length > 0 ? (

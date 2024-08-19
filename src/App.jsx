@@ -1,3 +1,4 @@
+// App.js
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import SignUpForm from "./components/SignUpForm";
@@ -12,6 +13,7 @@ import Subscription from "./pages/Subscription";
 import CasesCard from "./pages/CasesCard"; // Use the correct path
 import LawyerHome from './components/LawyerHome'; // Use the correct path
 import Messaging from "./components/Messaging";
+import AddCase from "./pages/AddCase"; // Use the correct path
 import { UserProvider } from './UserContext';
 
 function App() {
@@ -35,14 +37,11 @@ function App() {
             <Route path="/lawyers" element={<LawyersGrid />} />
             <Route path="/lawyers/:id" element={<LawyerProfile />} />
             <Route path="/profile" element={<LawyerProfile />} />
-
-            {/* Additional feature pages */}
             <Route path="/clientchat" element={<ClientChat />} />
             <Route path="/subscriptions" element={<Subscription />} />
             <Route path="/cases" element={<CasesCard />} />
+            <Route path="/cases/add" element={<AddCase />} />
             <Route path="/messaging" element={<Messaging />} />
-
-            {/* New route added for LawyerHome */}
             <Route path="/lawyerhome" element={<LawyerHome />} />
           </Routes>
         </div>
