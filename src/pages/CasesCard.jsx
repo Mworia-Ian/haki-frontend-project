@@ -33,11 +33,6 @@ function CasesCard() {
         console.log("Fetched data:", data);
         if (Array.isArray(data)) {
           // Check for duplicate IDs
-          const ids = data.map((card) => card.id);
-          const uniqueIds = new Set(ids);
-          if (ids.length !== uniqueIds.size) {
-            console.warn("Duplicate IDs detected:", ids);
-          }
           setCards(data);
         } else {
           console.error("Expected an array, but received:", data);
