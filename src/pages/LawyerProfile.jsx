@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import Review from './Review';
-import { SERVER_URL } from '../../utils';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import Review from "./Review";
+import { SERVER_URL } from "../../utils";
 
 const LawyerProfile = () => {
   const location = useLocation();
   const [lawyerDetails, setLawyerDetails] = useState(null);
-  const [reviews, setReviews] = useState([]); 
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showForm, setShowForm] = useState(false); 
+  const [showForm, setShowForm] = useState(false);
   const lawyerId = location.state?.lawyerId;
 
   useEffect(() => {
     if (!lawyerId) {
-      console.error('Lawyer ID not found');
-      setError('Lawyer ID not found');
+      console.error("Lawyer ID not found");
+      setError("Lawyer ID not found");
       setLoading(false);
       return;
     }
@@ -24,14 +24,14 @@ const LawyerProfile = () => {
       try {
         const response = await fetch(`${SERVER_URL}/lawyers/${lawyerId}`);
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         const data = await response.json();
         setLawyerDetails(data);
-        setReviews(data.reviews || []); 
+        setReviews(data.reviews || []);
       } catch (error) {
-        console.error('Error fetching lawyer details:', error);
-        setError('Error fetching lawyer details');
+        console.error("Error fetching lawyer details:", error);
+        setError("Error fetching lawyer details");
       } finally {
         setLoading(false);
       }
@@ -47,20 +47,20 @@ const LawyerProfile = () => {
     fetch(`${SERVER_URL}/reviews?lawyer_id=${lawyerId}`, {
       method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched Data:", data); 
+        console.log("Fetched Data:", data);
         setReviews(data);
       })
-      .catch((error) => console.error('Error fetching reviews:', error));
+      .catch((error) => console.error("Error fetching reviews:", error));
   }, []);
 
   const addReview = (newReview) => {
-    setReviews((prevReviews) => [...prevReviews, newReview]); 
+    setReviews((prevReviews) => [...prevReviews, newReview]);
     setShowForm(false);
   };
 
@@ -86,11 +86,11 @@ const LawyerProfile = () => {
               src={lawyerDetails?.lawyer_details?.image}
               alt={`${lawyerDetails.firstname} ${lawyerDetails.lastname}`}
               style={{
-                width: '250px',
-                height: '250px',
-                borderRadius: '100%',
-                objectFit: 'cover',
-                background: '#040000d7',
+                width: "250px",
+                height: "250px",
+                borderRadius: "100%",
+                objectFit: "cover",
+                background: "#040000d7",
               }}
             />
             <button
@@ -104,10 +104,10 @@ const LawyerProfile = () => {
             <div
               className="uppercase tracking-wide text-2xl text-[#37B9F1] font-bold"
               style={{
-                textDecoration: 'underline',
-                textDecorationColor: 'black',
-                textDecorationThickness: '5px',
-                textUnderlineOffset: '8px',
+                textDecoration: "underline",
+                textDecorationColor: "black",
+                textDecorationThickness: "5px",
+                textUnderlineOffset: "8px",
               }}
             >
               Lawyer Profile
@@ -144,7 +144,7 @@ const LawyerProfile = () => {
             </dl>
             <div className="flex justify-center space-x-4 mt-8">
               <button
-                onClick={() => window.location.href = '/clientchat'}
+                onClick={() => (window.location.href = "/clientchat")}
                 className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-2 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 Contact Lawyer
@@ -153,7 +153,7 @@ const LawyerProfile = () => {
                 onClick={() => setShowForm(true)}
                 className="bg-[#37B9F1] hover:bg-[#32a6d8] text-lg text-white font-bold py-1 px-3 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
-                Show Reviews
+                Add Review
               </button>
             </div>
           </div>
@@ -161,28 +161,16 @@ const LawyerProfile = () => {
 
         {showForm && (
           <div className="w-full p-6">
-            <Review lawyerId={lawyerId} addReview={addReview} setShowForm={setShowForm} />
+            <Review
+              lawyerId={lawyerId}
+              addReview={addReview}
+              setShowForm={setShowForm}
+            />
           </div>
         )}
-
       </div>
     </div>
   );
 };
 
 export default LawyerProfile;
-
-
-        {/* <div className="mt-0 w-full p-6">
-          <h3 className="text-3xl font-bold text-[#37B9F1]">Reviews</h3>
-          {reviews.length > 0 ? (
-            reviews.map((review, index) => (
-              <div key={index} className="bg-gray-100 p-4 my-4 rounded-lg shadow">
-                <p className="text-lg font-semibold">{review.reviewer_name}</p>
-                <p className="text-sm text-gray-700">{review.review_text}</p>
-              </div>
-            ))
-          ) : (
-            <p className="text-lg text-black">No reviews yet. Be the first to add a review!</p>
-          )}
-        </div> */}
