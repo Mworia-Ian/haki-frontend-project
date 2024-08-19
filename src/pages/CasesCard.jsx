@@ -55,7 +55,6 @@ function CasesCard() {
   };
 
   const handleLogout = () => {
-    setUser(null);
     localStorage.removeItem("session");
     navigate("/login");
   };
@@ -140,7 +139,7 @@ function CasesCard() {
           ))
         ) : (
           <div className="col-span-full text-center text-black mt-10">
-            <p>Loading</p>
+            <p>No Cases Available</p>
           </div>
         )}
       </div>
